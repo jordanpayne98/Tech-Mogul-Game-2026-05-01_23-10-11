@@ -1,0 +1,396 @@
+/* =============================================================================
+   CompanyCreationScreen.uss
+   Screen-specific styles for the Company Creation wizard.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-layout.uss, theme-components-buttons.uss,
+               theme-components-inputs.uss, WizardChoiceCard.uss, WizardValidation.uss
+   ============================================================================= */
+
+/* ─── Root ───────────────────────────────────────────────────────────────────── */
+
+.company-creation-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    background-color: var(--color-bg-root);
+}
+
+/* ─── Background layer ───────────────────────────────────────────────────────── */
+
+.company-creation__background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-root);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────────── */
+
+.company-creation__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 96px;
+    background-color: var(--color-bg-shell);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+    flex-shrink: 0;
+}
+
+/* ─── Title block ────────────────────────────────────────────────────────────── */
+
+.company-creation__title-block {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.company-creation__title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+}
+
+.company-creation__subtitle {
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+/* ─── Close button ───────────────────────────────────────────────────────────── */
+
+.company-creation__close-button {
+    width: var(--height-button-standard);
+    min-width: var(--height-button-standard);
+    flex-shrink: 0;
+}
+
+/* ─── Content (3-column body) ────────────────────────────────────────────────── */
+
+.company-creation__content {
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* ─── Stepper panel (left column) ────────────────────────────────────────────── */
+
+.company-creation__stepper-panel {
+    width: 280px;
+    min-width: 280px;
+    flex-shrink: 0;
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-subtle);
+    padding: var(--space-lg);
+}
+
+.company-creation__stepper-list {
+    flex-direction: column;
+}
+
+/* ─── Stepper item ───────────────────────────────────────────────────────────── */
+
+.company-creation__stepper-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-standard);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.company-creation__stepper-item:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.company-creation__stepper-item.is-active {
+    background-color: var(--color-accent-soft);
+    border-left-width: 3px;
+    border-left-color: var(--color-accent);
+}
+
+.company-creation__stepper-item.is-complete {
+    background-color: rgba(0,0,0,0);
+}
+
+.company-creation__stepper-item.is-invalid {
+    background-color: var(--color-danger-soft);
+}
+
+/* ─── Stepper number circle ──────────────────────────────────────────────────── */
+
+.company-creation__stepper-number {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 1px;
+    border-color: var(--color-border-subtle);
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+.company-creation__stepper-item.is-active .company-creation__stepper-number {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverse);
+}
+
+.company-creation__stepper-item.is-complete .company-creation__stepper-number {
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}
+
+.company-creation__stepper-item.is-invalid .company-creation__stepper-number {
+    border-color: var(--color-border-danger);
+    color: var(--color-text-danger);
+}
+
+.company-creation__stepper-item.is-future .company-creation__stepper-number {
+    opacity: 0.4;
+}
+
+/* ─── Stepper label ──────────────────────────────────────────────────────────── */
+
+.company-creation__stepper-label {
+    color: var(--color-text-secondary);
+    flex-grow: 1;
+}
+
+.company-creation__stepper-item.is-active .company-creation__stepper-label {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+}
+
+.company-creation__stepper-item.is-complete .company-creation__stepper-label {
+    color: var(--color-text-accent);
+}
+
+.company-creation__stepper-item.is-invalid .company-creation__stepper-label {
+    color: var(--color-text-danger);
+}
+
+.company-creation__stepper-item.is-future .company-creation__stepper-label {
+    opacity: 0.4;
+}
+
+/* ─── Stepper connector ──────────────────────────────────────────────────────── */
+
+.company-creation__stepper-connector {
+    width: 2px;
+    height: 16px;
+    background-color: var(--color-border-subtle);
+    margin-left: 27px;
+    flex-shrink: 0;
+}
+
+.company-creation__stepper-connector.is-complete {
+    background-color: var(--color-accent);
+}
+
+/* ─── Main panel (centre column) ─────────────────────────────────────────────── */
+
+.company-creation__main-panel {
+    flex-grow: 1;
+    background-color: var(--color-bg-screen);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-subtle);
+    padding: var(--space-xl) var(--space-xl);
+}
+
+/* ─── Summary panel (right column) ──────────────────────────────────────────── */
+
+.company-creation__summary-panel {
+    width: 500px;
+    min-width: 300px;
+    flex-shrink: 0;
+    background-color: var(--color-bg-panel);
+    padding: var(--space-xl);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────────── */
+
+.company-creation__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    background-color: var(--color-bg-shell);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+    flex-shrink: 0;
+}
+
+.company-creation__footer-left {
+    flex-direction: row;
+    align-items: center;
+}
+
+.company-creation__footer-centre {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+.company-creation__footer-right {
+    flex-direction: row;
+    align-items: center;
+}
+
+/* ─── Form layout ────────────────────────────────────────────────────────────── */
+
+.company-creation__form-grid {
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.company-creation__field {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.company-creation__field-label {
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+}
+
+.company-creation__choice-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+/* ─── Tab row ────────────────────────────────────────────────────────────────── */
+
+.company-creation__tab-row {
+    flex-direction: row;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+/* ─── Summary rows ───────────────────────────────────────────────────────────── */
+
+.company-creation__summary-content {
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.company-creation__summary-rows {
+    flex-direction: column;
+}
+
+.company-creation__summary-warnings {
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.company-creation__summary-row {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-border-subtle);
+}
+
+.company-creation__summary-label {
+    color: var(--color-text-muted);
+}
+
+.company-creation__summary-value {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-right;
+}
+
+.company-creation__summary-value.is-unset {
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.company-creation__warning-row {
+    padding: 6px 10px;
+    border-radius: var(--radius-small);
+}
+
+/* ─── Review sections ────────────────────────────────────────────────────────── */
+
+.company-creation__review-section {
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.company-creation__review-section.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.company-creation__review-section__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.company-creation__review-section__edit-link {
+    color: var(--color-text-accent);
+}
+
+/* ─── Avatar placeholder ─────────────────────────────────────────────────────── */
+
+.company-creation__avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: var(--color-border-subtle);
+    align-items: center;
+    justify-content: center;
+    -unity-text-align: middle-center;
+}
+
+/* ─── Seed row ───────────────────────────────────────────────────────────────── */
+
+.company-creation__seed-row {
+    flex-direction: row;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+/* ─── Step content wrapper ───────────────────────────────────────────────────── */
+
+.company-creation-step {
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-xl);
+}
+
+/* ─── State classes ──────────────────────────────────────────────────────────── */
+
+.is-selected {}
+.is-active   {}
+.is-complete {}
+.is-invalid  {}
+.is-disabled {}
+.is-future   {}
+.has-warning {}

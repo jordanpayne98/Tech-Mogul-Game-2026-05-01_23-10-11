@@ -1,3 +1,4 @@
+using Project.Core.Debugging;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,14 +21,16 @@ namespace Project.Presentation.UI.Shell
             var uiDocument = GetComponent<UIDocument>();
             if (uiDocument == null)
             {
-                Debug.LogError("[UI] UIShellLayoutFixer — UIDocument component not found.");
+                DebugLogger.LogError(DebugCategory.UI,
+                    "UIShellLayoutFixer — UIDocument component not found.", this);
                 return;
             }
 
             var root = uiDocument.rootVisualElement;
             if (root == null)
             {
-                Debug.LogError("[UI] UIShellLayoutFixer — rootVisualElement is null.");
+                DebugLogger.LogError(DebugCategory.UI,
+                    "UIShellLayoutFixer — rootVisualElement is null.", this);
                 return;
             }
 

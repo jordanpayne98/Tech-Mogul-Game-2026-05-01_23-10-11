@@ -5,6 +5,7 @@ using Project.Presentation.UI.Components;
 using Project.Presentation.UI.Controllers;
 using Project.Presentation.UI.Modals;
 using Project.Presentation.UI.Routing;
+using Project.Presentation.UI.Screens.CompanyCreation;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -41,11 +42,12 @@ namespace Project.Composition
 
         // ─── Private references ──────────────────────────────────────────────────────
 
-        private SidebarView    _sidebarView;
-        private TopBarView     _topBarView;
-        private VisualElement  _shellRoot;
-        private VisualElement  _wizardContainer;
-        private RightDrawerRouter _drawerRouterImpl;
+        private SidebarView           _sidebarView;
+        private TopBarView            _topBarView;
+        private VisualElement         _shellRoot;
+        private VisualElement         _wizardContainer;
+        private RightDrawerRouter     _drawerRouterImpl;
+        private CompanyCreationView   _companyCreationView;
 
         // ─── Public API ──────────────────────────────────────────────────────────────
 
@@ -140,8 +142,8 @@ namespace Project.Composition
 
         /// <summary>
         /// Shows the wizard shell for the given wizard type.
-        /// Hides the main shell root and injects a placeholder wizard into the root UIDocument.
-        /// Phase 4 creates a 3-step placeholder wizard to validate layout.
+        /// When wizardType is "company_creation", builds the real Company Creation wizard.
+        /// Other wizard types fall through to a 3-step placeholder layout.
         /// </summary>
         public void ShowWizard(string wizardType)
         {
@@ -159,69 +161,104 @@ namespace Project.Composition
                 shellElement.AddToClassList("hidden");
             }
 
-            // Build the placeholder wizard.
-            var wizard = new WizardShellView();
-
-            wizard.SetHeader("NEW GAME", "Company Setup", 1, 3);
-
-            var steps = new List<WizardStepData>
+            if (wizardType == "company_creation")
             {
-                new WizardStepData("Placeholder Step A", "active"),
-                new WizardStepData("Placeholder Step B", "available"),
-                new WizardStepData("Placeholder Step C", "locked")
-            };
-            wizard.SetSteps(steps);
+                // ── Real Company Creation wizard ─────────────────────────────────────
+                var controller = new CompanyCreationController(
+                    onCloseRequested:   HideWizard,
+                    onConfirmRequested: OnCompanyCreationConfirmed);
 
-            // Main content — placeholder message.
-            var mainPlaceholder = new VisualElement();
-            mainPlaceholder.AddToClassList("wizard-step-heading");
+                _companyCreationView = new CompanyCreationView(controller);
 
-            var mainHeading = new Label("[Placeholder] Company Setup");
-            mainHeading.AddToClassList("wizard-step-heading__title");
-            mainHeading.AddToClassList("text-heading");
-            mainPlaceholder.Add(mainHeading);
+                // Load and apply the screen-specific USS.
+                var uss = Resources.Load<StyleSheet>("USS/CompanyCreationScreen");
+                if (uss != null)
+                {
+                    _companyCreationView.Root.styleSheets.Add(uss);
+                }
+                else
+                {
+                    DebugLogger.LogWarning(DebugCategory.UI,
+                        "UIShellController.ShowWizard: CompanyCreationScreen.uss not found in Resources. " +
+                        "Ensure the USS is placed in a Resources folder or referenced via PanelSettings.", this);
+                }
 
-            var mainSubtitle = new Label("This wizard will be implemented in Phase 5.");
-            mainSubtitle.AddToClassList("wizard-step-heading__subtitle");
-            mainSubtitle.AddToClassList("text-body");
-            mainPlaceholder.Add(mainSubtitle);
+                _wizardContainer = _companyCreationView.Root;
+                _shellRoot.Add(_wizardContainer);
 
-            wizard.SetMainContent(mainPlaceholder);
+                // Initialize fires the first ViewModel event and renders the first step.
+                controller.Initialize();
 
-            // Preview panel content — placeholder empty state.
-            var previewPlaceholder = new VisualElement();
-            var previewTitle = new Label("Preview");
-            previewTitle.AddToClassList("text-heading");
-            previewPlaceholder.Add(previewTitle);
+                DebugLogger.Log(DebugCategory.UI,
+                    "UIShellController.ShowWizard: CompanyCreationView shown.", this);
+            }
+            else
+            {
+                // ── Fallback: Phase 4 placeholder wizard ─────────────────────────────
+                var wizard = new WizardShellView();
 
-            var previewMessage = new Label("Select options to see a preview.");
-            previewMessage.AddToClassList("text-body");
-            previewPlaceholder.Add(previewMessage);
+                wizard.SetHeader("NEW GAME", "Company Setup", 1, 3);
 
-            wizard.SetPreviewContent(previewPlaceholder);
+                var steps = new List<WizardStepData>
+                {
+                    new WizardStepData("Placeholder Step A", "active"),
+                    new WizardStepData("Placeholder Step B", "available"),
+                    new WizardStepData("Placeholder Step C", "locked")
+                };
+                wizard.SetSteps(steps);
 
-            // Continue disabled by default — no validation in Phase 4.
-            wizard.SetContinueEnabled(false);
+                var mainPlaceholder = new VisualElement();
+                mainPlaceholder.AddToClassList("wizard-step-heading");
 
-            // Wire cancel to close the wizard.
-            wizard.OnCancelRequested = HideWizard;
+                var mainHeading = new Label($"[Placeholder] {wizardType}");
+                mainHeading.AddToClassList("wizard-step-heading__title");
+                mainHeading.AddToClassList("text-heading");
+                mainPlaceholder.Add(mainHeading);
 
-            // Store reference and inject into root.
-            _wizardContainer = wizard.Root;
-            _shellRoot.Add(_wizardContainer);
+                var mainSubtitle = new Label("This wizard will be implemented in a later phase.");
+                mainSubtitle.AddToClassList("wizard-step-heading__subtitle");
+                mainSubtitle.AddToClassList("text-body");
+                mainPlaceholder.Add(mainSubtitle);
 
-            DebugLogger.Log(DebugCategory.UI,
-                $"UIShellController.ShowWizard: wizard type '{wizardType}' shown. [Placeholder] 3-step layout preview.", this);
+                wizard.SetMainContent(mainPlaceholder);
+
+                var previewPlaceholder = new VisualElement();
+                var previewTitle = new Label("Preview");
+                previewTitle.AddToClassList("text-heading");
+                previewPlaceholder.Add(previewTitle);
+
+                var previewMessage = new Label("Select options to see a preview.");
+                previewMessage.AddToClassList("text-body");
+                previewPlaceholder.Add(previewMessage);
+
+                wizard.SetPreviewContent(previewPlaceholder);
+                wizard.SetContinueEnabled(false);
+                wizard.OnCancelRequested = HideWizard;
+
+                _wizardContainer = wizard.Root;
+                _shellRoot.Add(_wizardContainer);
+
+                DebugLogger.Log(DebugCategory.UI,
+                    $"UIShellController.ShowWizard: wizard type '{wizardType}' shown. [Placeholder] 3-step layout preview.", this);
+            }
         }
 
         /// <summary>
         /// Hides the wizard and restores the main shell.
+        /// Disposes any active CompanyCreationView to unsubscribe event handlers.
         /// </summary>
         public void HideWizard()
         {
             if (_shellRoot == null)
             {
                 return;
+            }
+
+            // Dispose the Company Creation view if active, to unsubscribe events.
+            if (_companyCreationView != null)
+            {
+                _companyCreationView.Dispose();
+                _companyCreationView = null;
             }
 
             // Remove wizard container from root.
@@ -372,6 +409,17 @@ namespace Project.Composition
                 DebugLogger.LogWarning(DebugCategory.Bootstrap,
                     $"UIShellController: host element '{name}' not found in shell UXML.", this);
             }
+        }
+
+        /// <summary>
+        /// [Placeholder] Called when the player confirms company creation.
+        /// Logs confirmation and hides the wizard. Core simulation wiring is a later phase.
+        /// </summary>
+        private void OnCompanyCreationConfirmed()
+        {
+            DebugLogger.Log(DebugCategory.UI,
+                "[Placeholder] Company created. Core simulation wiring will be implemented in a later phase.", this);
+            HideWizard();
         }
     }
 }
