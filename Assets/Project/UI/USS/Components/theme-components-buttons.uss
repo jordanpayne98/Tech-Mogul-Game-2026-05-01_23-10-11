@@ -1,0 +1,214 @@
+/* =============================================================================
+   theme-components-buttons.uss
+   Visual polish for BaseButton, IconButton, and SegmentedControl.
+   All values use var(--token) — no raw hex.
+   ============================================================================= */
+
+/* ─── BaseButton — Base ──────────────────────────────────────────────────────── */
+
+.base-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    height: var(--height-button-standard);
+    min-width: 88px;
+    flex-shrink: 0;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+/* ─── BaseButton — Primary ───────────────────────────────────────────────────── */
+
+.base-button--primary {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+    border-width: 0px;
+}
+
+.base-button--primary:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.base-button--primary:active {
+    background-color: var(--color-accent-pressed);
+}
+
+/* ─── BaseButton — Secondary ─────────────────────────────────────────────────── */
+
+.base-button--secondary {
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
+}
+
+.base-button--secondary:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.base-button--secondary:active {
+    background-color: var(--color-bg-panel);
+}
+
+/* ─── BaseButton — Ghost ─────────────────────────────────────────────────────── */
+
+.base-button--ghost {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+    color: var(--color-text-secondary);
+}
+
+.base-button--ghost:hover {
+    background-color: var(--color-bg-panel-hover);
+    color: var(--color-text-primary);
+}
+
+.base-button--ghost:active {
+    background-color: var(--color-bg-panel);
+}
+
+/* ─── BaseButton — Danger ────────────────────────────────────────────────────── */
+
+.base-button--danger {
+    background-color: var(--color-danger);
+    color: var(--color-text-inverse);
+    border-width: 0px;
+}
+
+.base-button--danger:hover {
+    background-color: var(--color-danger-muted);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+}
+
+.base-button--danger:active {
+    background-color: var(--color-danger-muted);
+}
+
+/* ─── BaseButton — Compact ───────────────────────────────────────────────────── */
+
+.base-button--compact {
+    height: var(--height-button-compact);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    min-width: 72px;
+}
+
+/* ─── BaseButton — Large ─────────────────────────────────────────────────────── */
+
+.base-button--large {
+    height: var(--height-button-large);
+    padding-left: var(--padding-button-large-x);
+    padding-right: var(--padding-button-large-x);
+    min-width: 112px;
+}
+
+/* ─── BaseButton — Disabled ──────────────────────────────────────────────────── */
+
+.base-button.is-disabled {
+    background-color: var(--color-bg-panel-disabled);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-disabled);
+}
+
+.base-button.is-disabled:hover {
+    background-color: var(--color-bg-panel-disabled);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-disabled);
+}
+
+/* ─── IconButton — Base ──────────────────────────────────────────────────────── */
+
+.icon-button {
+    width: var(--height-button-standard);
+    height: var(--height-button-standard);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    flex-shrink: 0;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.icon-button:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.icon-button:active {
+    background-color: var(--color-bg-panel);
+}
+
+/* ─── IconButton — Compact ───────────────────────────────────────────────────── */
+
+.icon-button--compact {
+    width: var(--height-button-compact);
+    height: var(--height-button-compact);
+}
+
+/* ─── IconButton — Large ─────────────────────────────────────────────────────── */
+
+.icon-button--large {
+    width: var(--height-button-large);
+    height: var(--height-button-large);
+}
+
+/* ─── SegmentedControl — Container ───────────────────────────────────────────── */
+
+.segmented-control {
+    flex-direction: row;
+}
+
+/* ─── SegmentedControl — Segment ─────────────────────────────────────────────── */
+
+.segmented-control__segment {
+    height: var(--height-button-large);
+    min-width: 64px;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    border-radius: var(--radius-none);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+.segmented-control__segment:first-child {
+    border-top-left-radius: var(--radius-standard);
+    border-bottom-left-radius: var(--radius-standard);
+}
+
+.segmented-control__segment:last-child {
+    border-top-right-radius: var(--radius-standard);
+    border-bottom-right-radius: var(--radius-standard);
+}
+
+.segmented-control__segment:hover {
+    background-color: var(--color-bg-panel-hover);
+    color: var(--color-text-primary);
+}
+
+/* ─── SegmentedControl — Active Segment ──────────────────────────────────────── */
+
+.segmented-control__segment.is-active {
+    background-color: var(--color-accent-muted);
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}
+
+.segmented-control__segment.is-active:hover {
+    background-color: var(--color-accent-muted);
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}

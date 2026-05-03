@@ -1,0 +1,84 @@
+:root {
+    /* =========================================================
+       FONT DEFINITIONS
+       Font references use -unity-font-definition with url().
+       Variable font weight control uses -unity-font-weight (Unity 6).
+       If Unity generates Font Asset (.asset) files from the .ttf imports,
+       switch to resource() referencing the generated asset name.
+       ========================================================= */
+    --font-primary: url("/Assets/Project/UI/Assets/Fonts/Inter-VariableFont_opsz,wght.ttf");
+    --font-secondary: url("/Assets/Project/UI/Assets/Fonts/SpaceGrotesk-VariableFont_wght.ttf");
+    --font-mono: url("/Assets/Project/UI/Assets/Fonts/JetBrainsMono[wght].ttf");
+
+    /* =========================================================
+       FONT SIZE TOKENS
+       ========================================================= */
+    --font-size-display: 32px;
+    --font-size-title: 24px;
+    --font-size-heading: 18px;
+    --font-size-body: 14px;
+    --font-size-body-strong: 14px;
+    --font-size-small: 12px;
+    --font-size-tiny: 10px;
+    --font-size-code: 12px;
+}
+
+/* =========================================================
+   TYPOGRAPHY UTILITY CLASSES
+   ========================================================= */
+
+.text-display {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/SpaceGrotesk-VariableFont_wght.ttf");
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: var(--color-text-primary);
+}
+
+.text-title {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/SpaceGrotesk-VariableFont_wght.ttf");
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: var(--color-text-primary);
+}
+
+.text-heading {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/SpaceGrotesk-VariableFont_wght.ttf");
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: var(--color-text-primary);
+}
+
+.text-body {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/Inter-VariableFont_opsz,wght.ttf");
+    font-size: 14px;
+    -unity-font-style: normal;
+    color: var(--color-text-primary);
+}
+
+.text-body-strong {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/Inter-VariableFont_opsz,wght.ttf");
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: var(--color-text-primary);
+}
+
+.text-small {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/Inter-VariableFont_opsz,wght.ttf");
+    font-size: 12px;
+    -unity-font-style: normal;
+    color: var(--color-text-secondary);
+}
+
+.text-tiny {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/Inter-VariableFont_opsz,wght.ttf");
+    font-size: 10px;
+    -unity-font-style: normal;
+    color: var(--color-text-secondary);
+}
+
+.text-code {
+    -unity-font-definition: url("/Assets/Project/UI/Assets/Fonts/JetBrainsMono[wght].ttf");
+    font-size: 12px;
+    -unity-font-style: normal;
+    color: var(--color-text-primary);
+}

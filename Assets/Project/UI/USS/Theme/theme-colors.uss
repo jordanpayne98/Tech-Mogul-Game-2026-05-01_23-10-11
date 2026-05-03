@@ -1,0 +1,115 @@
+:root {
+    /* =========================================================
+       ROOT AND SHELL BACKGROUNDS
+       ========================================================= */
+    --color-bg-root: #080B0E;
+    --color-bg-shell: #10151B;
+    --color-bg-sidebar: #0D1218;
+    --color-bg-topbar: #10151B;
+    --color-bg-screen: #0B0F14;
+
+    /* =========================================================
+       PANELS AND SURFACES
+       ========================================================= */
+    --color-bg-panel: #171D24;
+    --color-bg-panel-raised: #202731;
+    --color-bg-panel-hover: #242D38;
+    --color-bg-panel-selected: #173C39;
+    --color-bg-panel-disabled: #11161C;
+    --color-bg-modal: #151B22;
+    --color-bg-modal-raised: #1E2630;
+    --color-bg-tooltip: #111820;
+    --color-bg-dropdown: #151D25;
+
+    /* =========================================================
+       TEXT
+       ========================================================= */
+    --color-text-primary: #E6EAF0;
+    --color-text-secondary: #9CA7B5;
+    --color-text-muted: #65717F;
+    --color-text-disabled: #4F5A66;
+    --color-text-inverse: #071013;
+    --color-text-accent: #73E0D1;
+    --color-text-warning: #F0C66A;
+    --color-text-danger: #FF8FA0;
+    --color-text-success: #70E2A3;
+    --color-text-info: #8CC4FF;
+    --color-text-special: #C4B5FD;
+
+    /* =========================================================
+       BORDERS AND DIVIDERS
+       ========================================================= */
+    --color-border-subtle: #2B343F;
+    --color-border-strong: #3A4654;
+    --color-border-hover: #4B5A68;
+    --color-border-selected: #45CBB7;
+    --color-border-focus: #73E0D1;
+    --color-border-warning: #E2A93B;
+    --color-border-danger: #F06C82;
+    --color-border-success: #35D08A;
+    --color-border-info: #5AA7FF;
+    --color-border-special: #A78BFA;
+    --color-divider: #25303A;
+
+    /* =========================================================
+       ACCENT AND SEMANTIC — ACCENT (TEAL)
+       ========================================================= */
+    --color-accent: #45CBB7;
+    --color-accent-hover: #62DCCA;
+    --color-accent-pressed: #2FAE9D;
+    --color-accent-muted: #164E45;
+    --color-accent-soft: rgba(69, 203, 183, 0.14);
+
+    /* ACCENT AND SEMANTIC — SUCCESS (GREEN) */
+    --color-success: #35D08A;
+    --color-success-muted: #143F2C;
+    --color-success-soft: rgba(53, 208, 138, 0.14);
+
+    /* ACCENT AND SEMANTIC — WARNING (AMBER) */
+    --color-warning: #E2A93B;
+    --color-warning-muted: #4A3512;
+    --color-warning-soft: rgba(226, 169, 59, 0.16);
+
+    /* ACCENT AND SEMANTIC — DANGER (RED/PINK) */
+    --color-danger: #F06C82;
+    --color-danger-muted: #4A1F2A;
+    --color-danger-soft: rgba(240, 108, 130, 0.16);
+
+    /* ACCENT AND SEMANTIC — INFO (BLUE) */
+    --color-info: #5AA7FF;
+    --color-info-muted: #183A5C;
+    --color-info-soft: rgba(90, 167, 255, 0.14);
+
+    /* ACCENT AND SEMANTIC — SPECIAL (PURPLE) */
+    --color-special: #A78BFA;
+    --color-special-muted: #322A55;
+    --color-special-soft: rgba(167, 139, 250, 0.14);
+
+    /* =========================================================
+       CHART PALETTE
+       ========================================================= */
+    --color-chart-1: #45CBB7;
+    --color-chart-2: #5AA7FF;
+    --color-chart-3: #A78BFA;
+    --color-chart-4: #E2A93B;
+    --color-chart-5: #35D08A;
+    --color-chart-6: #F06C82;
+    --color-chart-grid: #25303A;
+    --color-chart-axis: #65717F;
+    --color-chart-label: #9CA7B5;
+
+    /* =========================================================
+       MODAL OVERLAY
+       ========================================================= */
+    --color-modal-backdrop: rgba(0, 0, 0, 0.55);
+
+    /* =========================================================
+       MAIN MENU BACKGROUNDS
+       ========================================================= */
+    --color-bg-main-menu-top: #060A10;
+    --color-bg-main-menu-mid: #0A1018;
+    --color-bg-main-menu-bottom: #050810;
+    --color-bg-main-menu-overlay-end: rgba(0, 0, 0, 0.4);
+    --color-bg-main-menu-button: rgba(23, 29, 36, 0.85);
+    --color-bg-main-menu-button-hover: rgba(36, 45, 56, 0.9);
+}

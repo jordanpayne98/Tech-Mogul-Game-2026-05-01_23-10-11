@@ -1,0 +1,95 @@
+/* =============================================================================
+   theme-components-containers.uss
+   Visual polish for Panel and Card container components.
+   All values use var(--token) — no raw hex.
+   ============================================================================= */
+
+/* ─── Panel — Base ───────────────────────────────────────────────────────────── */
+
+.panel {
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding: var(--padding-panel-standard);
+    flex-direction: column;
+}
+
+/* ─── Panel — Compact Variant ────────────────────────────────────────────────── */
+
+.panel--compact {
+    padding: var(--padding-panel-compact);
+}
+
+/* ─── Panel — Large Variant ──────────────────────────────────────────────────── */
+
+.panel--large {
+    padding: var(--padding-panel-large);
+}
+
+/* ─── Panel — Raised Variant ─────────────────────────────────────────────────── */
+
+.panel--raised {
+    background-color: var(--color-bg-panel-raised);
+}
+
+/* ─── Panel — Hover (interactive panels) ─────────────────────────────────────── */
+
+.panel:hover {
+    border-color: var(--color-border-hover);
+}
+
+/* ─── Panel — Selected State ─────────────────────────────────────────────────── */
+
+.panel.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-color: var(--color-border-selected);
+}
+
+/* ─── Card — Base ────────────────────────────────────────────────────────────── */
+
+.card {
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding: var(--padding-card-standard);
+    flex-direction: column;
+}
+
+/* ─── Card — Compact Variant ─────────────────────────────────────────────────── */
+
+.card--compact {
+    padding: var(--padding-card-compact);
+}
+
+/* ─── Card — Large Variant ───────────────────────────────────────────────────── */
+
+.card--large {
+    padding: var(--padding-card-large);
+}
+
+/* ─── Card — Hover ───────────────────────────────────────────────────────────── */
+
+.card:hover {
+    border-color: var(--color-border-hover);
+}
+
+/* ─── Card — Selected State ──────────────────────────────────────────────────── */
+
+.card.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-color: var(--color-border-selected);
+}
+
+/* ─── Card — Warning State ───────────────────────────────────────────────────── */
+
+.card.has-warning {
+    border-color: var(--color-border-warning);
+}
+
+/* ─── Card — Error State ─────────────────────────────────────────────────────── */
+
+.card.has-error {
+    border-color: var(--color-border-danger);
+}

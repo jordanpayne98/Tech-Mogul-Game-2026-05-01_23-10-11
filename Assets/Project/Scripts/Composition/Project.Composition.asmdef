@@ -1,0 +1,19 @@
+{
+    "name": "Project.Composition",
+    "rootNamespace": "Project.Composition",
+    "references": [
+        "Project.Core",
+        "Project.Application",
+        "Project.Infrastructure",
+        "Project.Presentation.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

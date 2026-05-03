@@ -1,0 +1,164 @@
+/* =============================================================================
+   ModalFrame.uss
+   Modal frame styles — generic shell for all modals.
+   Depends on: theme-colors.uss, theme-sizing.uss, theme-spacing.uss
+   ============================================================================= */
+
+/* ─── Modal Host ─────────────────────────────────────────────────────────────
+   Absolute overlay covering the full shell. Hidden when no modal is open.
+   Uses flex to centre the modal frame within the host area.
+   --------------------------------------------------------------------------- */
+.modal-host {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-host.hidden {
+    display: none;
+}
+
+/* ─── Backdrop ───────────────────────────────────────────────────────────────
+   Absolute fill behind the modal frame.
+   --------------------------------------------------------------------------- */
+.modal-backdrop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-modal-backdrop);
+}
+
+/* ─── Modal Frame ────────────────────────────────────────────────────────────
+   Centred modal shell. Background, border, radius, and max-height from tokens.
+   --------------------------------------------------------------------------- */
+.modal-frame {
+    background-color: var(--color-bg-modal);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-large);
+    max-height: var(--modal-max-height);
+    flex-direction: column;
+    overflow: hidden;
+    /* Shadow approximation: stronger bottom border to simulate depth */
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: var(--color-border-strong);
+}
+
+/* ─── Size Bands ─────────────────────────────────────────────────────────────
+   Width set by modifier class applied to the modal frame root.
+   --------------------------------------------------------------------------- */
+.modal-frame--small {
+    width: var(--modal-width-small);
+}
+
+.modal-frame--standard {
+    width: var(--modal-width-standard);
+}
+
+.modal-frame--large {
+    width: var(--modal-width-large);
+}
+
+.modal-frame--xlarge {
+    width: var(--modal-width-xlarge);
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────────
+   Flex-row: title block grows, close button fixed right.
+   --------------------------------------------------------------------------- */
+.modal-frame__header {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-panel-standard);
+    padding-top: var(--padding-panel-standard);
+    padding-bottom: var(--padding-panel-standard);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.modal-frame__title-block {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.modal-frame__title {
+    color: var(--color-text-primary);
+    font-size: 16px;
+    -unity-font-style: bold;
+}
+
+.modal-frame__subtitle {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.modal-frame__subtitle.hidden {
+    display: none;
+}
+
+/* ─── Close Button ───────────────────────────────────────────────────────────
+   Icon-button style. X character set in ModalFrameView.cs.
+   --------------------------------------------------------------------------- */
+.modal-frame__close {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-small);
+    cursor: link;
+    flex-shrink: 0;
+    margin-left: var(--gap-standard);
+}
+
+.modal-frame__close:hover {
+    background-color: var(--color-bg-panel-hover);
+    color: var(--color-text-primary);
+}
+
+/* ─── Body ───────────────────────────────────────────────────────────────────
+   Flex-grow scrollable content area.
+   --------------------------------------------------------------------------- */
+.modal-frame__body {
+    flex-grow: 1;
+    overflow: hidden;
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-modal-standard);
+    padding-top: var(--padding-modal-standard);
+    padding-bottom: var(--padding-modal-standard);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────────
+   Flex-row: secondary actions left, primary actions right.
+   --------------------------------------------------------------------------- */
+.modal-frame__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-modal-standard);
+    padding-top: var(--padding-panel-standard);
+    padding-bottom: var(--padding-panel-standard);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-divider);
+}
+
+.modal-frame__footer-secondary {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+}
+
+.modal-frame__footer-primary {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+}

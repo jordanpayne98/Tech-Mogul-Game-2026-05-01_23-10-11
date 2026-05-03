@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="/Assets/Project/UI/USS/Components/RightDrawer.uss" />
+    <ui:VisualElement name="RightDrawerFrame" class="right-drawer">
+
+        <!-- =========================================================
+             DRAWER HEADER — title and close button
+             ========================================================= -->
+        <ui:VisualElement name="DrawerHeader" class="right-drawer__header">
+            <ui:Label name="DrawerTitle" text="Filters" class="right-drawer__title text-heading" />
+            <ui:VisualElement name="DrawerCloseButton" class="right-drawer__close icon-button" />
+        </ui:VisualElement>
+        <!-- END DRAWER HEADER -->
+
+        <!-- =========================================================
+             DRAWER BODY — scrollable content area
+             ========================================================= -->
+        <ui:ScrollView name="DrawerBody" class="right-drawer__body">
+            <!-- Content injected by RightDrawerFrameView.Body -->
+        </ui:ScrollView>
+        <!-- END DRAWER BODY -->
+
+        <!-- =========================================================
+             DRAWER FOOTER — clear and apply action buttons
+             ========================================================= -->
+        <ui:VisualElement name="DrawerFooter" class="right-drawer__footer">
+            <ui:VisualElement name="DrawerClearButton" class="right-drawer__footer-clear base-button base-button--secondary base-button--full-width">
+                <ui:Label text="Clear Filters" class="text-body" />
+            </ui:VisualElement>
+            <ui:VisualElement name="DrawerApplyButton" class="right-drawer__footer-apply base-button base-button--primary base-button--full-width">
+                <ui:Label text="Apply Filters" class="text-body" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <!-- END DRAWER FOOTER -->
+
+    </ui:VisualElement>
+</ui:UXML>

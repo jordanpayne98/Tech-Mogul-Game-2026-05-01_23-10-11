@@ -1,0 +1,393 @@
+/* =============================================================
+   MainMenu.uss — Main Menu screen stylesheet
+   Cinematic safe-frame composition for 1920×1080 reference.
+   Theme colour/font/radius/gap tokens resolve from TSS theme.
+   Layout dimensions use literal values (documented below).
+   No inline hex values.
+   ============================================================= */
+
+/* ─── MAIN MENU LAYOUT REFERENCE (documentation only) ────────
+   Unity UI Toolkit does not resolve custom properties defined
+   in :root within USS files loaded via <Style>. Layout values
+   are inlined directly into rules below. Edit values here AND
+   in the corresponding rules when adjusting the composition.
+
+   Safe frame insets:
+     safe-left ........... 64px   (equiv --space-12)
+     safe-right .......... 64px   (equiv --space-12)
+     safe-top ............ 56px   (between --space-11 and --space-12)
+     safe-bottom ......... 40px   (equiv --space-10)
+
+   Footer:
+     footer-bottom ....... 28px
+
+   Left column (logo + menu):
+     logo-font-size ...... 44px
+     logo-accent-size .... 14px
+     button-column-top ... 160px
+     button-width ........ 460px
+     button-height ....... 86px
+     button-gap .......... 14px
+
+   Right column (profile + news + community):
+     right-width ......... 540px
+     right-top ........... 120px
+     right-margin ........ 72px
+     profile-gap ......... 24px   (equiv --gap-section)
+     panel-padding ....... 20px   (equiv --padding-card-large)
+
+   News panel:
+     news-image-height ... 160px
+
+   Community panel:
+     community-min-height  160px
+     community-icon-size . 44px
+     community-icon-gap .. 12px   (equiv --gap-standard)
+   ────────────────────────────────────────────────────────────── */
+
+/* ─── ROOT ──────────────────────────────────────────────────── */
+
+.main-menu__root {
+    flex-grow: 1;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ─── BACKGROUND LAYERS ─────────────────────────────────────── */
+
+.main-menu__background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-main-menu-top);
+}
+
+.main-menu__gradient-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-main-menu-overlay-end);
+    opacity: 0.4;
+}
+
+/* ─── CONTENT LAYER (safe frame) ────────────────────────────── */
+/*
+   The content layer acts as the safe frame.
+   Padding keeps all flow content inside the cinematic boundary.
+   The footer is absolutely positioned relative to the root,
+   so padding-bottom reserves space above it.
+*/
+
+.main-menu__content-layer {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 80px;
+}
+
+/* ─── LEFT COLUMN ───────────────────────────────────────────── */
+
+.main-menu__left-column {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+/* ─── LOGO AREA ─────────────────────────────────────────────── */
+
+.main-menu__logo-area {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 64px;                         /* safe-left */
+    margin-top: 56px;                          /* safe-top */
+    margin-bottom: 0;
+    column-gap: var(--gap-standard);
+}
+
+.main-menu__logo-accent {
+    width: 14px;                               /* logo-accent-size */
+    height: 14px;                              /* logo-accent-size */
+    background-color: var(--color-accent);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.main-menu__logo-title {
+    -unity-font-definition: var(--font-secondary);
+    font-size: 44px;                           /* logo-font-size */
+    -unity-font-style: bold;
+    color: var(--color-text-primary);
+    letter-spacing: 2px;
+    -unity-text-align: middle-left;
+}
+
+/* ─── BUTTON COLUMN ─────────────────────────────────────────── */
+/*
+   margin-top positions the column at approximately y=270px
+   from the screen top (56px safe-top + ~54px logo + 160px gap).
+   This creates the cinematic vertical breathing room between
+   the logo and the primary actions.
+*/
+
+.main-menu__button-column {
+    flex-direction: column;
+    row-gap: 14px;                             /* button-gap */
+    margin-left: 64px;                         /* safe-left */
+    margin-top: 160px;                         /* button-column-top */
+    width: 460px;                              /* button-width */
+}
+
+/* ─── BUTTON BASE ───────────────────────────────────────────── */
+
+.main-menu__button {
+    height: 86px;                              /* button-height */
+    border-radius: var(--radius-large);
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: link;
+}
+
+.main-menu__button-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    margin-left: var(--space-7);
+    margin-right: var(--space-6);
+    flex-shrink: 0;
+    background-color: transparent;
+}
+
+.main-menu__button-label {
+    -unity-font-definition: var(--font-primary);
+    font-size: var(--font-size-heading);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    flex-grow: 1;
+}
+
+/* ─── CONTINUE BUTTON (PRIMARY) ─────────────────────────────── */
+
+.main-menu__button--continue {
+    background-color: var(--color-accent);
+}
+
+.main-menu__button--continue .main-menu__button-label {
+    color: var(--color-text-inverse);
+}
+
+.main-menu__button--continue .main-menu__button-icon {
+    background-color: var(--color-text-inverse);
+}
+
+.main-menu__button--continue:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.main-menu__button--continue:active {
+    background-color: var(--color-accent-pressed);
+}
+
+/* Continue disabled state */
+.main-menu__button--continue.is-disabled {
+    background-color: var(--color-bg-panel-disabled);
+    cursor: arrow;
+}
+
+.main-menu__button--continue.is-disabled .main-menu__button-label {
+    color: var(--color-text-disabled);
+}
+
+.main-menu__button--continue.is-disabled .main-menu__button-icon {
+    background-color: var(--color-text-disabled);
+}
+
+.main-menu__button--continue.is-disabled:hover {
+    background-color: var(--color-bg-panel-disabled);
+}
+
+/* ─── SECONDARY BUTTONS ─────────────────────────────────────── */
+
+.main-menu__button--secondary {
+    background-color: var(--color-bg-main-menu-button);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+}
+
+.main-menu__button--secondary .main-menu__button-label {
+    color: var(--color-text-primary);
+}
+
+.main-menu__button--secondary .main-menu__button-icon {
+    background-color: var(--color-accent);
+}
+
+.main-menu__button--secondary:hover {
+    background-color: var(--color-bg-main-menu-button-hover);
+    border-color: var(--color-accent);
+}
+
+.main-menu__button--secondary:hover .main-menu__button-icon {
+    background-color: var(--color-accent-hover);
+}
+
+/* ─── RIGHT PANEL COLUMN ────────────────────────────────────── */
+
+.main-menu__right-panel {
+    flex-direction: column;
+    margin-right: 72px;                        /* right-margin */
+    margin-top: 120px;                         /* right-top */
+    width: 540px;                              /* right-width */
+    flex-shrink: 0;
+    row-gap: 24px;                             /* profile-gap */
+}
+
+/* ─── PLAYER PROFILE ────────────────────────────────────────── */
+
+.main-menu__profile {
+    flex-direction: row;
+    align-items: center;
+    column-gap: var(--gap-large);
+    margin-bottom: var(--gap-small);
+}
+
+.main-menu__profile-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent-muted);
+    border-width: 2px;
+    border-color: var(--color-accent);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.main-menu__profile-avatar-text {
+    color: var(--color-text-accent);
+    -unity-text-align: middle-center;
+}
+
+.main-menu__profile-info {
+    flex-direction: column;
+    row-gap: var(--gap-tight);
+}
+
+.main-menu__profile-name {
+    color: var(--color-text-primary);
+}
+
+.main-menu__profile-role {
+    color: var(--color-text-secondary);
+}
+
+/* ─── NEWS PANEL ────────────────────────────────────────────── */
+
+.main-menu__news-panel {
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-large);
+    padding: 20px;                             /* panel-padding */
+    flex-direction: column;
+    row-gap: var(--gap-standard);
+}
+
+.main-menu__news-title {
+    color: var(--color-text-primary);
+}
+
+.main-menu__news-image {
+    height: 160px;                             /* news-image-height */
+    background-color: var(--color-bg-panel-raised);
+    border-radius: var(--radius-standard);
+    align-items: center;
+    justify-content: center;
+}
+
+.main-menu__news-image .text-small {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+}
+
+.main-menu__news-body {
+    color: var(--color-text-secondary);
+}
+
+.main-menu__news-link {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--gap-tight);
+}
+
+.main-menu__news-link .text-body {
+    color: var(--color-text-accent);
+}
+
+.main-menu__news-link:hover .text-body {
+    color: var(--color-accent-hover);
+}
+
+/* ─── COMMUNITY PANEL ───────────────────────────────────────── */
+
+.main-menu__community-panel {
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-large);
+    padding: 20px;                             /* panel-padding */
+    flex-direction: column;
+    row-gap: var(--gap-standard);
+    min-height: 160px;                         /* community-min-height */
+}
+
+.main-menu__community-title {
+    color: var(--color-text-primary);
+}
+
+.main-menu__community-icons {
+    flex-direction: row;
+    column-gap: 12px;                          /* community-icon-gap */
+    margin-top: var(--gap-small);
+}
+
+.main-menu__community-icon-btn {
+    width: 44px;                               /* community-icon-size */
+    height: 44px;                              /* community-icon-size */
+    border-radius: var(--radius-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+}
+
+.main-menu__community-icon-btn.is-disabled {
+    opacity: 0.4;
+    cursor: arrow;
+}
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
+/*
+   Absolute-positioned at the bottom corners of the root.
+   footer-bottom (28px) and safe-left/right (64px) keep
+   labels inside the safe frame. The content layer's
+   padding-bottom (80px) keeps flow content above.
+   Clearance: 80px padding - 28px footer - ~16px text = 36px > 32px minimum.
+*/
+
+.main-menu__footer-copyright {
+    position: absolute;
+    bottom: 28px;                              /* footer-bottom */
+    left: 64px;                                /* safe-left */
+    color: var(--color-text-muted);
+}
+
+.main-menu__footer-version {
+    position: absolute;
+    bottom: 28px;                              /* footer-bottom */
+    right: 64px;                               /* safe-right */
+    color: var(--color-text-muted);
+}

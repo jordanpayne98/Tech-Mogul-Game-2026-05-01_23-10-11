@@ -1,0 +1,55 @@
+/* =============================================================================
+   theme-components-empty-states.uss
+   Visual polish for EmptyState component.
+   PlaceholderScreen is in Screens/PlaceholderScreen.uss (imported via
+   theme-components.uss). This file covers the reusable EmptyState component.
+   All values use var(--token) — no raw hex.
+   ============================================================================= */
+
+/* ─── EmptyState — Container ─────────────────────────────────────────────────── */
+
+.empty-state {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+/* ─── EmptyState — Icon ──────────────────────────────────────────────────────── */
+
+.empty-state__icon {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+    background-color: var(--color-text-muted);
+    opacity: 0.5;
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+}
+
+/* ─── EmptyState — Title ─────────────────────────────────────────────────────── */
+
+.empty-state__title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+    font-size: 18px;
+    -unity-text-align: middle-center;
+}
+
+/* ─── EmptyState — Message ───────────────────────────────────────────────────── */
+
+.empty-state__message {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+/* ─── EmptyState — Action (optional button slot) ─────────────────────────────── */
+
+.empty-state__action {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--gap-small);
+}

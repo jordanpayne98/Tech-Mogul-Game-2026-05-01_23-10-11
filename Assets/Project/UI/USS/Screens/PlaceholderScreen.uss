@@ -1,0 +1,53 @@
+/*
+ * PlaceholderScreen.uss
+ * Styles for the PlaceholderScreen component shown for unimplemented screens.
+ * Follows Phase 4 visual spec: Shell and Navigation > Screen Host > Placeholder Screen Content.
+ * All colours, sizes, and typography use theme USS variables.
+ *
+ * [Placeholder] — this component is a temporary stand-in for Phase 5 screens.
+ */
+
+/* ─── Root container ────────────────────────────────────────────────────────── */
+.placeholder-screen {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    background-color: var(--color-bg-screen);
+}
+
+/* ─── Icon ──────────────────────────────────────────────────────────────────── */
+.placeholder-screen__icon {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+    background-color: var(--color-text-muted);
+    margin-bottom: var(--space-5);
+    /* Icon will be replaced with a real icon in Plan 4F. */
+    border-radius: var(--radius-small);
+    opacity: 0.5;
+}
+
+/* ─── Title ─────────────────────────────────────────────────────────────────── */
+.placeholder-screen__title {
+    -unity-font-style: bold;
+    font-size: 20px;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    -unity-text-align: middle-center;
+}
+
+/* ─── Message ───────────────────────────────────────────────────────────────── */
+.placeholder-screen__message {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    -unity-text-align: middle-center;
+}
+
+/* ─── Route ID ──────────────────────────────────────────────────────────────── */
+.placeholder-screen__route-id {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+}

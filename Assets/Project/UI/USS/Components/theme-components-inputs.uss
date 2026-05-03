@@ -1,0 +1,132 @@
+/* =============================================================================
+   theme-components-inputs.uss
+   Visual polish for SearchInput and DropdownField components.
+   All values use var(--token) — no raw hex.
+   ============================================================================= */
+
+/* ─── SearchInput — Base ─────────────────────────────────────────────────────── */
+
+.search-input {
+    height: var(--height-input-standard);
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+    transition-property: border-color;
+    transition-duration: 0.15s;
+}
+
+.search-input:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* ─── SearchInput — Icon ─────────────────────────────────────────────────────── */
+
+.search-input__icon {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    background-color: var(--color-text-muted);
+    margin-right: var(--gap-small);
+    flex-shrink: 0;
+}
+
+/* ─── SearchInput — Text Field ───────────────────────────────────────────────── */
+
+.search-input__field {
+    flex-grow: 1;
+    color: var(--color-text-primary);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+}
+
+/* Placeholder text in Unity UI Toolkit TextField */
+.search-input__field > .unity-text-element--inner-input-field-component {
+    color: var(--color-text-primary);
+}
+
+.search-input__field > .unity-base-text-field__input {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0px;
+    padding: 0px;
+    color: var(--color-text-primary);
+}
+
+/* ─── DropdownField — Base ───────────────────────────────────────────────────── */
+
+.dropdown-field {
+    height: var(--height-input-standard);
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+    transition-property: border-color;
+    transition-duration: 0.15s;
+}
+
+.dropdown-field:hover {
+    border-color: var(--color-border-hover);
+}
+
+.dropdown-field:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* ─── DropdownField — Label ──────────────────────────────────────────────────── */
+
+.dropdown-field__label {
+    flex-grow: 1;
+    color: var(--color-text-primary);
+}
+
+/* ─── DropdownField — Chevron ────────────────────────────────────────────────── */
+
+.dropdown-field__chevron {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    background-color: var(--color-text-muted);
+    flex-shrink: 0;
+    margin-left: var(--gap-small);
+}
+
+/* ─── Dropdown Menu ──────────────────────────────────────────────────────────── */
+
+.dropdown-menu {
+    background-color: var(--color-bg-dropdown);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    flex-direction: column;
+    /* Shadow approximation via border depth — see shadow polish section */
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: var(--color-border-strong);
+}
+
+/* ─── Dropdown Menu — Option ─────────────────────────────────────────────────── */
+
+.dropdown-menu__option {
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+    height: var(--height-row-standard);
+    align-items: center;
+    flex-direction: row;
+    color: var(--color-text-primary);
+    transition-property: background-color;
+    transition-duration: 0.1s;
+}
+
+.dropdown-menu__option:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.dropdown-menu__option.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    color: var(--color-text-accent);
+}

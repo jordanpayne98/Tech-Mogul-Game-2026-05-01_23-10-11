@@ -1,0 +1,119 @@
+/* =============================================================================
+   ConfirmModal.uss
+   Styles specific to the confirmation modal dialog.
+   Depends on: ModalFrame.uss, theme-colors.uss, theme-sizing.uss
+   ============================================================================= */
+
+/* ─── Root ───────────────────────────────────────────────────────────────────
+   Confirm modal inherits modal-frame--small width (420px) from ModalFrame.uss.
+   --------------------------------------------------------------------------- */
+.confirm-modal {
+    /* No overrides beyond what modal-frame provides. Size is set via modal-frame--small. */
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────────
+   Header contains optional icon and title in a row.
+   --------------------------------------------------------------------------- */
+.confirm-modal__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+}
+
+/* ─── Icon ───────────────────────────────────────────────────────────────────
+   Semantic icon. Colour driven by variant modifier on root.
+   --------------------------------------------------------------------------- */
+.confirm-modal__icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+}
+
+.confirm-modal__icon.hidden {
+    display: none;
+}
+
+/* Info variant */
+.confirm-modal .confirm-modal__icon.icon--info {
+    color: var(--color-info);
+}
+
+/* Warning variant */
+.confirm-modal--warning .confirm-modal__icon {
+    color: var(--color-warning);
+}
+
+/* Error variant */
+.confirm-modal--error .confirm-modal__icon {
+    color: var(--color-danger);
+}
+
+/* Danger variant */
+.confirm-modal--danger .confirm-modal__icon {
+    color: var(--color-danger);
+}
+
+/* ─── Title ──────────────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.confirm-modal__title {
+    flex-grow: 1;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    -unity-font-style: bold;
+}
+
+/* ─── Body ───────────────────────────────────────────────────────────────────
+   Overrides body padding for compact confirm layout.
+   --------------------------------------------------------------------------- */
+.confirm-modal__body {
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-modal-standard);
+    padding-top: var(--padding-panel-standard);
+    padding-bottom: var(--padding-panel-standard);
+}
+
+/* ─── Message ────────────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.confirm-modal__message {
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    white-space: normal;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.confirm-modal__cancel {
+    /* Secondary button — styled via base-button--secondary in theme-components */
+}
+
+.confirm-modal__confirm {
+    /* Primary button — styled via base-button--primary in theme-components */
+}
+
+/* ─── Danger Variant ─────────────────────────────────────────────────────────
+   Confirm button switches to danger colour when confirm-modal--danger is applied.
+   --------------------------------------------------------------------------- */
+.confirm-modal--danger .confirm-modal__confirm {
+    background-color: var(--color-danger);
+    color: var(--color-text-inverse);
+    border-color: var(--color-border-danger);
+}
+
+.confirm-modal--danger .confirm-modal__confirm:hover {
+    background-color: var(--color-danger-muted);
+    border-color: var(--color-danger);
+}
+
+/* ─── Warning Variant ────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.confirm-modal--warning .confirm-modal__confirm {
+    background-color: var(--color-warning);
+    color: var(--color-text-inverse);
+    border-color: var(--color-border-warning);
+}
+
+.confirm-modal--warning .confirm-modal__confirm:hover {
+    background-color: var(--color-warning-muted);
+    border-color: var(--color-warning);
+}

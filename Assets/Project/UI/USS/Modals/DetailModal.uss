@@ -1,0 +1,179 @@
+/* =============================================================================
+   DetailModal.uss
+   Styles specific to the DetailModalFrame — large entity detail views.
+   Depends on: ModalFrame.uss, theme-colors.uss, theme-sizing.uss, theme-spacing.uss
+   ============================================================================= */
+
+/* ─── Header ─────────────────────────────────────────────────────────────────
+   Row: avatar | identity block | status area | close button
+   --------------------------------------------------------------------------- */
+.detail-modal__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-large);
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-panel-standard);
+    padding-top: var(--padding-panel-standard);
+    padding-bottom: var(--padding-panel-standard);
+}
+
+/* ─── Avatar ─────────────────────────────────────────────────────────────────
+   Circular badge with initials. Optional status dot bottom-right.
+   --------------------------------------------------------------------------- */
+.detail-modal__avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent-muted);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    border-width: var(--border-width-strong);
+    border-color: var(--color-accent);
+}
+
+.detail-modal__avatar-initials {
+    color: var(--color-text-accent);
+    font-size: 18px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.detail-modal__avatar-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-width: var(--border-width-thin);
+    border-color: var(--color-bg-modal);
+    background-color: var(--color-text-muted);
+}
+
+/* ─── Identity Block ─────────────────────────────────────────────────────────
+   Name, subtitle, metadata stacked vertically.
+   --------------------------------------------------------------------------- */
+.detail-modal__identity {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.detail-modal__identity-name {
+    color: var(--color-text-primary);
+    font-size: 17px;
+    -unity-font-style: bold;
+}
+
+.detail-modal__identity-subtitle {
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.detail-modal__identity-subtitle.hidden {
+    display: none;
+}
+
+.detail-modal__identity-metadata {
+    color: var(--color-text-muted);
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/* ─── Status Area ────────────────────────────────────────────────────────────
+   Pill-style status label aligned to the right before close button.
+   --------------------------------------------------------------------------- */
+.detail-modal__status {
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+}
+
+.detail-modal__status-pill {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    -unity-font-style: bold;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-secondary);
+}
+
+/* ─── Tab Bar ────────────────────────────────────────────────────────────────
+   Horizontal tabs with border-bottom separator.
+   --------------------------------------------------------------------------- */
+.detail-modal__tabs {
+    flex-direction: row;
+    align-items: flex-end;
+    height: var(--height-tab-standard);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    padding-left: var(--padding-modal-standard);
+}
+
+.detail-modal__tab {
+    height: var(--height-tab-standard);
+    padding-left: var(--padding-panel-standard);
+    padding-right: var(--padding-panel-standard);
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    -unity-text-align: middle-center;
+    cursor: link;
+    border-bottom-width: 2px;
+    border-bottom-color: transparent;
+}
+
+.detail-modal__tab:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-panel-hover);
+}
+
+.detail-modal__tab.is-active {
+    color: var(--color-text-primary);
+    border-bottom-color: var(--color-accent);
+}
+
+.detail-modal__tab.is-disabled {
+    color: var(--color-text-disabled);
+    cursor: arrow;
+    pointer-events: none;
+}
+
+/* ─── Tab Content Host ───────────────────────────────────────────────────────
+   Hosts per-tab content panels. Only active panel is visible.
+   --------------------------------------------------------------------------- */
+.detail-modal__tab-content-host {
+    flex-grow: 1;
+}
+
+/* ─── Body ───────────────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.detail-modal__body {
+    flex-grow: 1;
+    padding-left: var(--padding-modal-standard);
+    padding-right: var(--padding-modal-standard);
+    padding-top: var(--padding-panel-standard);
+    padding-bottom: var(--padding-panel-standard);
+}
+
+/* ─── Card Grid ──────────────────────────────────────────────────────────────
+   2-column layout for detail cards.
+   UI Toolkit does not support CSS Grid. Flex-wrap row approximates 2-column grid.
+   --------------------------------------------------------------------------- */
+.detail-modal__card-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────────────────
+   --------------------------------------------------------------------------- */
+.detail-modal__footer {
+    /* Inherits from modal-frame__footer */
+}

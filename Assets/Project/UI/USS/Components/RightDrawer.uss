@@ -1,0 +1,113 @@
+/* =============================================================================
+   RightDrawer.uss
+   Generic right drawer frame styles.
+   The drawer overlays screen content from the right edge.
+   Phase 4: instant show/hide only — slide animation is deferred.
+   ============================================================================= */
+
+/* ─── Right Drawer Container ─────────────────────────────────────────────────── */
+
+.right-drawer {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 380px;
+    background-color: var(--color-bg-panel);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-border-strong);
+    /* Shadow approximation: strong left border simulates depth against screen content */
+    flex-direction: column;
+    display: none;
+}
+
+/* Shown when the drawer is open */
+.right-drawer.is-open {
+    display: flex;
+}
+
+/* ─── Drawer Header ──────────────────────────────────────────────────────────── */
+
+.right-drawer__header {
+    height: 56px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+.right-drawer__title {
+    color: var(--color-text-primary);
+    flex-grow: 1;
+}
+
+.right-drawer__close {
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-small);
+    cursor: default;
+}
+
+.right-drawer__close:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+/* ─── Drawer Body ────────────────────────────────────────────────────────────── */
+
+.right-drawer__body {
+    flex-grow: 1;
+    padding: 16px;
+}
+
+/* ─── Drawer Footer ──────────────────────────────────────────────────────────── */
+
+.right-drawer__footer {
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+    border-top-width: 1px;
+    border-top-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+.right-drawer__footer-clear {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-drawer__footer-apply {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ─── Filter Drawer Specific Classes ─────────────────────────────────────────── */
+
+.filter-drawer__field-group {
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.filter-drawer__field-label {
+    color: var(--color-text-secondary);
+    font-size: 11px;
+}
+
+.filter-drawer__clear {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-drawer__apply {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

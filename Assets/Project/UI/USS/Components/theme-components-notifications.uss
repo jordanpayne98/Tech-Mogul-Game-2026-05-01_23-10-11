@@ -1,0 +1,158 @@
+/* =============================================================================
+   theme-components-notifications.uss
+   Visual polish for NotificationToast and TooltipFrame components.
+   Shadow approximations are applied here via border depth technique.
+   All values use var(--token) — no raw hex.
+   ============================================================================= */
+
+/* ─── NotificationToast — Base ───────────────────────────────────────────────── */
+
+.notification-toast {
+    min-width: 360px;
+    max-width: 480px;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-large);
+    /* Shadow approximation: stronger bottom + right border depth */
+    border-bottom-width: var(--border-width-strong);
+    border-right-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-strong);
+    padding: var(--padding-panel-compact);
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+    margin-bottom: var(--gap-standard);
+    /* Accent-coloured left strip is applied per variant below */
+    border-left-width: 3px;
+    border-left-color: var(--color-border-strong);
+}
+
+/* ─── NotificationToast — Info Variant ───────────────────────────────────────── */
+
+.notification-toast--info {
+    border-left-color: var(--color-info);
+}
+
+/* ─── NotificationToast — Success Variant ────────────────────────────────────── */
+
+.notification-toast--success {
+    border-left-color: var(--color-success);
+}
+
+/* ─── NotificationToast — Warning Variant ────────────────────────────────────── */
+
+.notification-toast--warning {
+    border-left-color: var(--color-warning);
+}
+
+/* ─── NotificationToast — Danger Variant ─────────────────────────────────────── */
+
+.notification-toast--danger {
+    border-left-color: var(--color-danger);
+}
+
+/* ─── NotificationToast — Icon ────────────────────────────────────────────────── */
+
+.notification-toast__icon {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    background-color: var(--color-text-muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.notification-toast--info .notification-toast__icon {
+    background-color: var(--color-info);
+}
+
+.notification-toast--success .notification-toast__icon {
+    background-color: var(--color-success);
+}
+
+.notification-toast--warning .notification-toast__icon {
+    background-color: var(--color-warning);
+}
+
+.notification-toast--danger .notification-toast__icon {
+    background-color: var(--color-danger);
+}
+
+/* ─── NotificationToast — Content Block ──────────────────────────────────────── */
+
+.notification-toast__content {
+    flex-grow: 1;
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+/* ─── NotificationToast — Title ──────────────────────────────────────────────── */
+
+.notification-toast__title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+    font-size: 14px;
+}
+
+/* ─── NotificationToast — Message ────────────────────────────────────────────── */
+
+.notification-toast__message {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    white-space: normal;
+}
+
+/* ─── NotificationToast — Close Button ───────────────────────────────────────── */
+
+.notification-toast__close {
+    width: var(--height-button-compact);
+    height: var(--height-button-compact);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    transition-property: background-color;
+    transition-duration: 0.12s;
+}
+
+.notification-toast__close:hover {
+    background-color: var(--color-bg-panel-hover);
+    color: var(--color-text-primary);
+}
+
+/* ─── TooltipFrame — Base ────────────────────────────────────────────────────── */
+
+.tooltip-frame {
+    max-width: 360px;
+    background-color: var(--color-bg-tooltip);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    /* Shadow approximation: stronger bottom + right border depth */
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: var(--color-border-strong);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-strong);
+    padding: var(--space-4);
+    flex-direction: column;
+}
+
+/* ─── TooltipFrame — Content ─────────────────────────────────────────────────── */
+
+.tooltip-frame__content {
+    color: var(--color-text-primary);
+    font-size: 12px;
+    white-space: normal;
+}
+
+/* ─── Notification Host — Layout ─────────────────────────────────────────────── */
+
+.main-shell__notification-host {
+    position: absolute;
+    right: var(--space-8);
+    top: var(--space-8);
+    width: 480px;
+    flex-direction: column;
+    align-items: flex-end;
+}

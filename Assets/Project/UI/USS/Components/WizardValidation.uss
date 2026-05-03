@@ -1,0 +1,43 @@
+/* =============================================================================
+   WizardValidation.uss
+   Inline validation message styles for wizard footer and form fields.
+   Variants: info, warning, error, success.
+   ============================================================================= */
+
+/* ─── Base Validation Message ────────────────────────────────────────────────── */
+
+.wizard-validation {
+    padding: 6px 10px;
+    border-radius: var(--radius-small);
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ─── Info Variant ───────────────────────────────────────────────────────────── */
+
+.wizard-validation--info {
+    color: var(--color-text-info);
+    background-color: var(--color-info-soft);
+}
+
+/* ─── Warning Variant ────────────────────────────────────────────────────────── */
+
+.wizard-validation--warning {
+    color: var(--color-text-warning);
+    background-color: var(--color-warning-soft);
+}
+
+/* ─── Error Variant ──────────────────────────────────────────────────────────── */
+
+.wizard-validation--error {
+    color: var(--color-text-danger);
+    background-color: var(--color-danger-soft);
+}
+
+/* ─── Success Variant ────────────────────────────────────────────────────────── */
+
+.wizard-validation--success {
+    color: var(--color-text-success);
+    background-color: var(--color-success-soft);
+}

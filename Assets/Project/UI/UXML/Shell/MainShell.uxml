@@ -1,0 +1,266 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="/Assets/Project/UI/USS/Theme/theme-main.tss" />
+    <Style src="/Assets/Project/UI/USS/Shell/MainShell.uss" />
+    <Style src="/Assets/Project/UI/USS/Shell/Sidebar.uss" />
+    <ui:VisualElement name="Root" class="main-shell">
+
+        <!-- =====================================================
+             LAYER 1: APPLICATION SHELL — TOP STATUS BAR
+             ===================================================== -->
+        <ui:VisualElement name="TopStatusBar" class="main-shell__topbar top-status-bar">
+
+            <!-- Company Identity -->
+            <ui:VisualElement name="CompanyIdentity" class="top-status-bar__company-identity">
+                <ui:VisualElement name="CompanyLogo" class="top-status-bar__company-logo" />
+                <ui:VisualElement class="flex-column">
+                    <ui:Label name="CompanyName" text="Debug Corp" class="top-status-bar__company-name text-body-strong" />
+                    <ui:Label name="CompanySubtitle" text="Indie Studio" class="top-status-bar__company-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Metric: Cash -->
+            <ui:VisualElement name="MetricCash" class="top-status-bar__metric">
+                <ui:Label name="MetricCashLabel" text="CASH" class="top-status-bar__metric-label text-tiny" />
+                <ui:Label name="MetricCashValue" text="GBP 512K" class="top-status-bar__metric-value top-status-bar__metric-value--neutral text-body-strong" />
+                <ui:Label name="MetricCashSublabel" text="Available Funds" class="top-status-bar__metric-sublabel text-tiny" />
+            </ui:VisualElement>
+
+            <!-- Metric: Net/Month -->
+            <ui:VisualElement name="MetricNet" class="top-status-bar__metric">
+                <ui:Label name="MetricNetLabel" text="NET / MONTH" class="top-status-bar__metric-label text-tiny" />
+                <ui:Label name="MetricNetValue" text="-GBP 18K" class="top-status-bar__metric-value top-status-bar__metric-value--danger text-body-strong" />
+                <ui:Label name="MetricNetSublabel" text="Burn Rate" class="top-status-bar__metric-sublabel text-tiny" />
+            </ui:VisualElement>
+
+            <!-- Metric: Runway -->
+            <ui:VisualElement name="MetricRunway" class="top-status-bar__metric">
+                <ui:Label name="MetricRunwayLabel" text="RUNWAY" class="top-status-bar__metric-label text-tiny" />
+                <ui:Label name="MetricRunwayValue" text="28 days" class="top-status-bar__metric-value top-status-bar__metric-value--warning text-body-strong" />
+                <ui:Label name="MetricRunwaySublabel" text="Est. Runway" class="top-status-bar__metric-sublabel text-tiny" />
+            </ui:VisualElement>
+
+            <!-- Left spacer -->
+            <ui:VisualElement class="flex-grow" />
+
+            <!-- Date Display -->
+            <ui:Label name="DateDisplay" text="Day 12 - Month 2 - Year 1" class="top-status-bar__date text-body" />
+
+            <!-- Right spacer -->
+            <ui:VisualElement class="flex-grow" />
+
+            <!-- Alerts Button -->
+            <ui:VisualElement name="AlertsButton" class="top-status-bar__alerts icon-button">
+                <ui:VisualElement name="AlertsIcon" class="top-status-bar__alerts-icon" />
+                <ui:Label name="AlertsBadge" text="3" class="top-status-bar__alerts-badge text-tiny" />
+            </ui:VisualElement>
+
+            <!-- Search Button -->
+            <ui:VisualElement name="SearchButton" class="top-status-bar__search icon-button">
+                <ui:VisualElement name="SearchIcon" class="top-status-bar__search-icon" />
+            </ui:VisualElement>
+
+            <!-- Speed Control (Segmented Control) -->
+            <ui:VisualElement name="SpeedControl" class="top-status-bar__speed-control segmented-control">
+                <ui:Label name="Speed1x" text="1x" class="segmented-control__segment is-active" />
+                <ui:Label name="Speed2x" text="2x" class="segmented-control__segment" />
+                <ui:Label name="Speed3x" text="3x" class="segmented-control__segment" />
+            </ui:VisualElement>
+
+            <!-- Continue Button -->
+            <ui:VisualElement name="ContinueButton" class="top-status-bar__continue-button base-button base-button--primary base-button--large">
+                <ui:VisualElement name="ContinueIcon" class="top-status-bar__continue-icon" />
+                <ui:Label name="ContinueLabel" text="Continue" class="text-body-strong" />
+            </ui:VisualElement>
+
+            <!-- Settings Button -->
+            <ui:VisualElement name="SettingsButton" class="top-status-bar__settings-button icon-button icon-button--large">
+                <ui:VisualElement name="SettingsIcon" class="top-status-bar__settings-icon" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+        <!-- END TOP STATUS BAR -->
+
+        <!-- =====================================================
+             SHELL BODY: SIDEBAR + SCREEN HOST
+             ===================================================== -->
+        <ui:VisualElement name="ShellBody" class="main-shell__body">
+
+            <!-- Sidebar Navigation -->
+            <ui:VisualElement name="SidebarNavigation" class="main-shell__sidebar sidebar">
+
+                <!-- Sidebar Header -->
+                <ui:VisualElement name="SidebarHeader" class="sidebar__header">
+                    <ui:VisualElement name="SidebarLogo" class="sidebar__logo" />
+                    <ui:VisualElement class="flex-column">
+                        <ui:Label name="SidebarCompanyName" text="Debug Corp" class="sidebar__company-name text-body-strong" />
+                        <ui:Label name="SidebarCompanySubtitle" text="Indie Studio" class="sidebar__company-subtitle text-small" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- Nav Scroll Area -->
+                <ui:ScrollView name="SidebarNavScroll" class="sidebar__nav-scroll">
+
+                    <!-- GROUP: OVERVIEW -->
+                    <ui:VisualElement name="GroupOverview" class="sidebar__group">
+                        <ui:VisualElement name="GroupOverviewHeader" class="sidebar__group-header flex-row justify-between">
+                            <ui:Label name="GroupOverviewLabel" text="OVERVIEW" class="sidebar__group-label text-tiny" />
+                            <ui:VisualElement name="GroupOverviewChevron" class="sidebar__group-chevron" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GroupOverviewItems" class="sidebar__group-items">
+                            <!-- Dashboard → screen.portal -->
+                            <ui:VisualElement name="NavItemDashboard" class="sidebar__nav-item is-active" data-screen-id="screen.portal">
+                                <ui:VisualElement name="NavIconDashboard" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelDashboard" text="Dashboard" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Inbox → screen.reports -->
+                            <ui:VisualElement name="NavItemInbox" class="sidebar__nav-item" data-screen-id="screen.reports">
+                                <ui:VisualElement name="NavIconInbox" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelInbox" text="Inbox" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Calendar → screen.calendar -->
+                            <ui:VisualElement name="NavItemCalendar" class="sidebar__nav-item" data-screen-id="screen.calendar">
+                                <ui:VisualElement name="NavIconCalendar" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelCalendar" text="Calendar" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Company → screen.company -->
+                            <ui:VisualElement name="NavItemCompany" class="sidebar__nav-item" data-screen-id="screen.company">
+                                <ui:VisualElement name="NavIconCompany" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelCompany" text="Company" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- GROUP: PEOPLE -->
+                    <ui:VisualElement name="GroupPeople" class="sidebar__group">
+                        <ui:VisualElement name="GroupPeopleHeader" class="sidebar__group-header flex-row justify-between">
+                            <ui:Label name="GroupPeopleLabel" text="PEOPLE" class="sidebar__group-label text-tiny" />
+                            <ui:VisualElement name="GroupPeopleChevron" class="sidebar__group-chevron" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GroupPeopleItems" class="sidebar__group-items">
+                            <!-- Recruitment → screen.recruitment -->
+                            <ui:VisualElement name="NavItemRecruitment" class="sidebar__nav-item" data-screen-id="screen.recruitment">
+                                <ui:VisualElement name="NavIconRecruitment" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelRecruitment" text="Recruitment" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Employees → screen.employees -->
+                            <ui:VisualElement name="NavItemEmployees" class="sidebar__nav-item" data-screen-id="screen.employees">
+                                <ui:VisualElement name="NavIconEmployees" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelEmployees" text="Employees" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Teams → screen.teams -->
+                            <ui:VisualElement name="NavItemTeams" class="sidebar__nav-item" data-screen-id="screen.teams">
+                                <ui:VisualElement name="NavIconTeams" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelTeams" text="Teams" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- GROUP: PRODUCTS & WORK -->
+                    <ui:VisualElement name="GroupProductsWork" class="sidebar__group">
+                        <ui:VisualElement name="GroupProductsWorkHeader" class="sidebar__group-header flex-row justify-between">
+                            <ui:Label name="GroupProductsWorkLabel" text="PRODUCTS &amp; WORK" class="sidebar__group-label text-tiny" />
+                            <ui:VisualElement name="GroupProductsWorkChevron" class="sidebar__group-chevron" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GroupProductsWorkItems" class="sidebar__group-items">
+                            <!-- Products → screen.products -->
+                            <ui:VisualElement name="NavItemProducts" class="sidebar__nav-item" data-screen-id="screen.products">
+                                <ui:VisualElement name="NavIconProducts" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelProducts" text="Products" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Contracts → screen.contracts -->
+                            <ui:VisualElement name="NavItemContracts" class="sidebar__nav-item" data-screen-id="screen.contracts">
+                                <ui:VisualElement name="NavIconContracts" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelContracts" text="Contracts" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Research → screen.research -->
+                            <ui:VisualElement name="NavItemResearch" class="sidebar__nav-item" data-screen-id="screen.research">
+                                <ui:VisualElement name="NavIconResearch" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelResearch" text="Research" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Infrastructure → screen.infrastructure -->
+                            <ui:VisualElement name="NavItemInfrastructure" class="sidebar__nav-item" data-screen-id="screen.infrastructure">
+                                <ui:VisualElement name="NavIconInfrastructure" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelInfrastructure" text="Infrastructure" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- GROUP: MARKET -->
+                    <ui:VisualElement name="GroupMarket" class="sidebar__group">
+                        <ui:VisualElement name="GroupMarketHeader" class="sidebar__group-header flex-row justify-between">
+                            <ui:Label name="GroupMarketLabel" text="MARKET" class="sidebar__group-label text-tiny" />
+                            <ui:VisualElement name="GroupMarketChevron" class="sidebar__group-chevron" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GroupMarketItems" class="sidebar__group-items">
+                            <!-- Market → screen.market -->
+                            <ui:VisualElement name="NavItemMarket" class="sidebar__nav-item" data-screen-id="screen.market">
+                                <ui:VisualElement name="NavIconMarket" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelMarket" text="Market" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Competitors → screen.competitors -->
+                            <ui:VisualElement name="NavItemCompetitors" class="sidebar__nav-item" data-screen-id="screen.competitors">
+                                <ui:VisualElement name="NavIconCompetitors" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelCompetitors" text="Competitors" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- GROUP: FINANCE -->
+                    <ui:VisualElement name="GroupFinance" class="sidebar__group">
+                        <ui:VisualElement name="GroupFinanceHeader" class="sidebar__group-header flex-row justify-between">
+                            <ui:Label name="GroupFinanceLabel" text="FINANCE" class="sidebar__group-label text-tiny" />
+                            <ui:VisualElement name="GroupFinanceChevron" class="sidebar__group-chevron" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="GroupFinanceItems" class="sidebar__group-items">
+                            <!-- Finance → screen.finance -->
+                            <ui:VisualElement name="NavItemFinance" class="sidebar__nav-item" data-screen-id="screen.finance">
+                                <ui:VisualElement name="NavIconFinance" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelFinance" text="Finance" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                            <!-- Reports → screen.reports_finance -->
+                            <ui:VisualElement name="NavItemReports" class="sidebar__nav-item" data-screen-id="screen.reports_finance">
+                                <ui:VisualElement name="NavIconReports" class="sidebar__nav-item-icon" />
+                                <ui:Label name="NavLabelReports" text="Reports" class="sidebar__nav-item-label text-body" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                </ui:ScrollView>
+            </ui:VisualElement>
+            <!-- END SIDEBAR NAVIGATION -->
+
+            <!-- Screen Host -->
+            <ui:ScrollView name="ScreenHost" class="main-shell__screen-host screen-host">
+                <ui:VisualElement name="ScreenHostContent" class="screen-host__content" />
+            </ui:ScrollView>
+
+        </ui:VisualElement>
+        <!-- END SHELL BODY -->
+
+        <!-- =====================================================
+             LAYER 2: RIGHT DRAWER HOST (overlay, hidden by default)
+             ===================================================== -->
+        <ui:VisualElement name="RightDrawerHost" class="main-shell__right-drawer-host hidden" />
+
+        <!-- =====================================================
+             LAYER 3: MODAL HOST (overlay, hidden by default)
+             ===================================================== -->
+        <ui:VisualElement name="ModalHost" class="main-shell__modal-host hidden" />
+
+        <!-- =====================================================
+             LAYER 4: TOOLTIP HOST (overlay, hidden by default)
+             ===================================================== -->
+        <ui:VisualElement name="TooltipHost" class="main-shell__tooltip-host hidden" />
+
+        <!-- =====================================================
+             LAYER 5: NOTIFICATION HOST (overlay, hidden by default)
+             ===================================================== -->
+        <ui:VisualElement name="NotificationHost" class="main-shell__notification-host hidden" />
+
+        <!-- =====================================================
+             LAYER 6: DEBUG HOST (overlay, hidden by default)
+             ===================================================== -->
+        <ui:VisualElement name="DebugHost" class="main-shell__debug-host hidden" />
+
+    </ui:VisualElement>
+</ui:UXML>

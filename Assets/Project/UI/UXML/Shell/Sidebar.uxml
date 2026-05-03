@@ -1,0 +1,160 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!--
+        Sidebar.uxml
+        Sidebar navigation content — five groups, 15 nav items.
+        This file documents the sidebar structure for reference and future
+        extraction. The sidebar is currently inlined in MainShell.uxml.
+        All stable screen IDs match the Phase 4 Locked Decisions.
+    -->
+    <ui:VisualElement name="SidebarRoot" class="sidebar flex-column">
+
+        <!-- Sidebar Header -->
+        <ui:VisualElement name="SidebarHeader" class="sidebar__header">
+            <ui:VisualElement name="SidebarLogo" class="sidebar__logo" />
+            <ui:VisualElement class="flex-column">
+                <ui:Label name="SidebarCompanyName" text="Debug Corp" class="sidebar__company-name text-body-strong" />
+                <ui:Label name="SidebarCompanySubtitle" text="Indie Studio" class="sidebar__company-subtitle text-small" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Nav Scroll Area -->
+        <ui:ScrollView name="SidebarNavScroll" class="sidebar__nav-scroll">
+
+            <!-- =====================================================
+                 GROUP: OVERVIEW
+                 ===================================================== -->
+            <ui:VisualElement name="GroupOverview" class="sidebar__group">
+                <ui:VisualElement name="GroupOverviewHeader" class="sidebar__group-header flex-row justify-between">
+                    <ui:Label name="GroupOverviewLabel" text="OVERVIEW" class="sidebar__group-label text-tiny" />
+                    <ui:VisualElement name="GroupOverviewChevron" class="sidebar__group-chevron" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GroupOverviewItems" class="sidebar__group-items">
+                    <!-- Dashboard → screen.portal -->
+                    <ui:VisualElement name="NavItemDashboard" class="sidebar__nav-item is-active" data-screen-id="screen.portal">
+                        <ui:VisualElement name="NavIconDashboard" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelDashboard" text="Dashboard" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Inbox → screen.reports -->
+                    <ui:VisualElement name="NavItemInbox" class="sidebar__nav-item" data-screen-id="screen.reports">
+                        <ui:VisualElement name="NavIconInbox" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelInbox" text="Inbox" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Calendar → screen.calendar -->
+                    <ui:VisualElement name="NavItemCalendar" class="sidebar__nav-item" data-screen-id="screen.calendar">
+                        <ui:VisualElement name="NavIconCalendar" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelCalendar" text="Calendar" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Company → screen.company -->
+                    <ui:VisualElement name="NavItemCompany" class="sidebar__nav-item" data-screen-id="screen.company">
+                        <ui:VisualElement name="NavIconCompany" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelCompany" text="Company" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- =====================================================
+                 GROUP: PEOPLE
+                 ===================================================== -->
+            <ui:VisualElement name="GroupPeople" class="sidebar__group">
+                <ui:VisualElement name="GroupPeopleHeader" class="sidebar__group-header flex-row justify-between">
+                    <ui:Label name="GroupPeopleLabel" text="PEOPLE" class="sidebar__group-label text-tiny" />
+                    <ui:VisualElement name="GroupPeopleChevron" class="sidebar__group-chevron" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GroupPeopleItems" class="sidebar__group-items">
+                    <!-- Recruitment → screen.recruitment -->
+                    <ui:VisualElement name="NavItemRecruitment" class="sidebar__nav-item" data-screen-id="screen.recruitment">
+                        <ui:VisualElement name="NavIconRecruitment" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelRecruitment" text="Recruitment" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Employees → screen.employees -->
+                    <ui:VisualElement name="NavItemEmployees" class="sidebar__nav-item" data-screen-id="screen.employees">
+                        <ui:VisualElement name="NavIconEmployees" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelEmployees" text="Employees" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Teams → screen.teams -->
+                    <ui:VisualElement name="NavItemTeams" class="sidebar__nav-item" data-screen-id="screen.teams">
+                        <ui:VisualElement name="NavIconTeams" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelTeams" text="Teams" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- =====================================================
+                 GROUP: PRODUCTS & WORK
+                 ===================================================== -->
+            <ui:VisualElement name="GroupProductsWork" class="sidebar__group">
+                <ui:VisualElement name="GroupProductsWorkHeader" class="sidebar__group-header flex-row justify-between">
+                    <ui:Label name="GroupProductsWorkLabel" text="PRODUCTS &amp; WORK" class="sidebar__group-label text-tiny" />
+                    <ui:VisualElement name="GroupProductsWorkChevron" class="sidebar__group-chevron" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GroupProductsWorkItems" class="sidebar__group-items">
+                    <!-- Products → screen.products -->
+                    <ui:VisualElement name="NavItemProducts" class="sidebar__nav-item" data-screen-id="screen.products">
+                        <ui:VisualElement name="NavIconProducts" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelProducts" text="Products" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Contracts → screen.contracts -->
+                    <ui:VisualElement name="NavItemContracts" class="sidebar__nav-item" data-screen-id="screen.contracts">
+                        <ui:VisualElement name="NavIconContracts" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelContracts" text="Contracts" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Research → screen.research -->
+                    <ui:VisualElement name="NavItemResearch" class="sidebar__nav-item" data-screen-id="screen.research">
+                        <ui:VisualElement name="NavIconResearch" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelResearch" text="Research" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Infrastructure → screen.infrastructure -->
+                    <ui:VisualElement name="NavItemInfrastructure" class="sidebar__nav-item" data-screen-id="screen.infrastructure">
+                        <ui:VisualElement name="NavIconInfrastructure" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelInfrastructure" text="Infrastructure" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- =====================================================
+                 GROUP: MARKET
+                 ===================================================== -->
+            <ui:VisualElement name="GroupMarket" class="sidebar__group">
+                <ui:VisualElement name="GroupMarketHeader" class="sidebar__group-header flex-row justify-between">
+                    <ui:Label name="GroupMarketLabel" text="MARKET" class="sidebar__group-label text-tiny" />
+                    <ui:VisualElement name="GroupMarketChevron" class="sidebar__group-chevron" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GroupMarketItems" class="sidebar__group-items">
+                    <!-- Market → screen.market -->
+                    <ui:VisualElement name="NavItemMarket" class="sidebar__nav-item" data-screen-id="screen.market">
+                        <ui:VisualElement name="NavIconMarket" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelMarket" text="Market" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Competitors → screen.competitors -->
+                    <ui:VisualElement name="NavItemCompetitors" class="sidebar__nav-item" data-screen-id="screen.competitors">
+                        <ui:VisualElement name="NavIconCompetitors" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelCompetitors" text="Competitors" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- =====================================================
+                 GROUP: FINANCE
+                 ===================================================== -->
+            <ui:VisualElement name="GroupFinance" class="sidebar__group">
+                <ui:VisualElement name="GroupFinanceHeader" class="sidebar__group-header flex-row justify-between">
+                    <ui:Label name="GroupFinanceLabel" text="FINANCE" class="sidebar__group-label text-tiny" />
+                    <ui:VisualElement name="GroupFinanceChevron" class="sidebar__group-chevron" />
+                </ui:VisualElement>
+                <ui:VisualElement name="GroupFinanceItems" class="sidebar__group-items">
+                    <!-- Finance → screen.finance -->
+                    <ui:VisualElement name="NavItemFinance" class="sidebar__nav-item" data-screen-id="screen.finance">
+                        <ui:VisualElement name="NavIconFinance" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelFinance" text="Finance" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                    <!-- Reports → screen.reports_finance -->
+                    <ui:VisualElement name="NavItemReports" class="sidebar__nav-item" data-screen-id="screen.reports_finance">
+                        <ui:VisualElement name="NavIconReports" class="sidebar__nav-item-icon" />
+                        <ui:Label name="NavLabelReports" text="Reports" class="sidebar__nav-item-label text-body" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

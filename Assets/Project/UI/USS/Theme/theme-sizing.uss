@@ -1,0 +1,79 @@
+:root {
+    /* =========================================================
+       WIDTH TOKENS
+       ========================================================= */
+    --width-content-narrow: 640px;
+    --width-content-standard: 960px;
+    --width-content-wide: 1280px;
+    --width-content-max: 1600px;
+    --width-sidebar-compact: 64px;
+    --width-sidebar-standard: 240px;
+    --width-sidebar-wide: 280px;
+    --width-panel-small: 320px;
+    --width-panel-medium: 480px;
+    --width-panel-large: 720px;
+    --width-panel-xlarge: 960px;
+
+    /* =========================================================
+       HEIGHT TOKENS
+       ========================================================= */
+    --height-topbar: 56px;
+    --height-footer: 40px;
+    --height-button-compact: 28px;
+    --height-button-standard: 34px;
+    --height-button-large: 40px;
+    --height-input-standard: 34px;
+    --height-input-large: 40px;
+    --height-row-compact: 28px;
+    --height-row-standard: 34px;
+    --height-row-large: 44px;
+    --height-tab-standard: 36px;
+    --height-chip: 24px;
+
+    /* =========================================================
+       MODAL SIZING
+       ========================================================= */
+    --modal-width-small: 420px;
+    --modal-width-standard: 640px;
+    --modal-width-large: 860px;
+    --modal-width-xlarge: 1080px;
+    --modal-max-height: 86%;
+
+    /* =========================================================
+       BORDER TOKENS
+       ========================================================= */
+    --border-width-thin: 1px;
+    --border-width-standard: 1px;
+    --border-width-strong: 2px;
+    --border-width-focus: 2px;
+
+    /* =========================================================
+       BORDER RADIUS TOKENS
+       ========================================================= */
+    --radius-none: 0px;
+    --radius-small: 4px;
+    --radius-standard: 6px;
+    --radius-large: 8px;
+    --radius-xl: 12px;
+    --radius-pill: 999px;
+
+    /* =========================================================
+       SHADOW TOKENS
+       Unity UI Toolkit does not natively support CSS box-shadow.
+       These tokens document intended design values.
+       Visual approximations using nested VisualElements with
+       semi-transparent backgrounds will be implemented in Plan 4F.
+       --shadow-panel:   0 4px 12px rgba(0, 0, 0, 0.22)
+       --shadow-modal:   0 16px 40px rgba(0, 0, 0, 0.45)
+       --shadow-tooltip: 0 8px 24px rgba(0, 0, 0, 0.35)
+       ========================================================= */
+
+    /* =========================================================
+       ICON SIZE TOKENS
+       ========================================================= */
+    --icon-size-xs: 12px;
+    --icon-size-small: 16px;
+    --icon-size-standard: 20px;
+    --icon-size-large: 24px;
+    --icon-size-xl: 32px;
+}

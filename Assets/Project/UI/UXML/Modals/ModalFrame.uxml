@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!--
+        ModalFrame.uxml
+        Generic reusable modal frame template.
+        Add size-band modifier class to Root to control width:
+            modal-frame--small     (420px)
+            modal-frame--standard  (640px)  — default
+            modal-frame--large     (860px)
+            modal-frame--xlarge    (1080px)
+    -->
+    <ui:VisualElement name="ModalFrameRoot" class="modal-frame modal-frame--standard">
+
+        <!-- Header -->
+        <ui:VisualElement name="ModalHeader" class="modal-frame__header">
+            <ui:VisualElement name="TitleBlock" class="modal-frame__title-block">
+                <ui:Label name="Title" text="Modal Title" class="modal-frame__title" />
+                <ui:Label name="Subtitle" text="" class="modal-frame__subtitle hidden" />
+            </ui:VisualElement>
+            <ui:VisualElement name="CloseButton" class="modal-frame__close" />
+        </ui:VisualElement>
+
+        <!-- Body (scrollable) -->
+        <ui:ScrollView name="ModalBody" class="modal-frame__body" />
+
+        <!-- Footer -->
+        <ui:VisualElement name="ModalFooter" class="modal-frame__footer">
+            <ui:VisualElement name="SecondaryActions" class="modal-frame__footer-secondary" />
+            <ui:VisualElement name="PrimaryActions" class="modal-frame__footer-primary" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

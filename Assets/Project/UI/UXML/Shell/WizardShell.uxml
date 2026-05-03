@@ -1,0 +1,75 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="/Assets/Project/UI/USS/Shell/WizardShell.uss" />
+    <ui:VisualElement name="WizardShell" class="wizard-shell">
+
+        <!-- =========================================================
+             WIZARD HEADER — context label, title, step counter
+             ========================================================= -->
+        <ui:VisualElement name="WizardHeader" class="wizard-header">
+
+            <!-- Left: context label and title stacked -->
+            <ui:VisualElement name="WizardHeaderLeft" class="wizard-header__left">
+                <ui:Label name="ContextLabel" text="NEW GAME" class="wizard-header__context text-tiny" />
+                <ui:Label name="WizardTitle" text="Company Setup" class="wizard-header__title text-title" />
+            </ui:VisualElement>
+
+            <!-- Right: step counter -->
+            <ui:Label name="StepCounter" text="Step 1 of 3" class="wizard-header__step-counter text-small" />
+
+        </ui:VisualElement>
+        <!-- END WIZARD HEADER -->
+
+        <!-- =========================================================
+             WIZARD STEPPER — horizontal step chips, injected by WizardShellView
+             ========================================================= -->
+        <ui:VisualElement name="WizardStepper" class="wizard-stepper">
+            <!-- Step chips are built and injected programmatically by WizardShellView -->
+        </ui:VisualElement>
+        <!-- END WIZARD STEPPER -->
+
+        <!-- =========================================================
+             WIZARD BODY — main content (60-65%) + preview panel (35-40%)
+             ========================================================= -->
+        <ui:VisualElement name="WizardBody" class="wizard-body">
+
+            <!-- Main step content area (scrollable) -->
+            <ui:ScrollView name="MainStepContent" class="wizard-body__main">
+                <!-- Step content injected by WizardShellView.SetMainContent() -->
+            </ui:ScrollView>
+
+            <!-- Vertical divider -->
+            <ui:VisualElement name="BodyDivider" class="wizard-body__divider" />
+
+            <!-- Preview panel (scrollable) -->
+            <ui:ScrollView name="WizardPreviewPanel" class="wizard-body__preview">
+                <!-- Preview content injected by WizardShellView.SetPreviewContent() -->
+            </ui:ScrollView>
+
+        </ui:VisualElement>
+        <!-- END WIZARD BODY -->
+
+        <!-- =========================================================
+             WIZARD FOOTER — left actions, centre helper, right actions
+             ========================================================= -->
+        <ui:VisualElement name="WizardFooter" class="wizard-footer">
+
+            <!-- Left actions: Cancel, Back, Randomise -->
+            <ui:VisualElement name="FooterLeft" class="wizard-footer__left">
+                <!-- Action elements injected by WizardShellView.SetFooterActions() -->
+            </ui:VisualElement>
+
+            <!-- Centre: validation / helper text area -->
+            <ui:VisualElement name="FooterCentre" class="wizard-footer__centre">
+                <!-- Helper / validation content injected by WizardShellView.SetFooterActions() -->
+            </ui:VisualElement>
+
+            <!-- Right actions: Save & Exit, Continue, Confirm -->
+            <ui:VisualElement name="FooterRight" class="wizard-footer__right">
+                <!-- Action elements injected by WizardShellView.SetFooterActions() -->
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+        <!-- END WIZARD FOOTER -->
+
+    </ui:VisualElement>
+</ui:UXML>

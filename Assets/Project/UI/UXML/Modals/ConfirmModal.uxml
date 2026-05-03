@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!--
+        ConfirmModal.uxml
+        Specialised confirmation dialog frame (small, 420px).
+        Variant modifier classes: confirm-modal--danger, confirm-modal--warning
+    -->
+    <ui:VisualElement name="ConfirmModalRoot" class="modal-frame modal-frame--small confirm-modal">
+
+        <!-- Header -->
+        <ui:VisualElement name="ConfirmHeader" class="modal-frame__header confirm-modal__header">
+            <ui:VisualElement name="Icon" class="confirm-modal__icon hidden" />
+            <ui:Label name="Title" text="Confirm Action" class="modal-frame__title confirm-modal__title" />
+        </ui:VisualElement>
+
+        <!-- Body -->
+        <ui:VisualElement name="ConfirmBody" class="modal-frame__body confirm-modal__body">
+            <ui:Label name="Message"
+                      text="Are you sure you want to proceed? This action cannot be undone."
+                      class="confirm-modal__message" />
+        </ui:VisualElement>
+
+        <!-- Footer -->
+        <ui:VisualElement name="ConfirmFooter" class="modal-frame__footer">
+            <ui:VisualElement name="SecondaryActions" class="modal-frame__footer-secondary" />
+            <ui:VisualElement name="PrimaryActions" class="modal-frame__footer-primary">
+                <ui:Button name="CancelButton" text="Cancel" class="base-button base-button--secondary confirm-modal__cancel" />
+                <ui:Button name="ConfirmButton" text="Confirm" class="base-button base-button--primary confirm-modal__confirm" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

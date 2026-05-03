@@ -1,0 +1,279 @@
+/* =============================================================================
+   WizardShell.uss
+   Structural and visual styles for the full-screen wizard shell framework.
+   Covers: shell, header, stepper, step chips, body, preview, footer.
+   All colours use semantic tokens from theme-colors.uss.
+   ============================================================================= */
+
+/* ─── Wizard Shell Root ──────────────────────────────────────────────────────── */
+
+.wizard-shell {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-root);
+}
+
+/* ─── Wizard Header ──────────────────────────────────────────────────────────── */
+
+.wizard-header {
+    height: 72px;
+    background-color: var(--color-bg-shell);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 24px;
+}
+
+.wizard-header__left {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wizard-header__context {
+    color: var(--color-text-accent);
+    -unity-font-style: bold;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+}
+
+.wizard-header__title {
+    color: var(--color-text-primary);
+}
+
+.wizard-header__step-counter {
+    color: var(--color-text-muted);
+    -unity-text-align: upper-right;
+}
+
+/* ─── Wizard Stepper ─────────────────────────────────────────────────────────── */
+
+.wizard-stepper {
+    height: 76px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-bg-shell);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+}
+
+/* Step chip container (wraps circle + label) */
+.wizard-step-chip {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Circle for the step number */
+.wizard-step-chip__circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-color: var(--color-border-subtle);
+    background-color: transparent;
+    margin-bottom: 4px;
+}
+
+/* Number label inside the circle */
+.wizard-step-chip__number {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+    font-size: 11px;
+}
+
+/* Step label below the circle */
+.wizard-step-chip__label {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+    font-size: 10px;
+}
+
+/* Connector line between step chips */
+.wizard-step-chip__connector {
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-border-subtle);
+    align-self: center;
+    margin-bottom: 16px;
+}
+
+/* ─── Step Chip States ───────────────────────────────────────────────────────── */
+
+/* Active: filled teal circle, inverse number text, primary label */
+.wizard-step-chip.is-active .wizard-step-chip__circle {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+}
+
+.wizard-step-chip.is-active .wizard-step-chip__number {
+    color: var(--color-text-inverse);
+}
+
+.wizard-step-chip.is-active .wizard-step-chip__label {
+    color: var(--color-text-primary);
+}
+
+/* Complete: teal outline, accent number, secondary label */
+.wizard-step-chip.is-complete .wizard-step-chip__circle {
+    background-color: transparent;
+    border-width: 2px;
+    border-color: var(--color-accent);
+}
+
+.wizard-step-chip.is-complete .wizard-step-chip__number {
+    color: var(--color-text-accent);
+}
+
+.wizard-step-chip.is-complete .wizard-step-chip__label {
+    color: var(--color-text-secondary);
+}
+
+/* Connector after a complete step uses accent colour */
+.wizard-step-chip.is-complete .wizard-step-chip__connector {
+    background-color: var(--color-accent);
+}
+
+/* Available (future step): subtle border, muted text */
+.wizard-step-chip.is-available .wizard-step-chip__circle {
+    background-color: transparent;
+    border-color: var(--color-border-subtle);
+}
+
+.wizard-step-chip.is-available .wizard-step-chip__number {
+    color: var(--color-text-muted);
+}
+
+.wizard-step-chip.is-available .wizard-step-chip__label {
+    color: var(--color-text-muted);
+}
+
+/* Locked: very muted, reduced opacity */
+.wizard-step-chip.is-locked .wizard-step-chip__circle {
+    background-color: transparent;
+    border-color: var(--color-border-subtle);
+    opacity: 0.4;
+}
+
+.wizard-step-chip.is-locked .wizard-step-chip__number {
+    color: var(--color-text-disabled);
+}
+
+.wizard-step-chip.is-locked .wizard-step-chip__label {
+    color: var(--color-text-disabled);
+    opacity: 0.4;
+}
+
+/* Warning: amber border */
+.wizard-step-chip.is-warning .wizard-step-chip__circle {
+    background-color: transparent;
+    border-width: 2px;
+    border-color: var(--color-warning);
+}
+
+.wizard-step-chip.is-warning .wizard-step-chip__number {
+    color: var(--color-text-warning);
+}
+
+.wizard-step-chip.is-warning .wizard-step-chip__label {
+    color: var(--color-text-warning);
+}
+
+/* Error: danger border */
+.wizard-step-chip.is-error .wizard-step-chip__circle {
+    background-color: transparent;
+    border-width: 2px;
+    border-color: var(--color-danger);
+}
+
+.wizard-step-chip.is-error .wizard-step-chip__number {
+    color: var(--color-text-danger);
+}
+
+.wizard-step-chip.is-error .wizard-step-chip__label {
+    color: var(--color-text-danger);
+}
+
+/* ─── Wizard Body ────────────────────────────────────────────────────────────── */
+
+.wizard-body {
+    flex-grow: 1;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+/* Main step content — 62% width, scrollable */
+.wizard-body__main {
+    width: 62%;
+    padding: 24px;
+    background-color: var(--color-bg-screen);
+}
+
+/* Vertical divider between main content and preview panel */
+.wizard-body__divider {
+    width: var(--border-width-thin);
+    background-color: var(--color-divider);
+}
+
+/* Preview panel — 38% width, slightly different background, scrollable */
+.wizard-body__preview {
+    width: 38%;
+    padding: 24px;
+    background-color: var(--color-bg-panel);
+    border-left-width: var(--border-width-thin);
+    border-left-color: var(--color-divider);
+}
+
+/* Step heading within the main content area */
+.wizard-step-heading {
+    margin-bottom: 24px;
+}
+
+.wizard-step-heading__title {
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+.wizard-step-heading__subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* ─── Wizard Footer ──────────────────────────────────────────────────────────── */
+
+.wizard-footer {
+    height: 60px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-bg-shell);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    padding: 0px 24px;
+}
+
+.wizard-footer__left {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.wizard-footer__centre {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0px 16px;
+}
+
+.wizard-footer__right {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}

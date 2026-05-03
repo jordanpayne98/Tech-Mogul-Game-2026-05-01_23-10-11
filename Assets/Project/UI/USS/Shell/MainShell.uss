@@ -1,0 +1,391 @@
+/* ==========================================================================
+   MainShell.uss
+   Shell structural layout styles.
+   Visual polish (colours beyond variables, borders, hover effects, etc.)
+   is deferred to Plan 4F.
+   All values reference theme tokens from theme-*.uss via theme-main.tss.
+   ========================================================================== */
+
+/* =========================================================
+   ROOT SHELL
+   ========================================================= */
+
+.main-shell {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-root);
+}
+
+/* =========================================================
+   TOP STATUS BAR
+   ========================================================= */
+
+.main-shell__topbar {
+    height: var(--height-topbar);
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--color-bg-topbar);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Company Identity */
+.top-status-bar__company-identity {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-6);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-divider);
+    height: 100%;
+}
+
+.top-status-bar__company-logo {
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    margin-right: var(--space-3);
+    flex-shrink: 0;
+}
+
+.top-status-bar__company-name {
+    color: var(--color-text-primary);
+}
+
+.top-status-bar__company-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* Metric Block */
+.top-status-bar__metric {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-divider);
+    min-width: 130px;
+    max-width: 160px;
+    height: 100%;
+}
+
+.top-status-bar__metric-label {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+.top-status-bar__metric-value {
+    color: var(--color-text-primary);
+}
+
+.top-status-bar__metric-value--neutral {
+    color: var(--color-text-primary);
+}
+
+.top-status-bar__metric-value--success {
+    color: var(--color-text-success);
+}
+
+.top-status-bar__metric-value--danger {
+    color: var(--color-text-danger);
+}
+
+.top-status-bar__metric-value--warning {
+    color: var(--color-text-warning);
+}
+
+.top-status-bar__metric-sublabel {
+    color: var(--color-text-muted);
+}
+
+/* Date Display */
+.top-status-bar__date {
+    color: var(--color-text-secondary);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    flex-shrink: 0;
+}
+
+/* Alerts Button */
+.top-status-bar__alerts {
+    width: 34px;
+    height: 34px;
+    margin-left: var(--space-3);
+    margin-right: var(--space-2);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.top-status-bar__alerts-icon {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    background-color: var(--color-text-muted);
+}
+
+.top-status-bar__alerts-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+    border-radius: var(--radius-pill);
+    padding-left: var(--space-1);
+    padding-right: var(--space-1);
+    min-width: 14px;
+    height: 14px;
+    -unity-text-align: middle-center;
+}
+
+/* Search Button */
+.top-status-bar__search {
+    width: 34px;
+    height: 34px;
+    margin-right: var(--space-3);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.top-status-bar__search-icon {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    background-color: var(--color-text-muted);
+}
+
+/* Speed Control */
+.top-status-bar__speed-control {
+    flex-direction: row;
+    margin-right: var(--space-3);
+    flex-shrink: 0;
+}
+
+/* Continue Button */
+.top-status-bar__continue-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: var(--padding-button-large-x);
+    padding-right: var(--padding-button-large-x);
+    min-width: 150px;
+    height: var(--height-button-large);
+    margin-right: var(--space-3);
+    flex-shrink: 0;
+}
+
+.top-status-bar__continue-icon {
+    width: var(--icon-size-small);
+    height: var(--icon-size-small);
+    background-color: var(--color-text-inverse);
+    margin-right: var(--space-2);
+    flex-shrink: 0;
+}
+
+/* Settings Button */
+.top-status-bar__settings-button {
+    width: 40px;
+    height: 40px;
+    margin-right: var(--space-4);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.top-status-bar__settings-icon {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    background-color: var(--color-text-secondary);
+}
+
+/* =========================================================
+   SHELL BODY
+   ========================================================= */
+
+.main-shell__body {
+    flex-grow: 1;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.main-shell__sidebar {
+    width: var(--width-sidebar-standard);
+    flex-direction: column;
+    background-color: var(--color-bg-sidebar);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   SCREEN HOST
+   ========================================================= */
+
+.main-shell__screen-host {
+    flex-grow: 1;
+    background-color: var(--color-bg-screen);
+}
+
+.main-shell__screen-host > .unity-scroll-view__content-viewport {
+    padding: var(--space-8);
+}
+
+.screen-host__content {
+    flex-grow: 1;
+}
+
+/* =========================================================
+   OVERLAY LAYERS
+   ========================================================= */
+
+/* Right Drawer Host */
+.main-shell__right-drawer-host {
+    position: absolute;
+    right: 0;
+    top: var(--height-topbar);
+    bottom: 0;
+    width: 380px;
+    background-color: var(--color-bg-panel);
+    border-left-width: var(--border-width-thin);
+    border-left-color: var(--color-border-strong);
+}
+
+/* Modal Host */
+.main-shell__modal-host {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Tooltip Host */
+.main-shell__tooltip-host {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Notification Host */
+.main-shell__notification-host {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 480px;
+}
+
+/* Debug Host */
+.main-shell__debug-host {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* =========================================================
+   BASE BUTTON (structural — visual polish in Plan 4F)
+   ========================================================= */
+
+.base-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    height: var(--height-button-standard);
+    min-width: 88px;
+    flex-shrink: 0;
+}
+
+.base-button--primary {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+}
+
+.base-button--secondary {
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
+}
+
+.base-button--ghost {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-text-secondary);
+}
+
+.base-button--large {
+    height: var(--height-button-large);
+    padding-left: var(--padding-button-large-x);
+    padding-right: var(--padding-button-large-x);
+    min-width: 112px;
+}
+
+.base-button--compact {
+    height: var(--height-button-compact);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    min-width: 72px;
+}
+
+/* =========================================================
+   ICON BUTTON (structural)
+   ========================================================= */
+
+.icon-button {
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    flex-shrink: 0;
+}
+
+.icon-button--compact {
+    width: 28px;
+    height: 28px;
+}
+
+.icon-button--large {
+    width: 40px;
+    height: 40px;
+}
+
+/* =========================================================
+   SEGMENTED CONTROL (structural)
+   ========================================================= */
+
+.segmented-control {
+    flex-direction: row;
+}
+
+.segmented-control__segment {
+    height: var(--height-button-large);
+    min-width: 64px;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+}
+
+.segmented-control__segment.is-active {
+    background-color: var(--color-accent-muted);
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}

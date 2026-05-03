@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff3ba29c4198dc48be71837924da021, type: 3}
+  m_Name: DebugConfig
+  m_EditorClassIdentifier: Project.Infrastructure::Project.Infrastructure.Debugging.DebugConfig
+  enableDebugLogs: 1
+  logGeneral: 1
+  logBootstrap: 1
+  logConfiguration: 1
+  logValidation: 1
+  logSaveLoad: 1
+  logUI: 1
+  logNavigation: 1
+  logDataDefinitions: 0
+  logInput: 0
+  logAudio: 0
+  logVisual: 0
+  logPerformance: 0
+  logTesting: 0

@@ -1,0 +1,85 @@
+/* =============================================================================
+   WizardChoiceCard.uss
+   Selectable choice card component used within wizard step content.
+   Supports default, hover, selected, and disabled states.
+   ============================================================================= */
+
+/* ─── Base Choice Card ───────────────────────────────────────────────────────── */
+
+.wizard-choice-card {
+    background-color: var(--color-bg-panel);
+    border-width: 1px;
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    padding: 16px;
+    flex-direction: column;
+    gap: 6px;
+    cursor: default;
+    transition-duration: 0.15s;
+    transition-property: border-color;
+}
+
+/* Hover state — brighter border */
+.wizard-choice-card:hover {
+    border-color: var(--color-border-hover);
+}
+
+/* ─── Selected State ─────────────────────────────────────────────────────────── */
+
+.wizard-choice-card.is-selected {
+    border-width: 2px;
+    border-color: var(--color-border-selected);
+    background-color: var(--color-bg-panel-selected);
+}
+
+.wizard-choice-card.is-selected:hover {
+    border-color: var(--color-border-selected);
+}
+
+/* ─── Disabled State ─────────────────────────────────────────────────────────── */
+
+.wizard-choice-card.is-disabled {
+    opacity: 0.5;
+}
+
+.wizard-choice-card.is-disabled:hover {
+    border-color: var(--color-border-subtle);
+}
+
+/* ─── Card Title ─────────────────────────────────────────────────────────────── */
+
+.wizard-choice-card__title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+}
+
+/* ─── Card Description ───────────────────────────────────────────────────────── */
+
+.wizard-choice-card__description {
+    color: var(--color-text-secondary);
+}
+
+/* ─── Tags row (optional) ────────────────────────────────────────────────────── */
+
+.wizard-choice-card__tags {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+/* ─── Advantages list ────────────────────────────────────────────────────────── */
+
+.wizard-choice-card__advantages {
+    color: var(--color-text-success);
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* ─── Trade-offs list ────────────────────────────────────────────────────────── */
+
+.wizard-choice-card__tradeoffs {
+    color: var(--color-text-danger);
+    flex-direction: column;
+    gap: 2px;
+}
