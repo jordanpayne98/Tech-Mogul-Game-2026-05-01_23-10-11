@@ -1,48 +1,28 @@
 /* =============================================================
    MainMenu.uss — Main Menu screen stylesheet
-   Cinematic safe-frame composition for 1920×1080 reference.
-   Theme colour/font/radius/gap tokens resolve from TSS theme.
-   Layout dimensions use literal values (documented below).
-   No inline hex values.
+   Cinematic title screen composition for 1920x1080 reference.
+   All top-level regions use absolute positioning.
+   Theme colour/font/radius tokens resolve from TSS theme.
+   Layout dimensions use literal px values.
    ============================================================= */
 
-/* ─── MAIN MENU LAYOUT REFERENCE (documentation only) ────────
-   Unity UI Toolkit does not resolve custom properties defined
-   in :root within USS files loaded via <Style>. Layout values
-   are inlined directly into rules below. Edit values here AND
-   in the corresponding rules when adjusting the composition.
+/* ─── LAYOUT REFERENCE ───────────────────────────────────────
+   LogoArea ............. left 46, top 48
+   PrimaryMenuColumn .... left 46, top 260, width 440
+   RightPanelArea ....... right 42, top 55, width 520
+   FooterCopyright ...... left 46, bottom 34
+   FooterVersion ........ right 46, bottom 34
 
-   Safe frame insets:
-     safe-left ........... 64px   (equiv --space-12)
-     safe-right .......... 64px   (equiv --space-12)
-     safe-top ............ 56px   (between --space-11 and --space-12)
-     safe-bottom ......... 40px   (equiv --space-10)
+   Buttons .............. 440 x 88, gap 12
+   Button icon .......... 32 x 32
+   Button label ......... 25px bold
 
-   Footer:
-     footer-bottom ....... 28px
+   News panel ........... 520w, ~495h, padding 34, image 176h
+   Community panel ...... 520w, ~250h, padding 34
+   Community icons ...... 64 x 64, gap 24
 
-   Left column (logo + menu):
-     logo-font-size ...... 44px
-     logo-accent-size .... 14px
-     button-column-top ... 160px
-     button-width ........ 460px
-     button-height ....... 86px
-     button-gap .......... 14px
-
-   Right column (profile + news + community):
-     right-width ......... 540px
-     right-top ........... 120px
-     right-margin ........ 72px
-     profile-gap ......... 24px   (equiv --gap-section)
-     panel-padding ....... 20px   (equiv --padding-card-large)
-
-   News panel:
-     news-image-height ... 160px
-
-   Community panel:
-     community-min-height  160px
-     community-icon-size . 44px
-     community-icon-gap .. 12px   (equiv --gap-standard)
+   Logo title ........... 44px bold
+   Logo accent .......... 14 x 14
    ────────────────────────────────────────────────────────────── */
 
 /* ─── ROOT ──────────────────────────────────────────────────── */
@@ -50,7 +30,6 @@
 .main-menu__root {
     flex-grow: 1;
     position: relative;
-    flex-direction: column;
     overflow: hidden;
 }
 
@@ -75,42 +54,20 @@
     opacity: 0.4;
 }
 
-/* ─── CONTENT LAYER (safe frame) ────────────────────────────── */
-/*
-   The content layer acts as the safe frame.
-   Padding keeps all flow content inside the cinematic boundary.
-   The footer is absolutely positioned relative to the root,
-   so padding-bottom reserves space above it.
-*/
-
-.main-menu__content-layer {
-    flex-grow: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 80px;
-}
-
-/* ─── LEFT COLUMN ───────────────────────────────────────────── */
-
-.main-menu__left-column {
-    flex-direction: column;
-    flex-shrink: 0;
-}
-
 /* ─── LOGO AREA ─────────────────────────────────────────────── */
 
 .main-menu__logo-area {
+    position: absolute;
+    left: 46px;
+    top: 48px;
     flex-direction: row;
     align-items: center;
-    margin-left: 64px;                         /* safe-left */
-    margin-top: 56px;                          /* safe-top */
-    margin-bottom: 0;
-    column-gap: var(--gap-standard);
+    column-gap: 12px;
 }
 
 .main-menu__logo-accent {
-    width: 14px;                               /* logo-accent-size */
-    height: 14px;                              /* logo-accent-size */
+    width: 14px;
+    height: 14px;
     background-color: var(--color-accent);
     border-radius: var(--radius-pill);
     flex-shrink: 0;
@@ -118,7 +75,7 @@
 
 .main-menu__logo-title {
     -unity-font-definition: var(--font-secondary);
-    font-size: 44px;                           /* logo-font-size */
+    font-size: 44px;
     -unity-font-style: bold;
     color: var(--color-text-primary);
     letter-spacing: 2px;
@@ -126,25 +83,21 @@
 }
 
 /* ─── BUTTON COLUMN ─────────────────────────────────────────── */
-/*
-   margin-top positions the column at approximately y=270px
-   from the screen top (56px safe-top + ~54px logo + 160px gap).
-   This creates the cinematic vertical breathing room between
-   the logo and the primary actions.
-*/
 
 .main-menu__button-column {
+    position: absolute;
+    left: 46px;
+    top: 260px;
+    width: 440px;
     flex-direction: column;
-    row-gap: 14px;                             /* button-gap */
-    margin-left: 64px;                         /* safe-left */
-    margin-top: 160px;                         /* button-column-top */
-    width: 460px;                              /* button-width */
+    row-gap: 12px;
 }
 
 /* ─── BUTTON BASE ───────────────────────────────────────────── */
 
 .main-menu__button {
-    height: 86px;                              /* button-height */
+    width: 440px;
+    height: 88px;
     border-radius: var(--radius-large);
     flex-direction: row;
     align-items: center;
@@ -154,17 +107,17 @@
 }
 
 .main-menu__button-icon {
-    width: var(--icon-size-large);
-    height: var(--icon-size-large);
-    margin-left: var(--space-7);
-    margin-right: var(--space-6);
+    width: 32px;
+    height: 32px;
+    margin-left: 24px;
+    margin-right: 16px;
     flex-shrink: 0;
     background-color: transparent;
 }
 
 .main-menu__button-label {
     -unity-font-definition: var(--font-primary);
-    font-size: var(--font-size-heading);
+    font-size: 25px;
     -unity-font-style: bold;
     -unity-text-align: middle-left;
     flex-grow: 1;
@@ -235,15 +188,15 @@
     background-color: var(--color-accent-hover);
 }
 
-/* ─── RIGHT PANEL COLUMN ────────────────────────────────────── */
+/* ─── RIGHT PANEL AREA ──────────────────────────────────────── */
 
 .main-menu__right-panel {
+    position: absolute;
+    right: 42px;
+    top: 55px;
+    width: 520px;
     flex-direction: column;
-    margin-right: 72px;                        /* right-margin */
-    margin-top: 120px;                         /* right-top */
-    width: 540px;                              /* right-width */
-    flex-shrink: 0;
-    row-gap: 24px;                             /* profile-gap */
+    row-gap: 16px;
 }
 
 /* ─── PLAYER PROFILE ────────────────────────────────────────── */
@@ -251,8 +204,8 @@
 .main-menu__profile {
     flex-direction: row;
     align-items: center;
-    column-gap: var(--gap-large);
-    margin-bottom: var(--gap-small);
+    column-gap: 12px;
+    margin-bottom: 8px;
 }
 
 .main-menu__profile-avatar {
@@ -274,7 +227,7 @@
 
 .main-menu__profile-info {
     flex-direction: column;
-    row-gap: var(--gap-tight);
+    row-gap: 2px;
 }
 
 .main-menu__profile-name {
@@ -288,13 +241,15 @@
 /* ─── NEWS PANEL ────────────────────────────────────────────── */
 
 .main-menu__news-panel {
+    width: 520px;
+    height: 495px;
     background-color: var(--color-bg-panel);
     border-width: var(--border-width-thin);
     border-color: var(--color-border-subtle);
     border-radius: var(--radius-large);
-    padding: 20px;                             /* panel-padding */
+    padding: 34px;
     flex-direction: column;
-    row-gap: var(--gap-standard);
+    row-gap: 12px;
 }
 
 .main-menu__news-title {
@@ -302,7 +257,7 @@
 }
 
 .main-menu__news-image {
-    height: 160px;                             /* news-image-height */
+    height: 176px;
     background-color: var(--color-bg-panel-raised);
     border-radius: var(--radius-standard);
     align-items: center;
@@ -321,7 +276,7 @@
 .main-menu__news-link {
     flex-direction: row;
     align-items: center;
-    margin-top: var(--gap-tight);
+    margin-top: 4px;
 }
 
 .main-menu__news-link .text-body {
@@ -335,14 +290,15 @@
 /* ─── COMMUNITY PANEL ───────────────────────────────────────── */
 
 .main-menu__community-panel {
+    width: 520px;
+    height: 250px;
     background-color: var(--color-bg-panel);
     border-width: var(--border-width-thin);
     border-color: var(--color-border-subtle);
     border-radius: var(--radius-large);
-    padding: 20px;                             /* panel-padding */
+    padding: 34px;
     flex-direction: column;
-    row-gap: var(--gap-standard);
-    min-height: 160px;                         /* community-min-height */
+    row-gap: 12px;
 }
 
 .main-menu__community-title {
@@ -351,13 +307,13 @@
 
 .main-menu__community-icons {
     flex-direction: row;
-    column-gap: 12px;                          /* community-icon-gap */
-    margin-top: var(--gap-small);
+    column-gap: 24px;
+    margin-top: 8px;
 }
 
 .main-menu__community-icon-btn {
-    width: 44px;                               /* community-icon-size */
-    height: 44px;                              /* community-icon-size */
+    width: 64px;
+    height: 64px;
     border-radius: var(--radius-standard);
     background-color: var(--color-bg-panel-raised);
     border-width: var(--border-width-thin);
@@ -370,24 +326,17 @@
 }
 
 /* ─── FOOTER ────────────────────────────────────────────────── */
-/*
-   Absolute-positioned at the bottom corners of the root.
-   footer-bottom (28px) and safe-left/right (64px) keep
-   labels inside the safe frame. The content layer's
-   padding-bottom (80px) keeps flow content above.
-   Clearance: 80px padding - 28px footer - ~16px text = 36px > 32px minimum.
-*/
 
 .main-menu__footer-copyright {
     position: absolute;
-    bottom: 28px;                              /* footer-bottom */
-    left: 64px;                                /* safe-left */
+    left: 46px;
+    bottom: 34px;
     color: var(--color-text-muted);
 }
 
 .main-menu__footer-version {
     position: absolute;
-    bottom: 28px;                              /* footer-bottom */
-    right: 64px;                               /* safe-right */
+    right: 46px;
+    bottom: 34px;
     color: var(--color-text-muted);
 }

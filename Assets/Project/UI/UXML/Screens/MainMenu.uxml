@@ -3,116 +3,95 @@
     <Style src="/Assets/Project/UI/USS/Screens/MainMenu.uss" />
 
     <!-- =====================================================
-         MAIN MENU ROOT — full-screen layout
+         MAIN MENU ROOT — full-screen, absolute-positioned regions.
+         All top-level regions are direct children of root.
+         No ContentLayer or LeftColumn wrappers.
          ===================================================== -->
     <ui:VisualElement name="MainMenuRoot" class="main-menu__root">
 
-        <!-- LAYER 1: Background — solid dark base fill -->
+        <!-- Background — solid dark base fill -->
         <ui:VisualElement name="BackgroundLayer" class="main-menu__background" />
 
-        <!-- LAYER 2: Dark Gradient Overlay — darkens bottom for readability -->
+        <!-- Dark Gradient Overlay — darkens bottom for readability -->
         <ui:VisualElement name="DarkGradientOverlay" class="main-menu__gradient-overlay" />
 
-        <!-- LAYER 3: Content — left column + right column -->
-        <ui:VisualElement name="ContentLayer" class="main-menu__content-layer">
+        <!-- ─── LOGO AREA (absolute, top-left) ──────────────────── -->
+        <ui:VisualElement name="LogoArea" class="main-menu__logo-area">
+            <ui:VisualElement name="LogoAccent" class="main-menu__logo-accent" />
+            <ui:Label name="LogoTitle" text="TECH MOGUL" class="main-menu__logo-title" />
+        </ui:VisualElement>
 
-            <!-- ─── LEFT COLUMN ─────────────────────────────────────── -->
-            <ui:VisualElement name="LeftColumn" class="main-menu__left-column">
+        <!-- ─── PRIMARY MENU COLUMN (absolute, left) ────────────── -->
+        <ui:VisualElement name="PrimaryMenuColumn" class="main-menu__button-column">
 
-                <!-- Logo Area -->
-                <ui:VisualElement name="LogoArea" class="main-menu__logo-area">
-                    <ui:VisualElement name="LogoAccent" class="main-menu__logo-accent" />
-                    <ui:Label name="LogoTitle" text="TECH MOGUL" class="main-menu__logo-title" />
-                </ui:VisualElement>
-
-                <!-- Primary Menu Button Column -->
-                <ui:VisualElement name="PrimaryMenuColumn" class="main-menu__button-column">
-
-                    <!-- Continue (primary teal, disabled by default in Phase 4) -->
-                    <ui:VisualElement name="ButtonContinue" class="main-menu__button main-menu__button--continue is-disabled">
-                        <ui:VisualElement name="ButtonContinueIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonContinueLabel" text="Continue" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                    <!-- New Game -->
-                    <ui:VisualElement name="ButtonNewGame" class="main-menu__button main-menu__button--secondary">
-                        <ui:VisualElement name="ButtonNewGameIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonNewGameLabel" text="New Game" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                    <!-- Load Game -->
-                    <ui:VisualElement name="ButtonLoadGame" class="main-menu__button main-menu__button--secondary">
-                        <ui:VisualElement name="ButtonLoadGameIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonLoadGameLabel" text="Load Game" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                    <!-- Settings -->
-                    <ui:VisualElement name="ButtonSettings" class="main-menu__button main-menu__button--secondary">
-                        <ui:VisualElement name="ButtonSettingsIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonSettingsLabel" text="Settings" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                    <!-- Credits -->
-                    <ui:VisualElement name="ButtonCredits" class="main-menu__button main-menu__button--secondary">
-                        <ui:VisualElement name="ButtonCreditsIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonCreditsLabel" text="Credits" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                    <!-- Exit -->
-                    <ui:VisualElement name="ButtonExit" class="main-menu__button main-menu__button--secondary">
-                        <ui:VisualElement name="ButtonExitIcon" class="main-menu__button-icon" />
-                        <ui:Label name="ButtonExitLabel" text="Exit" class="main-menu__button-label" />
-                    </ui:VisualElement>
-
-                </ui:VisualElement>
-                <!-- END PRIMARY MENU COLUMN -->
-
+            <ui:VisualElement name="ButtonContinue" class="main-menu__button main-menu__button--continue is-disabled">
+                <ui:VisualElement name="ButtonContinueIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonContinueLabel" text="Continue" class="main-menu__button-label" />
             </ui:VisualElement>
-            <!-- END LEFT COLUMN -->
 
-            <!-- ─── RIGHT COLUMN ────────────────────────────────────── -->
-            <ui:VisualElement name="RightColumn" class="main-menu__right-panel">
-
-                <!-- Player Profile Area -->
-                <ui:VisualElement name="PlayerProfileArea" class="main-menu__profile">
-                    <ui:VisualElement name="ProfileAvatar" class="main-menu__profile-avatar">
-                        <ui:Label name="ProfileAvatarInitials" text="AM" class="main-menu__profile-avatar-text text-body-strong" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ProfileInfo" class="main-menu__profile-info">
-                        <ui:Label name="ProfileName" text="Alex Morgan" class="main-menu__profile-name text-body-strong" />
-                        <ui:Label name="ProfileRole" text="Founder [Placeholder]" class="main-menu__profile-role text-small" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-
-                <!-- News Panel -->
-                <ui:VisualElement name="NewsPanel" class="main-menu__news-panel">
-                    <ui:Label name="NewsPanelTitle" text="Latest News" class="main-menu__news-title text-heading" />
-                    <ui:VisualElement name="NewsImageArea" class="main-menu__news-image">
-                        <ui:Label name="NewsImagePlaceholder" text="[Placeholder Image]" class="text-small" />
-                    </ui:VisualElement>
-                    <ui:Label name="NewsPatchTitle" text="[Placeholder] Patch Notes v0.1" class="main-menu__news-body text-body-strong" />
-                    <ui:Label name="NewsBody" text="Early development build. Features are work in progress." class="main-menu__news-body text-small" />
-                    <ui:VisualElement name="NewsLink" class="main-menu__news-link">
-                        <ui:Label name="NewsLinkLabel" text="View Patch Notes ->" class="text-body" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-
-                <!-- Community Panel -->
-                <ui:VisualElement name="CommunityPanel" class="main-menu__community-panel">
-                    <ui:Label name="CommunityTitle" text="Join the Community" class="main-menu__community-title text-heading" />
-                    <ui:Label name="CommunityBody" text="Connect with other founders and share feedback." class="text-small" />
-                    <ui:VisualElement name="CommunityIconRow" class="main-menu__community-icons">
-                        <ui:VisualElement name="CommunityIcon1" class="main-menu__community-icon-btn is-disabled" />
-                        <ui:VisualElement name="CommunityIcon2" class="main-menu__community-icon-btn is-disabled" />
-                        <ui:VisualElement name="CommunityIcon3" class="main-menu__community-icon-btn is-disabled" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-
+            <ui:VisualElement name="ButtonNewGame" class="main-menu__button main-menu__button--secondary">
+                <ui:VisualElement name="ButtonNewGameIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonNewGameLabel" text="New Game" class="main-menu__button-label" />
             </ui:VisualElement>
-            <!-- END RIGHT COLUMN -->
+
+            <ui:VisualElement name="ButtonLoadGame" class="main-menu__button main-menu__button--secondary">
+                <ui:VisualElement name="ButtonLoadGameIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonLoadGameLabel" text="Load Game" class="main-menu__button-label" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="ButtonSettings" class="main-menu__button main-menu__button--secondary">
+                <ui:VisualElement name="ButtonSettingsIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonSettingsLabel" text="Settings" class="main-menu__button-label" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="ButtonCredits" class="main-menu__button main-menu__button--secondary">
+                <ui:VisualElement name="ButtonCreditsIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonCreditsLabel" text="Credits" class="main-menu__button-label" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="ButtonExit" class="main-menu__button main-menu__button--secondary">
+                <ui:VisualElement name="ButtonExitIcon" class="main-menu__button-icon" />
+                <ui:Label name="ButtonExitLabel" text="Exit" class="main-menu__button-label" />
+            </ui:VisualElement>
 
         </ui:VisualElement>
-        <!-- END CONTENT LAYER -->
+
+        <!-- ─── RIGHT PANEL AREA (absolute, right) ──────────────── -->
+        <ui:VisualElement name="RightColumn" class="main-menu__right-panel">
+
+            <ui:VisualElement name="PlayerProfileArea" class="main-menu__profile">
+                <ui:VisualElement name="ProfileAvatar" class="main-menu__profile-avatar">
+                    <ui:Label name="ProfileAvatarInitials" text="AM" class="main-menu__profile-avatar-text text-body-strong" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ProfileInfo" class="main-menu__profile-info">
+                    <ui:Label name="ProfileName" text="Alex Morgan" class="main-menu__profile-name text-body-strong" />
+                    <ui:Label name="ProfileRole" text="Founder [Placeholder]" class="main-menu__profile-role text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="NewsPanel" class="main-menu__news-panel">
+                <ui:Label name="NewsPanelTitle" text="Latest News" class="main-menu__news-title text-heading" />
+                <ui:VisualElement name="NewsImageArea" class="main-menu__news-image">
+                    <ui:Label name="NewsImagePlaceholder" text="[Placeholder Image]" class="text-small" />
+                </ui:VisualElement>
+                <ui:Label name="NewsPatchTitle" text="[Placeholder] Patch Notes v0.1" class="main-menu__news-body text-body-strong" />
+                <ui:Label name="NewsBody" text="Early development build. Features are work in progress." class="main-menu__news-body text-small" />
+                <ui:VisualElement name="NewsLink" class="main-menu__news-link">
+                    <ui:Label name="NewsLinkLabel" text="View Patch Notes ->" class="text-body" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:VisualElement name="CommunityPanel" class="main-menu__community-panel">
+                <ui:Label name="CommunityTitle" text="Join the Community" class="main-menu__community-title text-heading" />
+                <ui:Label name="CommunityBody" text="Connect with other founders and share feedback." class="text-small" />
+                <ui:VisualElement name="CommunityIconRow" class="main-menu__community-icons">
+                    <ui:VisualElement name="CommunityIcon1" class="main-menu__community-icon-btn is-disabled" />
+                    <ui:VisualElement name="CommunityIcon2" class="main-menu__community-icon-btn is-disabled" />
+                    <ui:VisualElement name="CommunityIcon3" class="main-menu__community-icon-btn is-disabled" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
 
         <!-- Footer: Copyright (bottom-left) -->
         <ui:Label name="FooterCopyright" text="(c) 2026 Tech Mogul. All rights reserved." class="main-menu__footer-copyright text-small" />
@@ -121,6 +100,5 @@
         <ui:Label name="FooterVersion" text="Build v0.1" class="main-menu__footer-version text-code" />
 
     </ui:VisualElement>
-    <!-- END MAIN MENU ROOT -->
 
 </ui:UXML>
