@@ -1,0 +1,131 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         ProductsScreen.uxml
+         Structural layout for the Products portfolio screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content (tabs, table rows) is populated programmatically by the View.
+         State containers start with is-hidden — the View toggles visibility.
+         Right filter drawer and product summary drawer opened via DrawerRouter.
+         Create Product opens modal or wizard via ModalRouter.
+         Route ID: screen.products
+         ===================================================================== -->
+
+    <ui:VisualElement name="ProductsRoot" class="products">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="products__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="products__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="products__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="products__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <!-- Shown when no products exist at all — no product family defined yet -->
+        <ui:VisualElement name="EmptyState" class="products__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="products__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="products__empty-state-body text-body" />
+            <ui:Button name="CreateProductButton_Empty" text="Create First Product [Placeholder]"
+                       class="products__empty-state-action" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="products__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="products__header">
+                <ui:VisualElement name="HeaderIcon" class="products__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="products__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Products" class="products__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="Manage your product portfolio, status, and performance."
+                              class="products__header-subtitle text-small" />
+                </ui:VisualElement>
+                <!-- Create Product primary action — positioned in the header right side -->
+                <ui:VisualElement name="HeaderActions" class="products__header-actions">
+                    <ui:Button name="CreateProductButton" text="Create Product [Placeholder]"
+                               class="products__create-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TAB BAR ───────────────────────────────────────────────── -->
+            <!-- Tabs populated programmatically by View.
+                 Tabs: All Products / In Development / Ready for Launch / Launched /
+                       Supported / Cancelled-Sunset
+                 Active tab has class is-active applied by View. -->
+            <ui:VisualElement name="TabBar" class="products__tabs" />
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="products__toolbar">
+
+                <!-- Family Dropdown — filters by product family; populated/wired by View -->
+                <ui:DropdownField name="FamilyDropdown" label="" class="products__family-dropdown" />
+
+                <!-- Search Field -->
+                <ui:TextField name="SearchField" placeholder-text="Search products..."
+                              class="products__search" />
+
+                <!-- Filters Button — opens right filter drawer via DrawerRouter -->
+                <ui:Button name="FiltersButton" text="Filters"
+                           class="products__filters-btn" />
+
+            </ui:VisualElement>
+
+            <!-- ─── DATA TABLE ────────────────────────────────────────────── -->
+            <!-- ScrollView supports horizontal overflow for wide column set -->
+            <ui:ScrollView name="DataTable"
+                           class="products__table"
+                           horizontal-scroll-bar-visibility="Auto"
+                           vertical-scroll-bar-visibility="Auto"
+                           scroll-deceleration-rate="0.135"
+                           elasticity="0.1">
+
+                <!-- TABLE HEADER — fixed label row, not scrolled independently -->
+                <!-- Columns: Product Name | Family | Type | Status | Assigned Team |
+                              Phase | Release Target | Review Score | Recent Review Score |
+                              Revenue This Month | Active Users/Units | Support Load | Actions -->
+                <ui:VisualElement name="TableHeader" class="products__table-header">
+                    <ui:Label text="Product Name"        class="products__table-header-cell products__col--name text-small" />
+                    <ui:Label text="Family"              class="products__table-header-cell products__col--family text-small" />
+                    <ui:Label text="Type"                class="products__table-header-cell products__col--type text-small" />
+                    <ui:Label text="Status"              class="products__table-header-cell products__col--status text-small" />
+                    <ui:Label text="Assigned Team"       class="products__table-header-cell products__col--team text-small" />
+                    <ui:Label text="Phase"               class="products__table-header-cell products__col--phase text-small" />
+                    <ui:Label text="Release Target"      class="products__table-header-cell products__col--release text-small" />
+                    <ui:Label text="Review Score"        class="products__table-header-cell products__col--review text-small" />
+                    <ui:Label text="Recent Review"       class="products__table-header-cell products__col--recent-review text-small" />
+                    <ui:Label text="Revenue / Month"     class="products__table-header-cell products__col--revenue text-small" />
+                    <ui:Label text="Active Users / Units" class="products__table-header-cell products__col--users text-small" />
+                    <ui:Label text="Support Load"        class="products__table-header-cell products__col--support text-small" />
+                    <ui:Label text="Actions"             class="products__table-header-cell products__col--actions text-small" />
+                </ui:VisualElement>
+
+                <!-- TABLE BODY — rows generated programmatically by View.
+                     Each row gets class products__row.
+                     Selected row also gets is-selected.
+                     Ready-for-launch row also gets has-warning.
+                     Cancelled/sunset row also gets products__row--sunset.
+                     High support load row also gets has-danger. -->
+                <ui:VisualElement name="TableBody" class="products__table-body" />
+
+            </ui:ScrollView>
+
+            <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="products__footer">
+                <ui:Label name="ResultCount" text="" class="products__footer-count text-small" />
+                <!-- Pagination controls — placeholder, wired by View when needed -->
+                <ui:VisualElement name="PaginationControls" class="products__pagination is-hidden">
+                    <ui:Button name="PrevPageButton" text="&#8249;" class="products__pagination-btn" />
+                    <ui:Label  name="PageLabel"      text="Page 1" class="products__pagination-label text-small" />
+                    <ui:Button name="NextPageButton" text="&#8250;" class="products__pagination-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

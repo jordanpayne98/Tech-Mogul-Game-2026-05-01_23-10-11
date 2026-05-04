@@ -64,6 +64,12 @@ namespace Project.Presentation.UI.Routing
                     $"ScreenRouter: no factory registered for '{screenId}'. Showing placeholder.");
             }
 
+            // Ensure the screen element fills the host. VisualTreeAsset.Instantiate()
+            // returns a TemplateContainer with no flex-grow, which collapses to 0x0
+            // inside a ScrollView content container. Setting flex-grow here fixes all
+            // screens in one place regardless of how the factory builds them.
+            screen.style.flexGrow = 1;
+
             _screenHost.Add(screen);
 
             CurrentScreenId = screenId;

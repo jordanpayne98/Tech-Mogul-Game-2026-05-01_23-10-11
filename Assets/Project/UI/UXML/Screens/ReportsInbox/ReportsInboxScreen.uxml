@@ -1,0 +1,215 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         ReportsInboxScreen.uxml
+         Structural layout for the Reports / Inbox screen.
+         Three-panel inbox: category rail | report list | detail panel.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         ===================================================================== -->
+
+    <ui:VisualElement name="ReportsInboxRoot" class="reports-inbox">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="reports-inbox__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="reports-inbox__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="reports-inbox__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="reports-inbox__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="reports-inbox__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="reports-inbox__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="reports-inbox__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="reports-inbox__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="reports-inbox__header">
+                <ui:VisualElement name="HeaderIcon" class="reports-inbox__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="reports-inbox__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Reports / Inbox" class="reports-inbox__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="" class="reports-inbox__header-subtitle text-small" />
+                </ui:VisualElement>
+                <!-- Unread count badge — shown when unread reports exist -->
+                <ui:VisualElement name="UnreadBadge" class="reports-inbox__unread-badge is-hidden">
+                    <ui:Label name="UnreadBadgeLabel" text="0" class="reports-inbox__unread-badge-label text-tiny" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="reports-inbox__toolbar">
+
+                <!-- Search field -->
+                <ui:VisualElement name="SearchWrapper" class="reports-inbox__toolbar-search-wrapper">
+                    <ui:TextField name="SearchField"
+                                  class="reports-inbox__toolbar-search"
+                                  placeholder-text="Search reports..." />
+                </ui:VisualElement>
+
+                <!-- Toolbar filter group -->
+                <ui:VisualElement name="ToolbarFilters" class="reports-inbox__toolbar-filters">
+
+                    <!-- Category filter dropdown -->
+                    <ui:DropdownField name="CategoryFilter"
+                                      class="reports-inbox__toolbar-dropdown"
+                                      label="" />
+
+                    <!-- Priority filter dropdown -->
+                    <ui:DropdownField name="PriorityFilter"
+                                      class="reports-inbox__toolbar-dropdown"
+                                      label="" />
+
+                    <!-- Unread toggle -->
+                    <ui:VisualElement name="UnreadToggleWrapper" class="reports-inbox__toolbar-toggle-wrapper">
+                        <ui:Toggle name="UnreadToggle"
+                                   class="reports-inbox__toolbar-toggle"
+                                   label="Unread only" />
+                    </ui:VisualElement>
+
+                    <!-- Sort dropdown -->
+                    <ui:DropdownField name="SortDropdown"
+                                      class="reports-inbox__toolbar-dropdown"
+                                      label="" />
+
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── FILTERED EMPTY STATE ──────────────────────────────────── -->
+            <!-- Shown when filters produce no results but inbox itself is not empty -->
+            <ui:VisualElement name="FilteredEmptyState" class="reports-inbox__filtered-empty-state is-hidden">
+                <ui:Label name="FilteredEmptyLabel" text="No reports match your current filters." class="reports-inbox__filtered-empty-label text-body" />
+            </ui:VisualElement>
+
+            <!-- ─── INBOX GRID (three-panel) ──────────────────────────────── -->
+            <ui:VisualElement name="InboxGrid" class="reports-inbox__grid">
+
+                <!-- ── LEFT: CATEGORY RAIL ──────────────────────────────── -->
+                <!-- Populated programmatically by ReportsInboxView -->
+                <!-- 14 categories: All, Requires Decision, Finance, Products,
+                     Employees, Teams, Hiring, Market, Competitors,
+                     Infrastructure, Support, Contracts, Research, Archived -->
+                <ui:ScrollView name="CategoryRail"
+                               class="reports-inbox__category-rail"
+                               horizontal-scroll-bar-visibility="Hidden"
+                               vertical-scroll-bar-visibility="Auto">
+                    <!-- Category items injected by View -->
+                    <ui:VisualElement name="CategoryList" class="reports-inbox__category-list" />
+                </ui:ScrollView>
+
+                <!-- ── CENTRE: REPORT LIST ──────────────────────────────── -->
+                <ui:ScrollView name="ReportList"
+                               class="reports-inbox__report-list"
+                               scroll-deceleration-rate="0.135"
+                               elasticity="0.1"
+                               horizontal-scroll-bar-visibility="Hidden"
+                               vertical-scroll-bar-visibility="Auto">
+                    <!-- Report rows injected by View -->
+                    <!-- Each row gets class: reports-inbox__report-row -->
+                    <!-- Semantic state classes toggled by View:
+                         is-selected, is-unread, is-decision-required, is-archived, is-pinned -->
+                </ui:ScrollView>
+
+                <!-- ── RIGHT: DETAIL PANEL ──────────────────────────────── -->
+                <ui:VisualElement name="DetailPanel" class="reports-inbox__detail-panel">
+
+                    <!-- Detail empty placeholder — shown when no report selected -->
+                    <ui:VisualElement name="DetailEmptyState" class="reports-inbox__detail-empty-state">
+                        <ui:Label name="DetailEmptyLabel"
+                                  text="Select a report to view details."
+                                  class="reports-inbox__detail-empty-label text-body" />
+                    </ui:VisualElement>
+
+                    <!-- Detail content — shown when a report is selected -->
+                    <ui:ScrollView name="DetailContent"
+                                   class="reports-inbox__detail-content is-hidden"
+                                   horizontal-scroll-bar-visibility="Hidden"
+                                   vertical-scroll-bar-visibility="Auto">
+
+                        <!-- Detail header: title + date + category pill -->
+                        <ui:VisualElement name="DetailHeader" class="reports-inbox__detail-header">
+                            <ui:VisualElement name="DetailTitleRow" class="reports-inbox__detail-title-row">
+                                <ui:Label name="DetailTitle" text="" class="reports-inbox__detail-title text-heading" />
+                                <!-- Decision-required badge -->
+                                <ui:VisualElement name="DecisionBadge" class="reports-inbox__decision-badge is-hidden">
+                                    <ui:Label name="DecisionBadgeLabel"
+                                              text="Requires Decision"
+                                              class="reports-inbox__decision-badge-label text-tiny" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="DetailMeta" class="reports-inbox__detail-meta">
+                                <ui:Label name="DetailDate" text="" class="reports-inbox__detail-date text-small" />
+                                <ui:VisualElement name="DetailCategoryPill" class="reports-inbox__detail-category-pill">
+                                    <ui:Label name="DetailCategoryLabel" text="" class="reports-inbox__detail-category-label text-tiny" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <!-- Summary section -->
+                        <ui:VisualElement name="DetailSummarySection" class="reports-inbox__detail-section">
+                            <ui:Label name="DetailSummaryHeading"
+                                      text="Summary"
+                                      class="reports-inbox__detail-section-heading text-body-strong" />
+                            <ui:Label name="DetailSummaryBody" text="" class="reports-inbox__detail-summary text-body" />
+                        </ui:VisualElement>
+
+                        <!-- Key numbers section -->
+                        <ui:VisualElement name="DetailKeyNumbersSection" class="reports-inbox__detail-section">
+                            <ui:Label name="DetailKeyNumbersHeading"
+                                      text="Key Numbers"
+                                      class="reports-inbox__detail-section-heading text-body-strong" />
+                            <!-- Key number rows injected by View -->
+                            <ui:VisualElement name="DetailKeyNumbersList" class="reports-inbox__detail-key-numbers-list" />
+                        </ui:VisualElement>
+
+                        <!-- What changed section -->
+                        <ui:VisualElement name="DetailWhatChangedSection" class="reports-inbox__detail-section">
+                            <ui:Label name="DetailWhatChangedHeading"
+                                      text="What Changed"
+                                      class="reports-inbox__detail-section-heading text-body-strong" />
+                            <!-- Change items injected by View -->
+                            <ui:VisualElement name="DetailWhatChangedList" class="reports-inbox__detail-what-changed-list" />
+                        </ui:VisualElement>
+
+                        <!-- Cause indicators section -->
+                        <ui:VisualElement name="DetailCauseSection" class="reports-inbox__detail-section">
+                            <ui:Label name="DetailCauseHeading"
+                                      text="Cause Indicators"
+                                      class="reports-inbox__detail-section-heading text-body-strong" />
+                            <!-- Cause items injected by View -->
+                            <ui:VisualElement name="DetailCauseList" class="reports-inbox__detail-cause-list" />
+                        </ui:VisualElement>
+
+                        <!-- Related entities section -->
+                        <ui:VisualElement name="DetailRelatedSection" class="reports-inbox__detail-section">
+                            <ui:Label name="DetailRelatedHeading"
+                                      text="Related"
+                                      class="reports-inbox__detail-section-heading text-body-strong" />
+                            <!-- Related entity links injected by View -->
+                            <ui:VisualElement name="DetailRelatedList" class="reports-inbox__detail-related-list" />
+                        </ui:VisualElement>
+
+                        <!-- Action buttons bar -->
+                        <ui:VisualElement name="DetailActions" class="reports-inbox__detail-actions">
+                            <ui:Button name="ActionArchive"  text="Archive"      class="reports-inbox__action-btn reports-inbox__action-btn--secondary" />
+                            <ui:Button name="ActionPin"      text="Pin"          class="reports-inbox__action-btn reports-inbox__action-btn--secondary" />
+                            <ui:Button name="ActionUnread"   text="Mark Unread"  class="reports-inbox__action-btn reports-inbox__action-btn--secondary" />
+                            <ui:Button name="ActionDelete"   text="Delete"       class="reports-inbox__action-btn reports-inbox__action-btn--danger" />
+                        </ui:VisualElement>
+
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

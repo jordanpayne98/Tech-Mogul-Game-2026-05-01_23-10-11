@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Project.Application;
 using Project.Application.TickProcessors;
 using Project.Application.UseCases.Company;
 using Project.Application.UseCases.Competitor;
@@ -62,6 +63,12 @@ namespace Project.Composition
         public GameSessionState       CurrentSession          { get; set; }
         public DeterministicRandomSource RandomSource         { get; private set; }
         public InMemoryEventBus       EventBus                { get; private set; }
+
+        /// <summary>
+        /// Typed session facade for the Presentation layer. Built at the end of BindSession().
+        /// Null until the first session is bound.
+        /// </summary>
+        public GameSessionContext     SessionContext          { get; private set; }
 
         // ─── Internal state for session binding ───────────────────────────────────
 
@@ -276,6 +283,9 @@ namespace Project.Composition
 
             DebugLogger.Log(DebugCategory.Bootstrap,
                 "[GameCompositionRoot] Session bound. All processors registered.");
+
+            SessionContext = new GameSessionContext(session);
+            DebugLogger.Log(DebugCategory.Bootstrap, "[GameCompositionRoot] GameSessionContext created.");
         }
 
         // ─── IDisposable ──────────────────────────────────────────────────────────

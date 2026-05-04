@@ -1,0 +1,105 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         ResearchScreen.uxml
+         Structural layout for the Research screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         Route ID: screen.research
+         ===================================================================== -->
+
+    <ui:VisualElement name="ResearchRoot" class="research">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="research__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="research__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="research__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="research__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="research__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="research__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="research__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="research__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="research__header">
+                <ui:VisualElement name="HeaderIcon" class="research__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="research__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Research" class="research__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="" class="research__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── MAIN GRID ──────────────────────────────────────────────── -->
+            <!-- Two-column layout: track list sidebar (left) + project area (right) -->
+            <ui:VisualElement name="MainGrid" class="research__main-grid">
+
+                <!-- ─── TRACK LIST (sidebar) ──────────────────────────────── -->
+                <!-- Populated programmatically by ResearchView (11 research tracks) -->
+                <ui:ScrollView name="TrackList"
+                               class="research__track-list"
+                               horizontal-scroll-bar-visibility="Hidden"
+                               vertical-scroll-bar-visibility="Auto">
+                </ui:ScrollView>
+
+                <!-- ─── PROJECT AREA (main content) ──────────────────────── -->
+                <ui:ScrollView name="ProjectArea"
+                               class="research__project-area"
+                               scroll-deceleration-rate="0.135"
+                               elasticity="0.1"
+                               horizontal-scroll-bar-visibility="Hidden"
+                               vertical-scroll-bar-visibility="Auto">
+
+                    <!-- ─── ASSIGNED RESEARCH PANEL ──────────────────────── -->
+                    <!-- Shows active project: progress, estimate, assigned team -->
+                    <ui:VisualElement name="AssignedResearch" class="research__assigned">
+                        <ui:VisualElement name="AssignedHeader" class="research__assigned-header">
+                            <ui:Label name="AssignedSectionTitle" text="Assigned Research" class="research__section-title text-heading" />
+                            <!-- Populated programmatically when a project is assigned -->
+                        </ui:VisualElement>
+                        <!-- Assigned card content — populated by ResearchView -->
+                        <ui:VisualElement name="AssignedContent" class="research__assigned-content" />
+                        <!-- No assignment state -->
+                        <ui:VisualElement name="NoAssignedState" class="research__no-assigned-state is-hidden">
+                            <ui:Label name="NoAssignedLabel" text="No research project currently assigned." class="research__no-assigned-label text-body" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- ─── AVAILABLE SECTION ─────────────────────────────── -->
+                    <ui:VisualElement name="AvailableSection" class="research__available">
+                        <ui:Label name="AvailableTitle" text="Available Projects" class="research__section-title text-heading" />
+                        <!-- Available project cards — populated programmatically by ResearchView -->
+                        <ui:VisualElement name="AvailableList" class="research__available-list" />
+                        <!-- Empty available state -->
+                        <ui:VisualElement name="NoAvailableState" class="research__no-available-state is-hidden">
+                            <ui:Label name="NoAvailableLabel" text="No available research projects for this track." class="research__no-available-label text-body" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- ─── LOCKED SECTION ────────────────────────────────── -->
+                    <ui:VisualElement name="LockedSection" class="research__locked">
+                        <ui:Label name="LockedTitle" text="Locked Projects" class="research__section-title text-heading" />
+                        <!-- Locked project cards — populated programmatically by ResearchView -->
+                        <!-- Shows prerequisites clearly without revealing hidden formulas -->
+                        <ui:VisualElement name="LockedList" class="research__locked-list" />
+                    </ui:VisualElement>
+
+                </ui:ScrollView>
+
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

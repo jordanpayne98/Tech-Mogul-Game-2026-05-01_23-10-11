@@ -1,0 +1,684 @@
+/* =============================================================================
+   CompetitorsScreen.uss
+   Screen-specific styles for the Competitors screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.competitors {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.competitors__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.competitors__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.competitors__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.competitors__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.competitors__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.competitors__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.competitors__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.competitors__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.competitors__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon tile placeholder */
+.competitors__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.competitors__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.competitors__header-title {
+    color: var(--color-text-primary);
+}
+
+.competitors__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.competitors__toolbar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+/* Archetype Dropdown */
+.competitors__archetype-dropdown {
+    min-width: 180px;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+}
+
+.competitors__archetype-dropdown:hover {
+    border-color: var(--color-border-hover);
+}
+
+.competitors__archetype-dropdown:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* Market Dropdown */
+.competitors__market-dropdown {
+    min-width: 160px;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+}
+
+.competitors__market-dropdown:hover {
+    border-color: var(--color-border-hover);
+}
+
+.competitors__market-dropdown:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* Search Field */
+.competitors__search {
+    flex-grow: 1;
+    min-width: 200px;
+    max-width: 400px;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+}
+
+.competitors__search:hover {
+    border-color: var(--color-border-hover);
+}
+
+.competitors__search:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* Filters Button — secondary style, opens right drawer */
+.competitors__filters-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.competitors__filters-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+/* Active/open state — toggled by View when drawer is open */
+.competitors__filters-btn.is-active {
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   DATA TABLE
+   ============================================================================= */
+
+.competitors__table {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+/* =============================================================================
+   TABLE HEADER
+   ============================================================================= */
+
+.competitors__table-header {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    background-color: var(--color-bg-panel-raised);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.competitors__table-header-cell {
+    color: var(--color-text-secondary);
+    -unity-font-style: bold;
+    flex-shrink: 0;
+    overflow: hidden;
+    -unity-text-align: middle-left;
+}
+
+/* =============================================================================
+   TABLE BODY
+   ============================================================================= */
+
+.competitors__table-body {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   TABLE ROW — generated programmatically by View
+   Default / hover / selected / dominant-warning / unknown states.
+   ============================================================================= */
+
+.competitors__row {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    height: var(--height-row-standard);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    border-left-width: var(--border-width-strong);
+    border-left-color: rgba(0, 0, 0, 0);
+    cursor: link;
+}
+
+/* Alternating row background */
+.competitors__row:nth-child(even) {
+    background-color: var(--color-bg-panel-raised);
+}
+
+.competitors__row:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-left-color: var(--color-border-hover);
+}
+
+/* Selected row — teal rail/border */
+.competitors__row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-color: var(--color-accent);
+}
+
+.competitors__row.is-selected:hover {
+    background-color: var(--color-bg-panel-selected);
+    border-left-color: var(--color-accent);
+}
+
+/* Dominant competitor warning — has-warning state */
+.competitors__row.has-warning {
+    background-color: var(--color-warning-soft);
+}
+
+.competitors__row.has-warning:hover {
+    background-color: var(--color-warning-soft);
+    border-left-color: var(--color-border-warning);
+}
+
+/* Unknown competitor data — muted styling */
+.competitors__row--unknown {
+    opacity: 0.55;
+}
+
+.competitors__row--unknown:hover {
+    opacity: 0.75;
+}
+
+/* =============================================================================
+   TABLE ROW CELLS — applied via View to Label/VisualElement children of each row
+   ============================================================================= */
+
+.competitors__row-cell {
+    flex-shrink: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    -unity-text-align: middle-left;
+}
+
+/* Secondary-colour cells (metadata fields) */
+.competitors__row-cell--secondary {
+    color: var(--color-text-secondary);
+}
+
+/* Muted cells — for unknown/unavailable data */
+.competitors__row-cell--muted {
+    color: var(--color-text-muted);
+}
+
+/* Selected row text — accent for name/primary cell */
+.competitors__row.is-selected .competitors__row-cell--primary {
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   COLUMN WIDTHS
+   Applied to both header cells and row cells for alignment.
+   ============================================================================= */
+
+.competitors__col--name        { width: 170px; min-width: 130px; }
+.competitors__col--archetype   { width: 160px; min-width: 120px; }
+.competitors__col--market      { width: 140px; min-width: 110px; }
+.competitors__col--reputation  { width: 90px;  min-width: 80px;  }
+.competitors__col--products    { width: 80px;  min-width: 70px;  }
+.competitors__col--launch      { width: 140px; min-width: 110px; }
+.competitors__col--position    { width: 120px; min-width: 100px; }
+.competitors__col--trend       { width: 80px;  min-width: 70px;  }
+.competitors__col--actions     { flex-grow: 1;  min-width: 80px;  }
+
+/* =============================================================================
+   ARCHETYPE CHIP
+   Semantic badge for the Archetype column — modifier class sets colour.
+   ============================================================================= */
+
+.competitors__archetype-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    border-width: var(--border-width-thin);
+    border-radius: var(--radius-pill);
+}
+
+.competitors__archetype-chip-label {
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Archetype chip modifiers */
+.competitors__archetype-chip--incumbent {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+}
+
+.competitors__archetype-chip--incumbent .competitors__archetype-chip-label {
+    color: var(--color-text-danger);
+}
+
+.competitors__archetype-chip--startup {
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-border-warning);
+}
+
+.competitors__archetype-chip--startup .competitors__archetype-chip-label {
+    color: var(--color-text-warning);
+}
+
+.competitors__archetype-chip--research {
+    background-color: var(--color-special-soft);
+    border-color: var(--color-border-special);
+}
+
+.competitors__archetype-chip--research .competitors__archetype-chip-label {
+    color: var(--color-text-special);
+}
+
+.competitors__archetype-chip--hardware {
+    background-color: var(--color-info-soft);
+    border-color: var(--color-border-info);
+}
+
+.competitors__archetype-chip--hardware .competitors__archetype-chip-label {
+    color: var(--color-text-info);
+}
+
+.competitors__archetype-chip--enterprise {
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-border-selected);
+}
+
+.competitors__archetype-chip--enterprise .competitors__archetype-chip-label {
+    color: var(--color-text-accent);
+}
+
+.competitors__archetype-chip--consumer {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.competitors__archetype-chip--consumer .competitors__archetype-chip-label {
+    color: var(--color-text-success);
+}
+
+.competitors__archetype-chip--lowcost {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-subtle);
+}
+
+.competitors__archetype-chip--lowcost .competitors__archetype-chip-label {
+    color: var(--color-text-secondary);
+}
+
+.competitors__archetype-chip--platform {
+    background-color: var(--color-info-soft);
+    border-color: var(--color-border-info);
+}
+
+.competitors__archetype-chip--platform .competitors__archetype-chip-label {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   TREND INDICATOR
+   Inline semantic chip for the Trend column — up/down/flat states.
+   ============================================================================= */
+
+.competitors__trend-indicator {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    border-width: var(--border-width-thin);
+    border-radius: var(--radius-pill);
+}
+
+.competitors__trend-label {
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Trend rising */
+.competitors__trend-indicator--up {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.competitors__trend-indicator--up .competitors__trend-label {
+    color: var(--color-text-success);
+}
+
+/* Trend declining */
+.competitors__trend-indicator--down {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+}
+
+.competitors__trend-indicator--down .competitors__trend-label {
+    color: var(--color-text-danger);
+}
+
+/* Trend flat / stable */
+.competitors__trend-indicator--flat {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-subtle);
+}
+
+.competitors__trend-indicator--flat .competitors__trend-label {
+    color: var(--color-text-secondary);
+}
+
+/* Trend unknown */
+.competitors__trend-indicator--unknown {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-subtle);
+}
+
+.competitors__trend-indicator--unknown .competitors__trend-label {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   DOMINANT COMPETITOR WARNING CHIP
+   Applied inside a row cell to highlight dominant market position.
+   ============================================================================= */
+
+.competitors__dominant-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-warning-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-warning);
+    border-radius: var(--radius-pill);
+}
+
+.competitors__dominant-chip-label {
+    color: var(--color-text-warning);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   UNKNOWN DATA CHIP
+   Inline indicator for unknown / unavailable competitor information.
+   ============================================================================= */
+
+.competitors__unknown-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-pill);
+}
+
+.competitors__unknown-chip-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   ROW ACTIONS AREA
+   Small inline action buttons within the Actions column.
+   ============================================================================= */
+
+.competitors__row-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-tight);
+}
+
+.competitors__row-action-btn {
+    height: var(--height-button-compact);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    cursor: link;
+}
+
+.competitors__row-action-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+.competitors__row-action-btn.is-disabled {
+    opacity: 0.45;
+    cursor: arrow;
+}
+
+.competitors__row-action-btn.is-disabled:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.competitors__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.competitors__footer-count {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   PAGINATION (placeholder — shown when needed by View)
+   ============================================================================= */
+
+.competitors__pagination {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.competitors__pagination-btn {
+    width: var(--height-button-compact);
+    height: var(--height-button-compact);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-small);
+    color: var(--color-text-primary);
+    cursor: link;
+    -unity-text-align: middle-center;
+}
+
+.competitors__pagination-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.competitors__pagination-btn.is-disabled {
+    opacity: 0.45;
+    cursor: arrow;
+}
+
+.competitors__pagination-label {
+    color: var(--color-text-secondary);
+    min-width: 60px;
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}

@@ -1,0 +1,638 @@
+/* =============================================================================
+   ProductDetailScreen.uss
+   Screen-specific styles for the Product Detail screen.
+   Full screen — not a modal. Shows product header, action bar, tab bar,
+   main content grid, and right risk summary panel.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.product-detail {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   SCROLL VIEW
+   ============================================================================= */
+
+.product-detail__scroll-view {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.product-detail__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.product-detail__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.product-detail__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.product-detail__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.product-detail__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.product-detail__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.product-detail__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.product-detail__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   BACK LINK
+   ============================================================================= */
+
+.product-detail__back-link {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.product-detail__back-link-label {
+    color: var(--color-text-accent);
+    cursor: link;
+}
+
+.product-detail__back-link-label:hover {
+    color: var(--color-text-primary);
+}
+
+/* =============================================================================
+   PRODUCT HEADER
+   ============================================================================= */
+
+.product-detail__header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-section);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Product icon placeholder */
+.product-detail__header-icon {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+    min-width: var(--icon-size-xl);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-standard);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+    margin-top: var(--space-1);
+}
+
+/* Name + meta block */
+.product-detail__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.product-detail__header-name {
+    color: var(--color-text-primary);
+}
+
+.product-detail__header-launch-target {
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
+
+/* =============================================================================
+   PRODUCT META ROW
+   ============================================================================= */
+
+.product-detail__meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-tight);
+}
+
+.product-detail__meta-item {
+    color: var(--color-text-secondary);
+}
+
+.product-detail__meta-separator {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   STATUS CHIP
+   ============================================================================= */
+
+.product-detail__status-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    background-color: var(--color-accent-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-selected);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+    align-self: flex-start;
+}
+
+.product-detail__status-chip-label {
+    color: var(--color-text-accent);
+}
+
+/* Status chip — semantic states */
+
+.product-detail__status-chip.is-development {
+    background-color: var(--color-info-soft);
+    border-color: var(--color-border-info);
+}
+
+.product-detail__status-chip.is-development .product-detail__status-chip-label {
+    color: var(--color-text-info);
+}
+
+.product-detail__status-chip.is-launched {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.product-detail__status-chip.is-launched .product-detail__status-chip-label {
+    color: var(--color-text-success);
+}
+
+.product-detail__status-chip.is-cancelled {
+    background-color: var(--color-bg-panel-disabled);
+    border-color: var(--color-border-subtle);
+}
+
+.product-detail__status-chip.is-cancelled .product-detail__status-chip-label {
+    color: var(--color-text-disabled);
+}
+
+.product-detail__status-chip.is-high-risk {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+}
+
+.product-detail__status-chip.is-high-risk .product-detail__status-chip-label {
+    color: var(--color-text-danger);
+}
+
+/* =============================================================================
+   ACTION BAR
+   ============================================================================= */
+
+.product-detail__action-bar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+    padding-bottom: var(--space-5);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+}
+
+/* Base action button */
+.product-detail__action-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    border-radius: var(--radius-standard);
+    border-width: var(--border-width-thin);
+    cursor: link;
+}
+
+/* Primary — Launch */
+.product-detail__action-btn--primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverse);
+}
+
+.product-detail__action-btn--primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+}
+
+/* Secondary — Delay */
+.product-detail__action-btn--secondary {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
+}
+
+.product-detail__action-btn--secondary:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+/* Danger — Cancel */
+.product-detail__action-btn--danger {
+    background-color: transparent;
+    border-color: var(--color-border-danger);
+    color: var(--color-text-danger);
+}
+
+.product-detail__action-btn--danger:hover {
+    background-color: var(--color-danger-soft);
+}
+
+/* Disabled state — all action buttons */
+.product-detail__action-btn.is-disabled {
+    background-color: var(--color-bg-panel-disabled);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-disabled);
+    cursor: arrow;
+    opacity: 0.55;
+}
+
+.product-detail__action-btn.is-disabled:hover {
+    background-color: var(--color-bg-panel-disabled);
+    border-color: var(--color-border-subtle);
+}
+
+/* =============================================================================
+   TAB BAR
+   ============================================================================= */
+
+.product-detail__tabs {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--gap-tight);
+    flex-shrink: 0;
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-wrap: wrap;
+}
+
+.product-detail__tab {
+    height: var(--height-tab-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    background-color: transparent;
+    border-width: 0;
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: transparent;
+    border-radius: 0;
+    color: var(--color-text-secondary);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.product-detail__tab:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-panel-hover);
+}
+
+.product-detail__tab.is-active {
+    color: var(--color-text-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+.product-detail__tab.is-active:hover {
+    background-color: transparent;
+}
+
+/* =============================================================================
+   MAIN GRID — TAB CONTENT + RISK PANEL
+   ============================================================================= */
+
+.product-detail__main-grid {
+    flex-direction: row;
+    gap: var(--gap-large);
+    flex-grow: 1;
+    align-items: flex-start;
+}
+
+/* Tab content — flex-grow fills remaining space */
+.product-detail__tab-content {
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--gap-section);
+    min-width: 0;
+}
+
+/* =============================================================================
+   PANEL (per-tab section wrapper)
+   ============================================================================= */
+
+.product-detail__panel {
+    flex-direction: column;
+    gap: var(--gap-large);
+}
+
+.product-detail__panel-title {
+    color: var(--color-text-primary);
+    margin-bottom: var(--gap-small);
+}
+
+/* =============================================================================
+   CARD GRID — METRIC CARDS
+   ============================================================================= */
+
+.product-detail__card-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+}
+
+/* Metric card — generated programmatically by the View */
+.product-detail__card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 180px;
+    max-width: 280px;
+    padding: var(--padding-card-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-tight);
+}
+
+.product-detail__card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.product-detail__card__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.product-detail__card__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading);
+    -unity-font-style: bold;
+}
+
+.product-detail__card__detail {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* Card semantic states */
+
+.product-detail__card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.product-detail__card.has-warning .product-detail__card__value {
+    color: var(--color-text-warning);
+}
+
+.product-detail__card.has-warning .product-detail__card__detail {
+    color: var(--color-text-warning);
+}
+
+.product-detail__card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.product-detail__card.has-danger .product-detail__card__value {
+    color: var(--color-text-danger);
+}
+
+.product-detail__card.has-danger .product-detail__card__detail {
+    color: var(--color-text-danger);
+}
+
+.product-detail__card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.product-detail__card.has-success .product-detail__card__value {
+    color: var(--color-text-success);
+}
+
+.product-detail__card.has-success .product-detail__card__detail {
+    color: var(--color-text-success);
+}
+
+.product-detail__card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.product-detail__card.has-info .product-detail__card__value {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   HISTORY / REPORTS / COMPETITORS LIST
+   ============================================================================= */
+
+.product-detail__history-list {
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+/* History row — generated programmatically by the View */
+.product-detail__history-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.product-detail__history-row:last-child {
+    border-bottom-width: 0;
+}
+
+.product-detail__history-timestamp {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+.product-detail__history-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.product-detail__history-link {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-small);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.product-detail__history-link:hover {
+    color: var(--color-text-primary);
+}
+
+/* =============================================================================
+   RIGHT RISK PANEL
+   ============================================================================= */
+
+.product-detail__risk-panel {
+    width: 300px;
+    min-width: 260px;
+    max-width: 340px;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: var(--gap-standard);
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+.product-detail__risk-panel-title {
+    color: var(--color-text-primary);
+    margin-bottom: var(--gap-small);
+}
+
+/* Risk field row */
+.product-detail__risk-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--height-row-compact);
+}
+
+.product-detail__risk-label {
+    color: var(--color-text-secondary);
+    flex-grow: 1;
+}
+
+.product-detail__risk-value {
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+}
+
+/* Risk value semantic states — toggled by View */
+.product-detail__risk-value.is-warning {
+    color: var(--color-text-warning);
+}
+
+.product-detail__risk-value.is-danger {
+    color: var(--color-text-danger);
+}
+
+.product-detail__risk-value.is-success {
+    color: var(--color-text-success);
+}
+
+.product-detail__risk-value.is-info {
+    color: var(--color-text-info);
+}
+
+/* Risk field list — generated programmatically by View */
+.product-detail__risk-field-list {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+/* Risk divider */
+.product-detail__risk-divider {
+    height: var(--border-width-thin);
+    background-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+/* High-risk warning block */
+.product-detail__risk-warning {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-small);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-danger-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+    border-radius: var(--radius-small);
+}
+
+.product-detail__risk-warning-label {
+    color: var(--color-text-danger);
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected     {}
+.is-active       {}
+.is-complete     {}
+.is-invalid      {}
+.is-disabled     {}
+.is-clickable    {}
+.is-development  {}
+.is-launched     {}
+.is-cancelled    {}
+.is-high-risk    {}
+.has-warning     {}
+.has-danger      {}
+.has-success     {}
+.has-info        {}

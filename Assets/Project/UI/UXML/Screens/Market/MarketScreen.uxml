@@ -1,0 +1,121 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         MarketScreen.uxml
+         Structural layout for the Market overview screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         Section 14 lock: Market Screen shows data, not recommendations.
+         ===================================================================== -->
+
+    <ui:VisualElement name="MarketRoot" class="market">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="market__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading market data..." class="market__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="market__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="market__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="market__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="market__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="market__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentScrollView"
+                       class="market__scroll-view"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT CONTAINER ─────────────────────────────────── -->
+            <ui:VisualElement name="ContentContainer" class="market__content">
+
+                <!-- ─── SCREEN HEADER ─────────────────────────────────── -->
+                <ui:VisualElement name="ScreenHeader" class="market__header">
+                    <ui:VisualElement name="HeaderIcon" class="market__header-icon" />
+                    <ui:VisualElement name="HeaderTextBlock" class="market__header-text-block">
+                        <ui:Label name="HeaderTitle" text="Market" class="market__header-title text-title" />
+                        <ui:Label name="HeaderSubtitle" text="" class="market__header-subtitle text-small" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── TOOLBAR ───────────────────────────────────────── -->
+                <ui:VisualElement name="Toolbar" class="market__toolbar">
+                    <ui:TextField name="SearchField"
+                                  class="market__search-field"
+                                  placeholder-text="Search categories..." />
+                    <ui:Button name="FiltersButton"
+                               text="Filters"
+                               class="market__filters-button" />
+                </ui:VisualElement>
+
+                <!-- ─── TREND STRIP ───────────────────────────────────── -->
+                <!-- Trend cards populated programmatically by MarketView -->
+                <ui:VisualElement name="TrendStrip" class="market__trend-strip">
+                    <ui:Label name="TrendStripTitle"
+                              text="Market Trends"
+                              class="market__section-title text-heading" />
+                    <!-- Populated programmatically by MarketView -->
+                    <ui:VisualElement name="TrendCardList" class="market__trend-card-list" />
+                </ui:VisualElement>
+
+                <!-- ─── CATEGORY GRID ─────────────────────────────────── -->
+                <!-- Category cards populated programmatically by MarketView -->
+                <!-- Fields per card: name, demand, growth, competitive intensity, -->
+                <!--   leaders, tech expectations, price sensitivity, support       -->
+                <!--   expectations, trend modifiers.                               -->
+                <ui:VisualElement name="CategoryGrid" class="market__category-grid">
+                    <ui:VisualElement name="CategoryGridHeader" class="market__category-grid-header">
+                        <ui:Label name="CategoryGridTitle"
+                                  text="Market Categories"
+                                  class="market__section-title text-heading" />
+                        <ui:Label name="CategoryCount"
+                                  text=""
+                                  class="market__category-count text-small" />
+                    </ui:VisualElement>
+                    <!-- Populated programmatically by MarketView -->
+                    <ui:VisualElement name="CategoryCardContainer" class="market__category-card-container" />
+                </ui:VisualElement>
+
+                <!-- ─── RANKINGS SECTION ──────────────────────────────── -->
+                <!-- Rankings rows populated programmatically by MarketView -->
+                <!-- Player-owned product rows receive is-player-owned class -->
+                <ui:VisualElement name="RankingsSection" class="market__rankings">
+                    <ui:VisualElement name="RankingsHeader" class="market__rankings-header">
+                        <ui:Label name="RankingsTitle"
+                                  text="Product Rankings"
+                                  class="market__section-title text-heading" />
+                        <ui:Label name="RankingsSubtitle"
+                                  text=""
+                                  class="market__rankings-subtitle text-small" />
+                    </ui:VisualElement>
+
+                    <!-- Table column headers -->
+                    <ui:VisualElement name="RankingsTableHeader" class="market__rankings-table-header">
+                        <ui:Label text="Rank"          class="market__col-rank text-small" />
+                        <ui:Label text="Product"       class="market__col-product text-small" />
+                        <ui:Label text="Company"       class="market__col-company text-small" />
+                        <ui:Label text="Category"      class="market__col-category text-small" />
+                        <ui:Label text="Avg. Price"    class="market__col-price text-small" />
+                        <ui:Label text="Position"      class="market__col-position text-small" />
+                    </ui:VisualElement>
+
+                    <!-- Populated programmatically by MarketView -->
+                    <ui:VisualElement name="RankingsTable" class="market__rankings-table" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>

@@ -1,0 +1,551 @@
+/* =============================================================================
+   CompanyScreen.uss
+   Screen-specific styles for the Company profile screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.company {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   CONTENT SCROLL VIEW
+   ============================================================================= */
+
+.company__content {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT INNER WRAPPER
+   ============================================================================= */
+
+.company__content-inner {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.company__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.company__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.company__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.company__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.company__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.company__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.company__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.company__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon placeholder — coloured square, replaced by company logo asset when available */
+.company__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.company__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.company__header-title {
+    color: var(--color-text-primary);
+}
+
+.company__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   PROFILE ROW — three equal-width cards side by side
+   ============================================================================= */
+
+.company__profile-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   SHARED CARD STRUCTURE
+   Applies to identity, status, and founder cards.
+   ============================================================================= */
+
+.company__identity-card,
+.company__status-card,
+.company__founder-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 280px;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+/* =============================================================================
+   SHARED CARD HEADER ROW
+   ============================================================================= */
+
+.company__card-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.company__card-title {
+    color: var(--color-text-primary);
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   IDENTITY CARD
+   ============================================================================= */
+
+.company__identity-edit-button {
+    background-color: transparent;
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    flex-shrink: 0;
+    cursor: link;
+}
+
+.company__identity-edit-button:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+/* =============================================================================
+   SHARED FIELD LIST
+   Used inside identity and status cards.
+   Rows are generated programmatically by the View.
+   ============================================================================= */
+
+.company__field-list {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Field row — generated by CompanyView */
+.company__field-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.company__field-row:last-child {
+    border-bottom-width: 0;
+}
+
+.company__field-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.company__field-value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+/* =============================================================================
+   STATUS CARD — semantic health state classes
+   Applied to .company__status-card by the View based on ViewModel state.
+   ============================================================================= */
+
+.company__status-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.company__status-card.has-warning .company__card-title {
+    color: var(--color-text-warning);
+}
+
+.company__status-card.has-warning .company__field-value {
+    color: var(--color-text-warning);
+}
+
+.company__status-card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.company__status-card.has-danger .company__card-title {
+    color: var(--color-text-danger);
+}
+
+.company__status-card.has-danger .company__field-value {
+    color: var(--color-text-danger);
+}
+
+.company__status-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.company__status-card.has-success .company__card-title {
+    color: var(--color-text-success);
+}
+
+.company__status-card.has-success .company__field-value {
+    color: var(--color-text-success);
+}
+
+/* =============================================================================
+   FOUNDER CARD — compact member list
+   ============================================================================= */
+
+.company__founder-member-list {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Founder member row — generated by CompanyView */
+.company__founder-member-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.company__founder-member-row:last-child {
+    border-bottom-width: 0;
+}
+
+.company__founder-member-avatar {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    min-width: var(--icon-size-standard);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-pill);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.company__founder-member-name {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.company__founder-member-role {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   MIDDLE SECTION — focus panel and standing panel side by side
+   ============================================================================= */
+
+.company__middle {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   FOCUS PANEL — identity/preference display only, no mechanical bonus visuals
+   ============================================================================= */
+
+.company__focus-panel {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 280px;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+.company__focus-content {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Focus tag pill — generated by CompanyView */
+.company__focus-tag {
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    background-color: var(--color-accent-soft);
+    border-radius: var(--radius-pill);
+}
+
+.company__focus-tag-label {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-small);
+}
+
+.company__focus-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+}
+
+/* =============================================================================
+   STANDING PANEL — current standing and high-level metrics
+   ============================================================================= */
+
+.company__standing-panel {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 280px;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+.company__standing-content {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Standing metric row — generated by CompanyView */
+.company__standing-metric-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.company__standing-metric-row:last-child {
+    border-bottom-width: 0;
+}
+
+.company__standing-metric-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    min-width: 140px;
+    flex-shrink: 0;
+}
+
+.company__standing-metric-value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    -unity-font-style: bold;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   MILESTONES SECTION — vertical chronological list
+   ============================================================================= */
+
+.company__milestones {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+.company__milestones-list {
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* =============================================================================
+   MILESTONE ROW — horizontal: date + title + description
+   Generated programmatically by CompanyView.
+   ============================================================================= */
+
+.company__milestone-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.company__milestone-row:last-child {
+    border-bottom-width: 0;
+}
+
+.company__milestone-row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.company__milestone-date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.company__milestone-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+    flex-grow: 1;
+}
+
+.company__milestone-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body-strong);
+    -unity-font-style: bold;
+}
+
+.company__milestone-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+/* Archived milestone — muted presentation */
+.company__milestone-row.is-archived .company__milestone-date,
+.company__milestone-row.is-archived .company__milestone-title,
+.company__milestone-row.is-archived .company__milestone-description {
+    color: var(--color-text-disabled);
+}
+
+/* =============================================================================
+   MILESTONES EMPTY STATE — "No milestones yet"
+   ============================================================================= */
+
+.company__milestones-empty {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.company__milestones-empty-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-body);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.is-archived  {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}

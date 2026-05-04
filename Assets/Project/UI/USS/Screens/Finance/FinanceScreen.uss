@@ -1,0 +1,672 @@
+/* =============================================================================
+   FinanceScreen.uss
+   Screen-specific styles for the Finance overview screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.finance {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   SCROLL VIEW
+   ============================================================================= */
+
+.finance__scroll-view {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.finance__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.finance__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.finance__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.finance__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.finance__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.finance__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.finance__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.finance__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.finance__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon placeholder — coloured square matching Phase 5 pattern */
+.finance__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.finance__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.finance__header-title {
+    color: var(--color-text-primary);
+}
+
+.finance__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   KPI ROW
+   Flex-wrap row matching the Founder Portal KPI grid pattern.
+   Cards: Cash, Net Profit/Loss, Runway, Revenue MTD, Payroll,
+   Support/Infrastructure Cost.
+   ============================================================================= */
+
+.finance__kpi-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   KPI CARD
+   Generated programmatically by FinanceView — class applied via C#.
+   ============================================================================= */
+
+.finance__kpi-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: var(--padding-card-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-tight);
+}
+
+.finance__kpi-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.finance__kpi-card__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.finance__kpi-card__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading);
+    -unity-font-style: bold;
+}
+
+.finance__kpi-card__trend {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* KPI semantic state — warning (e.g. low runway) */
+.finance__kpi-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.finance__kpi-card.has-warning .finance__kpi-card__value {
+    color: var(--color-text-warning);
+}
+
+.finance__kpi-card.has-warning .finance__kpi-card__trend {
+    color: var(--color-text-warning);
+}
+
+/* KPI semantic state — danger (e.g. negative cash / near-zero runway) */
+.finance__kpi-card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.finance__kpi-card.has-danger .finance__kpi-card__value {
+    color: var(--color-text-danger);
+}
+
+.finance__kpi-card.has-danger .finance__kpi-card__trend {
+    color: var(--color-text-danger);
+}
+
+/* KPI semantic state — success (e.g. profitable, healthy runway) */
+.finance__kpi-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.finance__kpi-card.has-success .finance__kpi-card__value {
+    color: var(--color-text-success);
+}
+
+.finance__kpi-card.has-success .finance__kpi-card__trend {
+    color: var(--color-text-success);
+}
+
+/* KPI semantic state — info */
+.finance__kpi-card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.finance__kpi-card.has-info .finance__kpi-card__value {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   SUMMARY GRID
+   Side-by-side revenue/expense panels.
+   ============================================================================= */
+
+.finance__summary-grid {
+    flex-direction: row;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+.finance__revenue-panel {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.finance__expense-panel {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+/* =============================================================================
+   SHARED PANEL CONTAINER
+   Used by: RevenuePanel, ExpensePanel, MonthlyReportsSection,
+            PayrollSection, ProductRevenueSection.
+   ============================================================================= */
+
+.finance__panel {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+.finance__panel-title {
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+}
+
+.finance__panel-divider {
+    height: var(--border-width-thin);
+    background-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   BREAKDOWN ROWS
+   Revenue/expense detail line items inside summary panels.
+   Populated programmatically by FinanceView.
+   ============================================================================= */
+
+.finance__breakdown-list {
+    flex-direction: column;
+    gap: var(--space-1);
+    flex-grow: 1;
+}
+
+/* Individual breakdown row — generated by FinanceView */
+.finance__breakdown-row {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.finance__breakdown-row:last-child {
+    border-bottom-width: 0;
+}
+
+.finance__breakdown-row__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.finance__breakdown-row__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    -unity-text-align: upper-right;
+    flex-shrink: 0;
+}
+
+/* Profit/loss colour states applied per row by FinanceView */
+.finance__breakdown-row__value.is-positive {
+    color: var(--color-text-success);
+}
+
+.finance__breakdown-row__value.is-negative {
+    color: var(--color-text-danger);
+}
+
+/* Total row at bottom of each panel */
+.finance__breakdown-total-row {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-3);
+    flex-shrink: 0;
+}
+
+.finance__breakdown-total-label {
+    color: var(--color-text-primary);
+    flex-grow: 1;
+}
+
+.finance__breakdown-total-value {
+    color: var(--color-text-primary);
+    -unity-text-align: upper-right;
+    flex-shrink: 0;
+}
+
+.finance__breakdown-total-value.is-positive {
+    color: var(--color-text-success);
+}
+
+.finance__breakdown-total-value.is-negative {
+    color: var(--color-text-danger);
+}
+
+/* =============================================================================
+   MONTHLY REPORTS TABLE
+   Row click opens report detail (right drawer or modal).
+   ============================================================================= */
+
+.finance__monthly-reports {
+    flex-shrink: 0;
+}
+
+.finance__reports-table {
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* Report table row — generated by FinanceView */
+.finance__report-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-large);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    border-radius: var(--radius-small);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.finance__report-row:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.finance__report-row:last-child {
+    border-bottom-width: 0;
+}
+
+.finance__report-row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent);
+}
+
+.finance__report-row__month {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.finance__report-row__revenue {
+    color: var(--color-text-success);
+    font-size: var(--font-size-body);
+    min-width: 110px;
+    flex-shrink: 0;
+}
+
+.finance__report-row__expenses {
+    color: var(--color-text-danger);
+    font-size: var(--font-size-body);
+    min-width: 110px;
+    flex-shrink: 0;
+}
+
+.finance__report-row__net {
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.finance__report-row__net.is-positive {
+    color: var(--color-text-success);
+}
+
+.finance__report-row__net.is-negative {
+    color: var(--color-text-danger);
+}
+
+.finance__report-row__cash {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    min-width: 110px;
+    flex-shrink: 0;
+    -unity-text-align: upper-right;
+}
+
+/* =============================================================================
+   TABLE HEADER ROW
+   Shared column label strip for payroll and product revenue tables.
+   ============================================================================= */
+
+.finance__table-header-row {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+.finance__table-header-cell {
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+/* =============================================================================
+   PAYROLL SECTION
+   ============================================================================= */
+
+.finance__payroll {
+    flex-shrink: 0;
+}
+
+.finance__payroll-list {
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* Payroll row — generated by FinanceView */
+.finance__payroll-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.finance__payroll-row:last-child {
+    border-bottom-width: 0;
+}
+
+.finance__payroll-row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.finance__payroll-row__name {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__payroll-row__role {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__payroll-row__seniority {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__payroll-row__salary {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+    -unity-text-align: upper-right;
+}
+
+.finance__payroll-row__status {
+    font-size: var(--font-size-small);
+    flex-shrink: 0;
+    min-width: 80px;
+}
+
+.finance__payroll-row__status.is-active {
+    color: var(--color-text-success);
+}
+
+.finance__payroll-row__status.is-inactive {
+    color: var(--color-text-muted);
+}
+
+/* Footer total row */
+.finance__payroll-footer {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-4);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-divider);
+    flex-shrink: 0;
+}
+
+.finance__payroll-footer-label {
+    color: var(--color-text-primary);
+    flex-grow: 1;
+}
+
+.finance__payroll-footer-value {
+    color: var(--color-text-primary);
+    -unity-text-align: upper-right;
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   PRODUCT REVENUE SECTION
+   ============================================================================= */
+
+.finance__product-revenue {
+    flex-shrink: 0;
+}
+
+.finance__product-revenue-table {
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* Product revenue row — generated by FinanceView */
+.finance__product-revenue-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.finance__product-revenue-row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.finance__product-revenue-row:last-child {
+    border-bottom-width: 0;
+}
+
+.finance__product-revenue-row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent);
+}
+
+.finance__product-revenue-row__product {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__product-revenue-row__category {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__product-revenue-row__revenue {
+    color: var(--color-text-success);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+    -unity-text-align: upper-right;
+}
+
+.finance__product-revenue-row__units {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+}
+
+.finance__product-revenue-row__month {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    flex-shrink: 0;
+    min-width: 80px;
+}
+
+/* =============================================================================
+   SEMANTIC STATE UTILITY CLASSES
+   Applied via C# to switch colour/background context.
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-inactive  {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.is-loading   {}
+.is-empty     {}
+.is-positive  {}
+.is-negative  {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}
+.has-error    {}

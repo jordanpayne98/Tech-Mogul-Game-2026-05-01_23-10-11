@@ -1,0 +1,211 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         ProductDetailScreen.uxml
+         Structural layout for the Product Detail screen.
+         Full screen — not a modal.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         Tabs: Overview, Development, Quality, Budget, Marketing,
+               Support, Reports, History, Competitors.
+         Tab content is swapped programmatically by ProductDetailView.
+         Action buttons (Launch, Delay, Cancel) are disabled in Phase 5.
+         ===================================================================== -->
+
+    <ui:VisualElement name="ProductDetailRoot" class="product-detail">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="product-detail__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading product..." class="product-detail__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="product-detail__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="product-detail__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="product-detail__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="product-detail__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="product-detail__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentScrollView"
+                       class="product-detail__scroll-view"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT CONTAINER ─────────────────────────────────── -->
+            <ui:VisualElement name="ContentContainer" class="product-detail__content">
+
+                <!-- ─── BACK LINK ─────────────────────────────────────── -->
+                <ui:VisualElement name="BackLink" class="product-detail__back-link">
+                    <ui:Label name="BackLinkLabel" text="← Products" class="product-detail__back-link-label text-small" />
+                </ui:VisualElement>
+
+                <!-- ─── PRODUCT HEADER ────────────────────────────────── -->
+                <ui:VisualElement name="ProductHeader" class="product-detail__header">
+
+                    <!-- Product icon placeholder -->
+                    <ui:VisualElement name="ProductIcon" class="product-detail__header-icon" />
+
+                    <!-- Name + meta block -->
+                    <ui:VisualElement name="HeaderTextBlock" class="product-detail__header-text-block">
+                        <ui:Label name="ProductName" text="" class="product-detail__header-name text-title" />
+                        <!-- Meta row: ID, Family, Type, Target Market, Segment, Price Model -->
+                        <ui:VisualElement name="ProductMeta" class="product-detail__meta">
+                            <ui:Label name="ProductId" text="" class="product-detail__meta-item text-small" />
+                            <ui:Label name="MetaSeparator1" text="·" class="product-detail__meta-separator text-small" />
+                            <ui:Label name="ProductFamily" text="" class="product-detail__meta-item text-small" />
+                            <ui:Label name="MetaSeparator2" text="·" class="product-detail__meta-separator text-small" />
+                            <ui:Label name="ProductType" text="" class="product-detail__meta-item text-small" />
+                            <ui:Label name="MetaSeparator3" text="·" class="product-detail__meta-separator text-small" />
+                            <ui:Label name="ProductMarket" text="" class="product-detail__meta-item text-small" />
+                            <ui:Label name="MetaSeparator4" text="·" class="product-detail__meta-separator text-small" />
+                            <ui:Label name="ProductSegment" text="" class="product-detail__meta-item text-small" />
+                            <ui:Label name="MetaSeparator5" text="·" class="product-detail__meta-separator text-small" />
+                            <ui:Label name="ProductPriceModel" text="" class="product-detail__meta-item text-small" />
+                        </ui:VisualElement>
+                        <!-- Launch target/date -->
+                        <ui:Label name="ProductLaunchTarget" text="" class="product-detail__header-launch-target text-small" />
+                    </ui:VisualElement>
+
+                    <!-- Status chip — updated programmatically -->
+                    <ui:VisualElement name="StatusChip" class="product-detail__status-chip">
+                        <ui:Label name="StatusChipLabel" text="" class="product-detail__status-chip-label text-small" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- ─── ACTION BAR ────────────────────────────────────── -->
+                <!-- Buttons are disabled in Phase 5. View sets is-disabled. -->
+                <ui:VisualElement name="ActionBar" class="product-detail__action-bar">
+                    <ui:Button name="LaunchButton"
+                               text="Launch"
+                               class="product-detail__action-btn product-detail__action-btn--primary is-disabled" />
+                    <ui:Button name="DelayButton"
+                               text="Delay"
+                               class="product-detail__action-btn product-detail__action-btn--secondary is-disabled" />
+                    <ui:Button name="CancelButton"
+                               text="Cancel Product"
+                               class="product-detail__action-btn product-detail__action-btn--danger is-disabled" />
+                </ui:VisualElement>
+
+                <!-- ─── TAB BAR ───────────────────────────────────────── -->
+                <!-- Active tab toggled programmatically via is-active class. -->
+                <ui:VisualElement name="TabBar" class="product-detail__tabs">
+                    <ui:Button name="TabOverview"     text="Overview"     class="product-detail__tab is-active" />
+                    <ui:Button name="TabDevelopment"  text="Development"  class="product-detail__tab" />
+                    <ui:Button name="TabQuality"      text="Quality"      class="product-detail__tab" />
+                    <ui:Button name="TabBudget"       text="Budget"       class="product-detail__tab" />
+                    <ui:Button name="TabMarketing"    text="Marketing"    class="product-detail__tab" />
+                    <ui:Button name="TabSupport"      text="Support"      class="product-detail__tab" />
+                    <ui:Button name="TabReports"      text="Reports"      class="product-detail__tab" />
+                    <ui:Button name="TabHistory"      text="History"      class="product-detail__tab" />
+                    <ui:Button name="TabCompetitors"  text="Competitors"  class="product-detail__tab" />
+                </ui:VisualElement>
+
+                <!-- ─── MAIN GRID: TAB CONTENT + RISK PANEL ──────────── -->
+                <ui:VisualElement name="MainGrid" class="product-detail__main-grid">
+
+                    <!-- Tab content region — populated programmatically by View -->
+                    <ui:VisualElement name="TabContent" class="product-detail__tab-content">
+
+                        <!-- ─── OVERVIEW TAB ─────────────────── -->
+                        <!-- Metric cards populated programmatically -->
+                        <ui:VisualElement name="OverviewPanel" class="product-detail__panel">
+                            <ui:Label name="OverviewTitle" text="Overview" class="product-detail__panel-title text-heading" />
+                            <!-- Metric card grid — generated by View -->
+                            <ui:VisualElement name="OverviewCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── DEVELOPMENT TAB ──────────────── -->
+                        <ui:VisualElement name="DevelopmentPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="DevelopmentTitle" text="Development" class="product-detail__panel-title text-heading" />
+                            <ui:VisualElement name="DevelopmentCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── QUALITY TAB ──────────────────── -->
+                        <ui:VisualElement name="QualityPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="QualityTitle" text="Quality" class="product-detail__panel-title text-heading" />
+                            <ui:VisualElement name="QualityCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── BUDGET TAB ───────────────────── -->
+                        <ui:VisualElement name="BudgetPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="BudgetTitle" text="Budget" class="product-detail__panel-title text-heading" />
+                            <ui:VisualElement name="BudgetCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── MARKETING TAB ────────────────── -->
+                        <ui:VisualElement name="MarketingPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="MarketingTitle" text="Marketing" class="product-detail__panel-title text-heading" />
+                            <ui:VisualElement name="MarketingCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── SUPPORT TAB ──────────────────── -->
+                        <ui:VisualElement name="SupportPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="SupportTitle" text="Support" class="product-detail__panel-title text-heading" />
+                            <ui:VisualElement name="SupportCardGrid" class="product-detail__card-grid" />
+                        </ui:VisualElement>
+
+                        <!-- ─── REPORTS TAB ──────────────────── -->
+                        <ui:VisualElement name="ReportsPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="ReportsTitle" text="Reports" class="product-detail__panel-title text-heading" />
+                            <!-- Links to Reports/Inbox — populated by View -->
+                            <ui:VisualElement name="ReportsList" class="product-detail__history-list" />
+                        </ui:VisualElement>
+
+                        <!-- ─── HISTORY TAB ──────────────────── -->
+                        <ui:VisualElement name="HistoryPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="HistoryTitle" text="History" class="product-detail__panel-title text-heading" />
+                            <!-- Rows populated programmatically by View -->
+                            <ui:VisualElement name="HistoryList" class="product-detail__history-list" />
+                        </ui:VisualElement>
+
+                        <!-- ─── COMPETITORS TAB ──────────────── -->
+                        <ui:VisualElement name="CompetitorsPanel" class="product-detail__panel is-hidden">
+                            <ui:Label name="CompetitorsTitle" text="Competitors" class="product-detail__panel-title text-heading" />
+                            <!-- Links to competitor comparison — populated by View -->
+                            <ui:VisualElement name="CompetitorsList" class="product-detail__history-list" />
+                        </ui:VisualElement>
+
+                    </ui:VisualElement>
+
+                    <!-- ─── RIGHT RISK PANEL ──────────────────────── -->
+                    <ui:VisualElement name="RiskPanel" class="product-detail__risk-panel">
+                        <ui:Label name="RiskPanelTitle" text="Risk Summary" class="product-detail__risk-panel-title text-heading" />
+
+                        <!-- Overall score -->
+                        <ui:VisualElement name="RiskOverallRow" class="product-detail__risk-row">
+                            <ui:Label name="RiskOverallLabel" text="Overall Score" class="product-detail__risk-label text-small" />
+                            <ui:Label name="RiskOverallValue" text="—" class="product-detail__risk-value text-body-strong" />
+                        </ui:VisualElement>
+
+                        <ui:VisualElement name="RiskDivider" class="product-detail__risk-divider" />
+
+                        <!-- Quality fields — populated programmatically by View -->
+                        <ui:VisualElement name="RiskFieldList" class="product-detail__risk-field-list" />
+
+                        <ui:VisualElement name="RiskDivider2" class="product-detail__risk-divider" />
+
+                        <!-- High-risk warning — shown by View when risk is critical -->
+                        <ui:VisualElement name="HighRiskWarning" class="product-detail__risk-warning is-hidden">
+                            <ui:Label name="HighRiskLabel" text="High Risk — Review required" class="product-detail__risk-warning-label text-small" />
+                        </ui:VisualElement>
+
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>

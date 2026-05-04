@@ -1,0 +1,102 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         SettingsScreen.uxml
+         Structural layout for the Settings screen (screen.settings).
+         Two-panel layout: left category sidebar | right settings panel.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         [Placeholder] — Phase 5 uses static data. Full wiring deferred to Phase 6+.
+         ===================================================================== -->
+
+    <ui:VisualElement name="SettingsRoot" class="settings">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="settings__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="settings__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="settings__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="settings__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="settings__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="settings__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="settings__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="settings__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="settings__header">
+                <ui:VisualElement name="HeaderTextBlock" class="settings__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Settings" class="settings__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="" class="settings__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── MAIN LAYOUT (sidebar + panel) ────────────────────────── -->
+            <ui:VisualElement name="MainLayout" class="settings__main-layout">
+
+                <!-- ── LEFT: CATEGORY SIDEBAR ──────────────────────────── -->
+                <ui:ScrollView name="CategorySidebar"
+                               class="settings__sidebar"
+                               horizontal-scroll-bar-visibility="Hidden"
+                               vertical-scroll-bar-visibility="Auto">
+                    <!-- Category tab buttons injected by SettingsView -->
+                    <ui:VisualElement name="CategoryList" class="settings__category-list" />
+                </ui:ScrollView>
+
+                <!-- ── RIGHT: SETTINGS PANEL ───────────────────────────── -->
+                <ui:VisualElement name="SettingsPanel" class="settings__panel">
+
+                    <!-- Panel header shows active category title -->
+                    <ui:VisualElement name="PanelHeader" class="settings__panel-header">
+                        <ui:Label name="PanelTitle" text="" class="settings__panel-title text-heading" />
+                    </ui:VisualElement>
+
+                    <!-- Scrollable setting rows container -->
+                    <ui:ScrollView name="SettingRowsScroll"
+                                   class="settings__rows-scroll"
+                                   horizontal-scroll-bar-visibility="Hidden"
+                                   vertical-scroll-bar-visibility="Auto">
+                        <!-- Setting rows injected by SettingsView -->
+                        <ui:VisualElement name="SettingRowsList" class="settings__rows-list" />
+                    </ui:ScrollView>
+
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+            <!-- ─── FOOTER / ACTION ROW ───────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="settings__footer">
+
+                <!-- Unsaved changes indicator -->
+                <ui:VisualElement name="UnsavedChangesIndicator" class="settings__footer-unsaved is-hidden">
+                    <ui:Label name="UnsavedChangesLabel"
+                              text="You have unsaved changes."
+                              class="settings__footer-unsaved-label text-small has-warning" />
+                </ui:VisualElement>
+
+                <!-- Footer action buttons -->
+                <ui:VisualElement name="FooterActions" class="settings__footer-actions">
+                    <ui:Button name="ResetButton"
+                               text="Reset to Defaults"
+                               class="settings__footer-btn settings__footer-btn--secondary" />
+                    <ui:Button name="ApplyButton"
+                               text="Apply"
+                               class="settings__footer-btn settings__footer-btn--primary" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

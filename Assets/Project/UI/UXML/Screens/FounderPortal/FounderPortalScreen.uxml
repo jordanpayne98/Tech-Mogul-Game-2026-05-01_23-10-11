@@ -1,0 +1,92 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         FounderPortalScreen.uxml
+         Structural layout for the Founder Portal dashboard screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         ===================================================================== -->
+
+    <ui:VisualElement name="FounderPortalRoot" class="founder-portal">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="founder-portal__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="founder-portal__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="founder-portal__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="founder-portal__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="founder-portal__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="founder-portal__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="founder-portal__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentScrollView"
+                       class="founder-portal__scroll-view"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT CONTAINER ─────────────────────────────────── -->
+            <ui:VisualElement name="ContentContainer" class="founder-portal__content">
+
+                <!-- ─── SCREEN HEADER ─────────────────────────────────── -->
+                <ui:VisualElement name="ScreenHeader" class="founder-portal__header">
+                    <ui:VisualElement name="HeaderIcon" class="founder-portal__header-icon" />
+                    <ui:VisualElement name="HeaderTextBlock" class="founder-portal__header-text-block">
+                        <ui:Label name="HeaderTitle" text="Founder Portal" class="founder-portal__header-title text-title" />
+                        <ui:Label name="HeaderSubtitle" text="" class="founder-portal__header-subtitle text-small" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── KPI GRID ROW ──────────────────────────────────── -->
+                <!-- Populated programmatically by FounderPortalView -->
+                <ui:VisualElement name="KpiGrid" class="founder-portal__kpi-grid" />
+
+                <!-- ─── MAIN DASHBOARD GRID ───────────────────────────── -->
+                <ui:VisualElement name="MainDashboardGrid" class="founder-portal__dashboard-grid">
+
+                    <!-- Main dashboard cards area — populated programmatically -->
+                    <ui:VisualElement name="DashboardMain" class="founder-portal__dashboard-main" />
+
+                    <!-- Side column -->
+                    <ui:VisualElement name="DashboardSide" class="founder-portal__dashboard-side">
+
+                        <!-- Up Next card -->
+                        <ui:VisualElement name="UpNextCard" class="founder-portal__up-next">
+                            <ui:Label name="UpNextTitle" text="Up Next" class="founder-portal__card-title text-heading" />
+                            <!-- Populated programmatically by View -->
+                            <ui:VisualElement name="UpNextList" class="founder-portal__up-next-list" />
+                        </ui:VisualElement>
+
+                        <!-- Quick Actions card -->
+                        <ui:VisualElement name="QuickActionsCard" class="founder-portal__quick-actions">
+                            <ui:Label name="QuickActionsTitle" text="Quick Actions" class="founder-portal__card-title text-heading" />
+                            <!-- Populated programmatically by View -->
+                            <ui:VisualElement name="QuickActionsList" class="founder-portal__quick-actions-list" />
+                        </ui:VisualElement>
+
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── RECENT ACTIVITY STRIP ─────────────────────────── -->
+                <ui:VisualElement name="RecentActivityStrip" class="founder-portal__recent-activity">
+                    <ui:Label name="RecentActivityTitle" text="Recent Activity" class="founder-portal__card-title text-heading" />
+                    <!-- Populated programmatically by View -->
+                    <ui:VisualElement name="RecentActivityList" class="founder-portal__recent-activity-list" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>

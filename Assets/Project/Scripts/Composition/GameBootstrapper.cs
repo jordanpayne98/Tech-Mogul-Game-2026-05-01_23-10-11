@@ -1,7 +1,9 @@
 using System;
 using Project.Application.UseCases.SaveLoad;
 using Project.Core.Debugging;
+using Project.Core.Definitions.Company;
 using Project.Core.Interfaces;
+using Project.Core.Requests.Company;
 using Project.Core.Runtime;
 using Project.Infrastructure.Debugging;
 using Project.Infrastructure.Definitions;
@@ -62,6 +64,7 @@ namespace Project.Composition
             InitializeCompositionRoot();
             InitializePhase3();
             InitializePhase4UI();
+            InitializePhase6SessionBridge();
 
             DebugLogger.Log(DebugCategory.Bootstrap, "GameBootstrapper initialized.", this);
         }
@@ -241,6 +244,63 @@ namespace Project.Composition
             {
                 DebugLogger.LogError(DebugCategory.Bootstrap,
                     $"[Bootstrap] Phase 4 UI initialization failed: {ex.Message}");
+            }
+        }
+
+        // ─── Phase 6 session bridge ───────────────────────────────────────────────
+
+        /// <summary>
+        /// [Temp] Creates a development-time game session and binds it to both
+        /// GameCompositionRoot and UIShellController. This auto-session will be replaced
+        /// when the real Main Menu → Company Creation wizard flow is implemented (Plan 6K+).
+        /// </summary>
+        private void InitializePhase6SessionBridge()
+        {
+            if (_compositionRoot == null || _uiShellController == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "[Bootstrap] Cannot initialize Phase 6 session bridge — " +
+                    "CompositionRoot or UIShellController is null.", this);
+                return;
+            }
+
+            try
+            {
+                // [Temp] Auto-create a new game session for development.
+                // Real flow will use MainMenu → New Game → CompanyCreation wizard.
+                var tempRequest = new CreateCompanyRequest(
+                    founderName:   "Dev Founder",
+                    companyName:   "Dev Studio",
+                    logoIconId:    "logo.default",
+                    brandColourHex: "#3A7BD5",
+                    location:      "San Francisco",
+                    background:    FounderBackground.Engineer,
+                    capitalPreset: CapitalPreset.Bootstrapped,
+                    focus:         CompanyFocus.ConsumerSoftware,
+                    difficulty:    SandboxDifficulty.Standard,
+                    marketSeed:    42);
+
+                var result = _compositionRoot.NewGameOrchestrator.Execute(tempRequest, 42);
+
+                if (!result.Success || result.Session == null)
+                {
+                    DebugLogger.LogError(DebugCategory.Bootstrap,
+                        $"[Bootstrap] NewGameOrchestrator returned failure: {result.FailureReason}", this);
+                    return;
+                }
+
+                _currentSession = result.Session;
+                _compositionRoot.BindSession(_currentSession);
+                _uiShellController.RebindSession(_compositionRoot.SessionContext);
+
+                DebugLogger.Log(DebugCategory.Bootstrap,
+                    "[Bootstrap] Phase 6 session bridge initialized. " +
+                    "UIShellController rebound to GameSessionContext.", this);
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogError(DebugCategory.Bootstrap,
+                    $"[Bootstrap] Phase 6 session bridge failed: {ex.Message}", this);
             }
         }
 

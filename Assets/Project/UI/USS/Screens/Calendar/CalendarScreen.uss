@@ -1,0 +1,738 @@
+/* =============================================================================
+   CalendarScreen.uss
+   Screen-specific styles for the Calendar screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   Calendar is informational in Phase 5 (Section 14 lock).
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.calendar {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.calendar__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.calendar__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.calendar__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.calendar__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.calendar__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.calendar__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.calendar__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.calendar__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.calendar__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.calendar__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.calendar__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.calendar__header-title {
+    color: var(--color-text-primary);
+}
+
+.calendar__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.calendar__toolbar {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   VIEW TOGGLE (Month / Week)
+   ============================================================================= */
+
+.calendar__view-toggle {
+    flex-direction: row;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.calendar__view-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-radius: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    cursor: link;
+}
+
+.calendar__view-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    color: var(--color-text-primary);
+}
+
+.calendar__view-btn.is-active {
+    background-color: var(--color-accent-muted);
+    color: var(--color-text-accent);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-selected);
+}
+
+/* =============================================================================
+   DATE SELECTOR
+   ============================================================================= */
+
+.calendar__date-selector {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-tight);
+    flex-shrink: 0;
+}
+
+.calendar__date-nav-btn {
+    width: var(--height-button-standard);
+    height: var(--height-button-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    -unity-text-align: middle-center;
+    cursor: link;
+}
+
+.calendar__date-nav-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+.calendar__date-label {
+    color: var(--color-text-primary);
+    min-width: 140px;
+    -unity-text-align: middle-center;
+}
+
+.calendar__today-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    cursor: link;
+}
+
+.calendar__today-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+/* =============================================================================
+   EVENT TYPE FILTER CHIPS
+   ============================================================================= */
+
+.calendar__event-filter {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-tight);
+    flex-grow: 1;
+}
+
+/* Filter chip — generated by CalendarView */
+.calendar__filter-chip {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-chip);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-pill);
+    cursor: link;
+}
+
+.calendar__filter-chip:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.calendar__filter-chip.is-active {
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-border-selected);
+}
+
+.calendar__filter-chip-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-tiny);
+}
+
+.calendar__filter-chip.is-active .calendar__filter-chip-label {
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   SEARCH FIELD
+   ============================================================================= */
+
+.calendar__search-field {
+    height: var(--height-input-standard);
+    min-width: 180px;
+    flex-shrink: 0;
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+}
+
+.calendar__search-field:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* =============================================================================
+   BODY CONTAINER (grid + upcoming list)
+   ============================================================================= */
+
+.calendar__body {
+    flex-direction: row;
+    flex-grow: 1;
+    gap: var(--gap-large);
+    min-height: 0;
+}
+
+/* =============================================================================
+   CALENDAR GRID PANEL
+   ============================================================================= */
+
+.calendar__grid-panel {
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    overflow: hidden;
+}
+
+/* =============================================================================
+   DAY HEADERS (Sun, Mon, Tue ... Sat)
+   ============================================================================= */
+
+.calendar__day-headers {
+    flex-direction: row;
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Day header cell — generated by CalendarView */
+.calendar__day-header-cell {
+    flex-grow: 1;
+    flex-basis: 0;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-subtle);
+}
+
+.calendar__day-header-cell:last-child {
+    border-right-width: 0;
+}
+
+.calendar__day-header-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+/* Weekend header label */
+.calendar__day-header-cell.is-weekend .calendar__day-header-label {
+    color: var(--color-text-disabled);
+}
+
+/* =============================================================================
+   DAY CELLS GRID
+   7-column flex grid — month view (5–6 rows) or week view (1 row)
+   View toggles: calendar--month-view / calendar--week-view on DayCells
+   ============================================================================= */
+
+.calendar__day-cells {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+/* Each day cell occupies exactly 1/7 of the grid row */
+/* Generated by CalendarView */
+.calendar__day-cell {
+    flex-basis: 14.2857%;  /* 100% / 7 */
+    flex-shrink: 0;
+    flex-direction: column;
+    min-height: 80px;
+    padding: var(--space-3);
+    border-right-width: var(--border-width-thin);
+    border-right-color: var(--color-border-subtle);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    background-color: rgba(0, 0, 0, 0);
+    cursor: link;
+}
+
+.calendar__day-cell:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+/* Rightmost cell in each row — remove right border */
+.calendar__day-cell:nth-child(7n) {
+    border-right-width: 0;
+}
+
+/* Day number label */
+.calendar__day-number {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    -unity-text-align: upper-right;
+    flex-shrink: 0;
+}
+
+/* TODAY highlight */
+.calendar__day-cell.is-today {
+    border-top-width: 2px;
+    border-top-color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+}
+
+.calendar__day-cell.is-today .calendar__day-number {
+    color: var(--color-text-accent);
+    -unity-font-style: bold;
+}
+
+/* Out-of-month cell (days from prev/next month shown to fill grid) */
+.calendar__day-cell.is-out-of-month {
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0.4;
+}
+
+.calendar__day-cell.is-out-of-month .calendar__day-number {
+    color: var(--color-text-disabled);
+}
+
+/* Weekend cell subtle treatment */
+.calendar__day-cell.is-weekend {
+    background-color: var(--color-bg-panel-raised);
+}
+
+/* Past cell — muted treatment */
+.calendar__day-cell.is-past {
+    opacity: 0.6;
+}
+
+/* Day cell event chips container */
+.calendar__day-cell-events {
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--gap-tight);
+    margin-top: var(--space-2);
+    overflow: hidden;
+}
+
+/* Overflow indicator when more events exist */
+.calendar__day-overflow-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: lower-left;
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   WEEK VIEW — single row of day cells
+   Applied by View on DayCells when week view is active
+   ============================================================================= */
+
+.calendar__day-cells.calendar--week-view .calendar__day-cell {
+    min-height: 240px;
+    flex-basis: 14.2857%;
+}
+
+/* =============================================================================
+   EVENT CHIPS (inline in day cells)
+   Semantic colour variants applied per event category
+   ============================================================================= */
+
+/* Base chip */
+.calendar__event-chip {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-chip);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    border-radius: var(--radius-pill);
+    border-width: var(--border-width-thin);
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: link;
+}
+
+.calendar__event-chip-label {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-tiny);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Chip variant — default / neutral */
+.calendar__event-chip.chip--neutral {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-subtle);
+}
+
+.calendar__event-chip.chip--neutral .calendar__event-chip-label {
+    color: var(--color-text-secondary);
+}
+
+/* Chip variant — info (market, competitor, infrastructure) */
+.calendar__event-chip.chip--info {
+    background-color: var(--color-info-soft);
+    border-color: var(--color-border-info);
+}
+
+.calendar__event-chip.chip--info .calendar__event-chip-label {
+    color: var(--color-text-info);
+}
+
+/* Chip variant — success (launch day, positive milestone) */
+.calendar__event-chip.chip--success {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.calendar__event-chip.chip--success .calendar__event-chip-label {
+    color: var(--color-text-success);
+}
+
+/* Chip variant — warning (deadline warning, payroll, candidate response) */
+.calendar__event-chip.chip--warning {
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-border-warning);
+}
+
+.calendar__event-chip.chip--warning .calendar__event-chip-label {
+    color: var(--color-text-warning);
+}
+
+/* Chip variant — danger (contract deadline, critical report) */
+.calendar__event-chip.chip--danger {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+}
+
+.calendar__event-chip.chip--danger .calendar__event-chip-label {
+    color: var(--color-text-danger);
+}
+
+/* Chip variant — accent (product release, research completion) */
+.calendar__event-chip.chip--accent {
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-border-selected);
+}
+
+.calendar__event-chip.chip--accent .calendar__event-chip-label {
+    color: var(--color-text-accent);
+}
+
+/* Chip variant — special (rare events) */
+.calendar__event-chip.chip--special {
+    background-color: var(--color-special-soft);
+    border-color: var(--color-border-special);
+}
+
+.calendar__event-chip.chip--special .calendar__event-chip-label {
+    color: var(--color-text-special);
+}
+
+/* Decision-required indicator on chip */
+.calendar__event-chip.has-decision-required {
+    border-width: var(--border-width-strong);
+}
+
+/* Past / completed event — muted */
+.calendar__event-chip.is-past {
+    opacity: 0.45;
+}
+
+/* =============================================================================
+   UPCOMING EVENTS LIST (right-side panel)
+   ============================================================================= */
+
+.calendar__upcoming {
+    flex-direction: column;
+    width: 300px;
+    min-width: 260px;
+    max-width: 340px;
+    flex-shrink: 0;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    overflow: hidden;
+}
+
+.calendar__upcoming-title {
+    color: var(--color-text-primary);
+    padding: var(--space-5) var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.calendar__upcoming-empty {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.calendar__upcoming-empty-label {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+}
+
+.calendar__upcoming-list {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   UPCOMING EVENT ROW (compact)
+   Generated programmatically by CalendarView
+   ============================================================================= */
+
+.calendar__upcoming-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+    padding: var(--space-4) var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.calendar__upcoming-row:last-child {
+    border-bottom-width: 0;
+}
+
+.calendar__upcoming-row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+/* Left accent rail — category colour applied by View via inline border or helper class */
+.calendar__upcoming-row-rail {
+    width: 3px;
+    align-self: stretch;
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+    background-color: var(--color-accent-muted);
+}
+
+.calendar__upcoming-row-rail.chip--info    { background-color: var(--color-info); }
+.calendar__upcoming-row-rail.chip--success { background-color: var(--color-success); }
+.calendar__upcoming-row-rail.chip--warning { background-color: var(--color-warning); }
+.calendar__upcoming-row-rail.chip--danger  { background-color: var(--color-danger); }
+.calendar__upcoming-row-rail.chip--accent  { background-color: var(--color-accent); }
+.calendar__upcoming-row-rail.chip--special { background-color: var(--color-special); }
+
+.calendar__upcoming-row-body {
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--gap-tight);
+    min-width: 0;
+}
+
+.calendar__upcoming-row-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar__upcoming-row-date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+.calendar__upcoming-row-category {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-tiny);
+}
+
+/* Decision-required badge on upcoming row */
+.calendar__upcoming-row-decision-badge {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-chip);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    background-color: var(--color-warning-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-warning);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.calendar__upcoming-row-decision-label {
+    color: var(--color-text-warning);
+    font-size: var(--font-size-tiny);
+}
+
+/* Semantic state — warning row */
+.calendar__upcoming-row.has-warning .calendar__upcoming-row-title {
+    color: var(--color-text-warning);
+}
+
+/* Semantic state — danger row */
+.calendar__upcoming-row.has-danger .calendar__upcoming-row-title {
+    color: var(--color-text-danger);
+}
+
+/* Past / completed row — muted */
+.calendar__upcoming-row.is-past {
+    opacity: 0.5;
+}
+
+.calendar__upcoming-row.is-past .calendar__upcoming-row-title {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected     {}
+.is-active       {}
+.is-complete     {}
+.is-invalid      {}
+.is-disabled     {}
+.is-clickable    {}
+.has-warning     {}
+.has-danger      {}
+.has-success     {}
+.has-info        {}
+.is-today        {}
+.is-past         {}
+.is-out-of-month {}
+.is-weekend      {}

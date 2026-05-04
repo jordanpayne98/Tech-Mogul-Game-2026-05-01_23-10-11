@@ -2,6 +2,7 @@
     <Style src="/Assets/Project/UI/USS/Theme/theme-main.tss" />
     <Style src="/Assets/Project/UI/USS/Shell/MainShell.uss" />
     <Style src="/Assets/Project/UI/USS/Shell/Sidebar.uss" />
+    <Style src="/Assets/Project/UI/USS/Screens/PlaceholderScreen.uss" />
     <ui:VisualElement name="Root" class="main-shell">
 
         <!-- =====================================================

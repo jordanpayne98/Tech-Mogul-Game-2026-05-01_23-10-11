@@ -1,0 +1,525 @@
+/* =============================================================================
+   FounderPortalScreen.uss
+   Screen-specific styles for the Founder Portal dashboard screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.founder-portal {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   SCROLL VIEW
+   ============================================================================= */
+
+.founder-portal__scroll-view {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.founder-portal__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.founder-portal__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.founder-portal__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.founder-portal__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.founder-portal__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.founder-portal__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.founder-portal__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.founder-portal__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.founder-portal__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon placeholder — coloured square per Phase 5 plan note */
+.founder-portal__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.founder-portal__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.founder-portal__header-title {
+    color: var(--color-text-primary);
+}
+
+.founder-portal__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   KPI GRID ROW
+   ============================================================================= */
+
+.founder-portal__kpi-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   KPI CARD
+   (Generated programmatically by the View — class applied via C#)
+   ============================================================================= */
+
+.founder-portal__kpi-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 200px;
+    max-width: 300px;
+    padding: var(--padding-card-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-tight);
+}
+
+.founder-portal__kpi-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.founder-portal__kpi-card.is-clickable {
+    cursor: link;
+}
+
+.founder-portal__kpi-card__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.founder-portal__kpi-card__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading);
+    -unity-font-style: bold;
+}
+
+.founder-portal__kpi-card__trend {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* KPI semantic state — warning */
+.founder-portal__kpi-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.founder-portal__kpi-card.has-warning .founder-portal__kpi-card__value {
+    color: var(--color-text-warning);
+}
+
+.founder-portal__kpi-card.has-warning .founder-portal__kpi-card__trend {
+    color: var(--color-text-warning);
+}
+
+/* KPI semantic state — danger */
+.founder-portal__kpi-card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.founder-portal__kpi-card.has-danger .founder-portal__kpi-card__value {
+    color: var(--color-text-danger);
+}
+
+.founder-portal__kpi-card.has-danger .founder-portal__kpi-card__trend {
+    color: var(--color-text-danger);
+}
+
+/* KPI semantic state — success */
+.founder-portal__kpi-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.founder-portal__kpi-card.has-success .founder-portal__kpi-card__value {
+    color: var(--color-text-success);
+}
+
+.founder-portal__kpi-card.has-success .founder-portal__kpi-card__trend {
+    color: var(--color-text-success);
+}
+
+/* KPI semantic state — info */
+.founder-portal__kpi-card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.founder-portal__kpi-card.has-info .founder-portal__kpi-card__value {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   MAIN DASHBOARD GRID
+   ============================================================================= */
+
+.founder-portal__dashboard-grid {
+    flex-direction: row;
+    gap: var(--gap-large);
+    flex-grow: 1;
+}
+
+.founder-portal__dashboard-main {
+    flex-grow: 1;
+    flex-direction: column;
+    gap: var(--gap-large);
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.founder-portal__dashboard-side {
+    width: 320px;
+    min-width: 280px;
+    max-width: 360px;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: var(--gap-large);
+}
+
+/* =============================================================================
+   DASHBOARD CARD
+   (Generated programmatically by the View — class applied via C#)
+   ============================================================================= */
+
+.founder-portal__dashboard-card {
+    flex-direction: column;
+    min-width: 280px;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-standard);
+}
+
+.founder-portal__dashboard-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.founder-portal__dashboard-card.is-clickable {
+    cursor: link;
+}
+
+.founder-portal__dashboard-card__title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+    font-size: var(--font-size-body-strong);
+}
+
+.founder-portal__dashboard-card__summary {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+}
+
+.founder-portal__dashboard-card__detail-line {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* Dashboard card semantic states */
+.founder-portal__dashboard-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.founder-portal__dashboard-card.has-warning .founder-portal__dashboard-card__title {
+    color: var(--color-text-warning);
+}
+
+.founder-portal__dashboard-card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.founder-portal__dashboard-card.has-danger .founder-portal__dashboard-card__title {
+    color: var(--color-text-danger);
+}
+
+.founder-portal__dashboard-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.founder-portal__dashboard-card.has-success .founder-portal__dashboard-card__title {
+    color: var(--color-text-success);
+}
+
+.founder-portal__dashboard-card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.founder-portal__dashboard-card.has-info .founder-portal__dashboard-card__title {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   SHARED CARD TITLE (used by side cards and recent activity)
+   ============================================================================= */
+
+.founder-portal__card-title {
+    color: var(--color-text-primary);
+    margin-bottom: var(--gap-small);
+}
+
+/* =============================================================================
+   UP NEXT CARD
+   ============================================================================= */
+
+.founder-portal__up-next {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+.founder-portal__up-next-list {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Up Next list item — generated by View */
+.founder-portal__up-next-item {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    padding-left: var(--space-4);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent-muted);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+/* =============================================================================
+   QUICK ACTIONS CARD
+   ============================================================================= */
+
+.founder-portal__quick-actions {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+.founder-portal__quick-actions-list {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+/* Quick action row item — generated by View */
+.founder-portal__quick-action-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-small);
+    cursor: link;
+}
+
+.founder-portal__quick-action-item:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.founder-portal__quick-action-item.is-disabled {
+    cursor: arrow;
+    opacity: 0.45;
+}
+
+.founder-portal__quick-action-item.is-disabled:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.founder-portal__quick-action-icon {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    min-width: var(--icon-size-standard);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+}
+
+.founder-portal__quick-action-label {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.founder-portal__quick-action-item.is-disabled .founder-portal__quick-action-label {
+    color: var(--color-text-disabled);
+}
+
+/* =============================================================================
+   RECENT ACTIVITY STRIP
+   ============================================================================= */
+
+.founder-portal__recent-activity {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    flex-shrink: 0;
+}
+
+.founder-portal__recent-activity-list {
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+/* Recent activity row item — generated by View */
+.founder-portal__activity-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.founder-portal__activity-item:last-child {
+    border-bottom-width: 0;
+}
+
+.founder-portal__activity-timestamp {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.founder-portal__activity-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.founder-portal__activity-category-pill {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-accent-soft);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.founder-portal__activity-category-label {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}

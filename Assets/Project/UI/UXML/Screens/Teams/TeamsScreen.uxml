@@ -1,0 +1,97 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         TeamsScreen.uxml
+         Structural layout for the Teams management screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         Summary card row and table body rows are generated programmatically.
+         ===================================================================== -->
+
+    <ui:VisualElement name="TeamsRoot" class="teams">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="teams__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="teams__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="teams__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="teams__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="teams__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="teams__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="teams__empty-state-body text-body" />
+            <ui:Button name="EmptyStateCreateButton" text="Create Team" class="teams__empty-state-cta base-button base-button--primary" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentScrollView"
+                       class="teams__scroll-view"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT CONTAINER ─────────────────────────────────── -->
+            <ui:VisualElement name="ContentContainer" class="teams__content">
+
+                <!-- ─── SCREEN HEADER ─────────────────────────────────── -->
+                <ui:VisualElement name="ScreenHeader" class="teams__header">
+                    <ui:VisualElement name="HeaderTextBlock" class="teams__header-text-block">
+                        <ui:Label name="HeaderTitle" text="Teams" class="teams__header-title text-title" />
+                        <ui:Label name="HeaderSubtitle" text="" class="teams__header-subtitle text-small" />
+                    </ui:VisualElement>
+                    <!-- Header spacer pushes the action to the right -->
+                    <ui:VisualElement name="HeaderSpacer" class="teams__header-spacer" />
+                    <ui:Button name="CreateTeamButton" text="+ Create Team" class="teams__create-button base-button base-button--primary" />
+                </ui:VisualElement>
+
+                <!-- ─── SUMMARY CARD ROW ──────────────────────────────── -->
+                <!--
+                    Six summary cards: Total Teams, Available Teams,
+                    Overloaded Teams, Average Morale, Average Cohesion,
+                    Open Role Gaps.
+                    Populated programmatically by TeamsView.
+                -->
+                <ui:VisualElement name="SummaryCardRow" class="teams__summary-row" />
+
+                <!-- ─── TEAM TABLE ────────────────────────────────────── -->
+                <ui:VisualElement name="DataTable" class="teams__table">
+
+                    <!-- Table Header -->
+                    <ui:VisualElement name="TableHeader" class="teams__table-header">
+                        <ui:Label text="Team Name"          class="teams__col teams__col--name        teams__header-cell text-small" />
+                        <ui:Label text="Function"           class="teams__col teams__col--function    teams__header-cell text-small" />
+                        <ui:Label text="Members"            class="teams__col teams__col--members     teams__header-cell text-small" />
+                        <ui:Label text="Lead"               class="teams__col teams__col--lead        teams__header-cell text-small" />
+                        <ui:Label text="Assignment"         class="teams__col teams__col--assignment  teams__header-cell text-small" />
+                        <ui:Label text="Capacity"           class="teams__col teams__col--capacity    teams__header-cell text-small" />
+                        <ui:Label text="Workload"           class="teams__col teams__col--workload    teams__header-cell text-small" />
+                        <ui:Label text="Morale"             class="teams__col teams__col--morale      teams__header-cell text-small" />
+                        <ui:Label text="Cohesion"           class="teams__col teams__col--cohesion    teams__header-cell text-small" />
+                        <ui:Label text="Role Gaps"          class="teams__col teams__col--role-gaps   teams__header-cell text-small" />
+                        <ui:Label text="Status"             class="teams__col teams__col--status      teams__header-cell text-small" />
+                        <ui:Label text="Actions"            class="teams__col teams__col--actions     teams__header-cell text-small" />
+                    </ui:VisualElement>
+
+                    <!-- Table Body — rows generated programmatically by TeamsView -->
+                    <ui:VisualElement name="TableBody" class="teams__table-body" />
+
+                </ui:VisualElement>
+
+                <!-- ─── FOOTER ────────────────────────────────────────── -->
+                <ui:VisualElement name="Footer" class="teams__footer">
+                    <ui:Label name="FooterSummary" text="" class="teams__footer-summary text-small" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>

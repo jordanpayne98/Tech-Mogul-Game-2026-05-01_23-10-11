@@ -5,7 +5,22 @@ using Project.Presentation.UI.Components;
 using Project.Presentation.UI.Controllers;
 using Project.Presentation.UI.Modals;
 using Project.Presentation.UI.Routing;
+using Project.Presentation.UI.Screens.Calendar;
+using Project.Presentation.UI.Screens.Company;
 using Project.Presentation.UI.Screens.CompanyCreation;
+using Project.Presentation.UI.Screens.Competitors;
+using Project.Presentation.UI.Screens.Employees;
+using Project.Presentation.UI.Screens.Contracts;
+using Project.Presentation.UI.Screens.FounderPortal;
+using Project.Presentation.UI.Screens.Finance;
+using Project.Presentation.UI.Screens.Market;
+using Project.Presentation.UI.Screens.Products;
+using Project.Presentation.UI.Screens.ProductDetail;
+using Project.Presentation.UI.Screens.RecruitmentHub;
+using Project.Presentation.UI.Screens.Research;
+using Project.Presentation.UI.Screens.ReportsInbox;
+using Project.Presentation.UI.Screens.Settings;
+using Project.Presentation.UI.Screens.Teams;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -40,6 +55,54 @@ namespace Project.Composition
         /// <summary>Right drawer router — expose for other Composition code.</summary>
         public IRightDrawerRouter DrawerRouter { get; private set; }
 
+        // ─── Serialized screen assets ────────────────────────────────────────────────
+
+        [SerializeField] private VisualTreeAsset _founderPortalUxml;
+        [SerializeField] private StyleSheet      _founderPortalUss;
+
+        [SerializeField] private VisualTreeAsset _contractsUxml;
+        [SerializeField] private StyleSheet      _contractsUss;
+
+        [SerializeField] private VisualTreeAsset _financeUxml;
+        [SerializeField] private StyleSheet      _financeUss;
+
+        [SerializeField] private VisualTreeAsset _employeesUxml;
+        [SerializeField] private StyleSheet      _employeesUss;
+
+        [SerializeField] private VisualTreeAsset _companyUxml;
+        [SerializeField] private StyleSheet      _companyUss;
+
+        [SerializeField] private VisualTreeAsset _teamsUxml;
+        [SerializeField] private StyleSheet      _teamsUss;
+
+        [SerializeField] private VisualTreeAsset _recruitmentHubUxml;
+        [SerializeField] private StyleSheet      _recruitmentHubUss;
+
+        [SerializeField] private VisualTreeAsset _marketUxml;
+        [SerializeField] private StyleSheet      _marketUss;
+
+        [SerializeField] private VisualTreeAsset _competitorsUxml;
+        [SerializeField] private StyleSheet      _competitorsUss;
+
+        [SerializeField] private VisualTreeAsset _calendarUxml;
+        [SerializeField] private StyleSheet      _calendarUss;
+
+        [SerializeField] private VisualTreeAsset _productDetailUxml;
+        [SerializeField] private StyleSheet      _productDetailUss;
+
+
+        [SerializeField] private VisualTreeAsset _productsUxml;
+        [SerializeField] private StyleSheet      _productsUss;
+
+        [SerializeField] private VisualTreeAsset _researchUxml;
+        [SerializeField] private StyleSheet      _researchUss;
+
+        [SerializeField] private VisualTreeAsset _reportsInboxUxml;
+        [SerializeField] private StyleSheet      _reportsInboxUss;
+
+        [SerializeField] private VisualTreeAsset _settingsUxml;
+        [SerializeField] private StyleSheet      _settingsUss;
+
         // ─── Private references ──────────────────────────────────────────────────────
 
         private SidebarView           _sidebarView;
@@ -48,6 +111,7 @@ namespace Project.Composition
         private VisualElement         _wizardContainer;
         private RightDrawerRouter     _drawerRouterImpl;
         private CompanyCreationView   _companyCreationView;
+        private GameSessionContext    _sessionContext;
 
         // ─── Public API ──────────────────────────────────────────────────────────────
 
@@ -73,6 +137,17 @@ namespace Project.Composition
             }
 
             _shellRoot = root;
+
+            // ── Step 0: Ensure rootVisualElement and TemplateContainer fill the viewport ─
+            // UIShellLayoutFixer handles this in OnEnable(), but component execution order
+            // may cause it to run before UIDocument clones the UXML tree. Apply here as a
+            // guaranteed fallback since the tree is always populated at this point.
+
+            root.style.flexGrow = 1;
+            for (int i = 0; i < root.childCount; i++)
+            {
+                root[i].style.flexGrow = 1;
+            }
 
             // ── Step 1: Query host elements ──────────────────────────────────────────
 
@@ -109,6 +184,13 @@ namespace Project.Composition
 
             DebugLogger.Log(DebugCategory.Bootstrap,
                 "UIShellController: routers created.", this);
+
+            // ── Step 2b: Register screen factories ──────────────────────────────────
+
+            RegisterScreenFactories(screenRouter);
+
+            DebugLogger.Log(DebugCategory.Bootstrap,
+                "UIShellController: screen factories registered.", this);
 
             // ── Step 3: Register modal factories ────────────────────────────────────
 
@@ -279,7 +361,565 @@ namespace Project.Composition
                 "UIShellController.HideWizard: wizard removed, shell restored.", this);
         }
 
+        /// <summary>
+        /// Updates the session context reference so that factory closures can access
+        /// the live session when they create screen controllers.
+        /// Called by GameBootstrapper after GameCompositionRoot.BindSession() completes.
+        /// </summary>
+        /// <param name="context">The newly built session context. Must not be null.</param>
+        public void RebindSession(GameSessionContext context)
+        {
+            _sessionContext = context;
+            DebugLogger.Log(DebugCategory.Bootstrap,
+                "[UIShellController] Rebound to GameSessionContext.", this);
+        }
+
         // ─── Private helpers ─────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Registers screen factories for all screens with real implementations.
+        /// Unregistered screen IDs will fall back to PlaceholderScreenView automatically.
+        /// Phase 5A registers the Founder Portal screen factory.
+        /// Phase 5B-3 registers the Company screen factory.
+        /// Phase 5C-3 registers the Employees screen factory.
+        /// Phase 5D-3 registers the Recruitment Hub screen factory.
+        /// Phase 5E-3 registers the Teams screen factory.
+        /// Phase 5H-3 registers the Contracts screen factory.
+        /// Phase 5N-3 registers the Calendar screen factory.
+        /// Phase 5J-3 registers the Market screen factory.
+        /// Phase 5M-3 registers the Reports / Inbox screen factory.
+        /// Phase 5O-3 registers the Settings screen factory.
+        /// </summary>
+        private void RegisterScreenFactories(ScreenRouter screenRouter)
+        {
+            // ── screen.portal — Founder Portal ───────────────────────────────────────
+
+            if (_founderPortalUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _founderPortalUxml is not assigned. " +
+                    "screen.portal will fall back to PlaceholderScreenView. " +
+                    "Assign FounderPortalScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset founderPortalUxml = _founderPortalUxml;
+                StyleSheet      founderPortalUss  = _founderPortalUss;
+                IScreenRouter   iScreenRouter     = ScreenRouter;
+                IModalRouter    iModalRouter      = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Portal, () =>
+                {
+                    VisualElement root = founderPortalUxml.Instantiate();
+
+                    if (founderPortalUss != null)
+                    {
+                        root.styleSheets.Add(founderPortalUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _founderPortalUss is not assigned. " +
+                            "FounderPortalScreen.uss will not be applied. " +
+                            "Assign FounderPortalScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new FounderPortalView(root);
+                    var controller = new FounderPortalController(view, iScreenRouter, iModalRouter);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.teams — Teams Management ──────────────────────────────────────
+
+            if (_teamsUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _teamsUxml is not assigned. " +
+                    "screen.teams will fall back to PlaceholderScreenView. " +
+                    "Assign TeamsScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset teamsUxml    = _teamsUxml;
+                StyleSheet      teamsUss     = _teamsUss;
+                IScreenRouter   iScreenRouter = ScreenRouter;
+                IModalRouter    iModalRouter  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Teams, () =>
+                {
+                    VisualElement root = teamsUxml.Instantiate();
+
+                    if (teamsUss != null)
+                    {
+                        root.styleSheets.Add(teamsUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _teamsUss is not assigned. " +
+                            "TeamsScreen.uss will not be applied. " +
+                            "Assign TeamsScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new TeamsView(root);
+                    var controller = new TeamsController(view, iScreenRouter, iModalRouter);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.recruitment — Recruitment Hub ─────────────────────────────────
+
+            if (_recruitmentHubUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _recruitmentHubUxml is not assigned. " +
+                    "screen.recruitment will fall back to PlaceholderScreenView. " +
+                    "Assign RecruitmentHubScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset recruitmentHubUxml = _recruitmentHubUxml;
+                StyleSheet      recruitmentHubUss  = _recruitmentHubUss;
+                IScreenRouter   iScreenRouterRec   = ScreenRouter;
+                IModalRouter    iModalRouterRec    = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Recruitment, () =>
+                {
+                    VisualElement root = recruitmentHubUxml.Instantiate();
+
+                    if (recruitmentHubUss != null)
+                    {
+                        root.styleSheets.Add(recruitmentHubUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _recruitmentHubUss is not assigned. " +
+                            "RecruitmentHubScreen.uss will not be applied. " +
+                            "Assign RecruitmentHubScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new RecruitmentHubView(root);
+                    var controller = new RecruitmentHubController(view, iScreenRouterRec, iModalRouterRec);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.finance — Finance Overview ────────────────────────────────────
+
+            if (_financeUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _financeUxml is not assigned. " +
+                    "screen.finance will fall back to PlaceholderScreenView. " +
+                    "Assign FinanceScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset financeUxml      = _financeUxml;
+                StyleSheet      financeUss       = _financeUss;
+                IScreenRouter   iScreenRouterFin = ScreenRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Finance, () =>
+                {
+                    VisualElement root = financeUxml.Instantiate();
+
+                    if (financeUss != null)
+                    {
+                        root.styleSheets.Add(financeUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _financeUss is not assigned. " +
+                            "FinanceScreen.uss will not be applied. " +
+                            "Assign FinanceScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new FinanceView(root);
+                    var controller = new FinanceController(view, iScreenRouterFin);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.competitors — Competitors ─────────────────────────────────────
+
+            if (_competitorsUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _competitorsUxml is not assigned. " +
+                    "screen.competitors will fall back to PlaceholderScreenView. " +
+                    "Assign CompetitorsScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset competitorsUxml    = _competitorsUxml;
+                StyleSheet      competitorsUss     = _competitorsUss;
+                IScreenRouter   iScreenRouterComp  = ScreenRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Competitors, () =>
+                {
+                    VisualElement root = competitorsUxml.Instantiate();
+
+                    if (competitorsUss != null)
+                    {
+                        root.styleSheets.Add(competitorsUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _competitorsUss is not assigned. " +
+                            "CompetitorsScreen.uss will not be applied. " +
+                            "Assign CompetitorsScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new CompetitorsView(root);
+                    var controller = new CompetitorsController(view, iScreenRouterComp);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.product_detail — Product Detail ───────────────────────────────
+
+            if (_productDetailUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _productDetailUxml is not assigned. " +
+                    "screen.product_detail will fall back to PlaceholderScreenView. " +
+                    "Assign ProductDetailScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset productDetailUxml = _productDetailUxml;
+                StyleSheet      productDetailUss  = _productDetailUss;
+                IScreenRouter   iScreenRouterPd   = ScreenRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.ProductDetail, () =>
+                {
+                    VisualElement root = productDetailUxml.Instantiate();
+
+                    if (productDetailUss != null)
+                    {
+                        root.styleSheets.Add(productDetailUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _productDetailUss is not assigned. " +
+                            "ProductDetailScreen.uss will not be applied. " +
+                            "Assign ProductDetailScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new ProductDetailView(root);
+                    var controller = new ProductDetailController(view, iScreenRouterPd);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.market — Market Overview ──────────────────────────────────────
+
+            if (_marketUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _marketUxml is not assigned. " +
+                    "screen.market will fall back to PlaceholderScreenView. " +
+                    "Assign MarketScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset marketUxml       = _marketUxml;
+                StyleSheet      marketUss        = _marketUss;
+                IScreenRouter   iScreenRouterMkt = ScreenRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Market, () =>
+                {
+                    VisualElement root = marketUxml.Instantiate();
+
+                    if (marketUss != null)
+                    {
+                        root.styleSheets.Add(marketUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _marketUss is not assigned. " +
+                            "MarketScreen.uss will not be applied. " +
+                            "Assign MarketScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new MarketView(root);
+                    var controller = new MarketController(view, iScreenRouterMkt);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.calendar — Calendar ───────────────────────────────────────────
+
+            if (_calendarUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _calendarUxml is not assigned. " +
+                    "screen.calendar will fall back to PlaceholderScreenView. " +
+                    "Assign CalendarScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset calendarUxml     = _calendarUxml;
+                StyleSheet      calendarUss      = _calendarUss;
+                IScreenRouter   iScreenRouterCal = ScreenRouter;
+                IModalRouter    iModalRouterCal  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Calendar, () =>
+                {
+                    VisualElement root = calendarUxml.Instantiate();
+
+                    if (calendarUss != null)
+                    {
+                        root.styleSheets.Add(calendarUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _calendarUss is not assigned. " +
+                            "CalendarScreen.uss will not be applied. " +
+                            "Assign CalendarScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new CalendarView(root);
+                    var controller = new CalendarController(view, iScreenRouterCal, iModalRouterCal);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.research — Research ───────────────────────────────────────────
+
+            if (_researchUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _researchUxml is not assigned. " +
+                    "screen.research will fall back to PlaceholderScreenView. " +
+                    "Assign ResearchScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset researchUxml     = _researchUxml;
+                StyleSheet      researchUss      = _researchUss;
+                IScreenRouter   iScreenRouterRes = ScreenRouter;
+                IModalRouter    iModalRouterRes  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Research, () =>
+                {
+                    VisualElement root = researchUxml.Instantiate();
+
+                    if (researchUss != null)
+                    {
+                        root.styleSheets.Add(researchUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _researchUss is not assigned. " +
+                            "ResearchScreen.uss will not be applied. " +
+                            "Assign ResearchScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new ResearchView(root);
+                    var controller = new ResearchController(view, iScreenRouterRes, iModalRouterRes);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.products — Products Portfolio ─────────────────────────────────
+
+            if (_productsUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _productsUxml is not assigned. " +
+                    "screen.products will fall back to PlaceholderScreenView. " +
+                    "Assign ProductsScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset productsUxml     = _productsUxml;
+                StyleSheet      productsUss      = _productsUss;
+                IScreenRouter   iScreenRouterPro = ScreenRouter;
+                IModalRouter    iModalRouterPro  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Products, () =>
+                {
+                    VisualElement root = productsUxml.Instantiate();
+
+                    if (productsUss != null)
+                    {
+                        root.styleSheets.Add(productsUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _productsUss is not assigned. " +
+                            "ProductsScreen.uss will not be applied. " +
+                            "Assign ProductsScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new ProductsView(root);
+                    var controller = new ProductsController(view, iScreenRouterPro, iModalRouterPro);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.reports — Reports / Inbox ─────────────────────────────────────
+
+            if (_reportsInboxUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _reportsInboxUxml is not assigned. " +
+                    "screen.reports will fall back to PlaceholderScreenView. " +
+                    "Assign ReportsInboxScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset reportsInboxUxml = _reportsInboxUxml;
+                StyleSheet      reportsInboxUss  = _reportsInboxUss;
+                IScreenRouter   iScreenRouterRep = ScreenRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Reports, () =>
+                {
+                    VisualElement root = reportsInboxUxml.Instantiate();
+
+                    if (reportsInboxUss != null)
+                    {
+                        root.styleSheets.Add(reportsInboxUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _reportsInboxUss is not assigned. " +
+                            "ReportsInboxScreen.uss will not be applied. " +
+                            "Assign ReportsInboxScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new ReportsInboxView(root);
+                    var controller = new ReportsInboxController(view, iScreenRouterRep);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.company — Company Profile ─────────────────────────────────────
+
+            if (_companyUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _companyUxml is not assigned. " +
+                    "screen.company will fall back to PlaceholderScreenView. " +
+                    "Assign CompanyScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset companyUxml     = _companyUxml;
+                StyleSheet      companyUss      = _companyUss;
+                IScreenRouter   iScreenRouterCo = ScreenRouter;
+                IModalRouter    iModalRouterCo  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Company, () =>
+                {
+                    VisualElement root = companyUxml.Instantiate();
+
+                    if (companyUss != null)
+                    {
+                        root.styleSheets.Add(companyUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _companyUss is not assigned. " +
+                            "CompanyScreen.uss will not be applied. " +
+                            "Assign CompanyScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new CompanyView(root);
+                    var controller = new CompanyController(view, iScreenRouterCo, iModalRouterCo);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+
+            // ── screen.settings — Settings ───────────────────────────────────────────
+
+            if (_settingsUxml == null)
+            {
+                DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                    "UIShellController: _settingsUxml is not assigned. " +
+                    "screen.settings will fall back to PlaceholderScreenView. " +
+                    "Assign SettingsScreen.uxml to UIShellController on the UIShell GameObject.", this);
+            }
+            else
+            {
+                // Capture references for the factory closure.
+                VisualTreeAsset settingsUxml     = _settingsUxml;
+                StyleSheet      settingsUss      = _settingsUss;
+                IScreenRouter   iScreenRouterSet = ScreenRouter;
+                IModalRouter    iModalRouterSet  = ModalRouter;
+
+                screenRouter.RegisterScreen(ScreenIds.Settings, () =>
+                {
+                    VisualElement root = settingsUxml.Instantiate();
+
+                    if (settingsUss != null)
+                    {
+                        root.styleSheets.Add(settingsUss);
+                    }
+                    else
+                    {
+                        DebugLogger.LogWarning(DebugCategory.Bootstrap,
+                            "UIShellController: _settingsUss is not assigned. " +
+                            "SettingsScreen.uss will not be applied. " +
+                            "Assign SettingsScreen.uss to UIShellController on the UIShell GameObject.", this);
+                    }
+
+                    var view       = new SettingsView(root);
+                    var controller = new SettingsController(view, iScreenRouterSet, iModalRouterSet);
+                    controller.Initialize();
+
+                    return view.Root;
+                });
+            }
+        }
 
         /// <summary>
         /// Registers drawer factories for all known stable drawer IDs.

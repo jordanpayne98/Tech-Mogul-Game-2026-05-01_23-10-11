@@ -1,0 +1,620 @@
+/* =============================================================================
+   TeamsScreen.uss
+   Screen-specific styles for the Teams management screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.teams {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   SCROLL VIEW
+   ============================================================================= */
+
+.teams__scroll-view {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.teams__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.teams__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.teams__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.teams__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.teams__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.teams__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.teams__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.teams__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+.teams__empty-state-cta {
+    margin-top: var(--space-6);
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.teams__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.teams__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.teams__header-title {
+    color: var(--color-text-primary);
+}
+
+.teams__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+.teams__header-spacer {
+    flex-grow: 1;
+}
+
+.teams__create-button {
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   SUMMARY CARD ROW
+   KPI-style summary cards: Total Teams, Available Teams, Overloaded Teams,
+   Average Morale, Average Cohesion, Open Role Gaps.
+   Cards are generated programmatically by TeamsView.
+   ============================================================================= */
+
+.teams__summary-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   SUMMARY CARD
+   ============================================================================= */
+
+.teams__summary-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 180px;
+    max-width: 280px;
+    padding: var(--padding-card-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-tight);
+}
+
+.teams__summary-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.teams__summary-card__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.teams__summary-card__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-heading);
+    -unity-font-style: bold;
+}
+
+.teams__summary-card__detail {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* Summary card semantic states */
+
+.teams__summary-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.teams__summary-card.has-warning .teams__summary-card__value {
+    color: var(--color-text-warning);
+}
+
+.teams__summary-card.has-warning .teams__summary-card__detail {
+    color: var(--color-text-warning);
+}
+
+.teams__summary-card.has-danger {
+    border-color: var(--color-border-danger);
+    background-color: var(--color-danger-soft);
+}
+
+.teams__summary-card.has-danger .teams__summary-card__value {
+    color: var(--color-text-danger);
+}
+
+.teams__summary-card.has-danger .teams__summary-card__detail {
+    color: var(--color-text-danger);
+}
+
+.teams__summary-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.teams__summary-card.has-success .teams__summary-card__value {
+    color: var(--color-text-success);
+}
+
+.teams__summary-card.has-success .teams__summary-card__detail {
+    color: var(--color-text-success);
+}
+
+.teams__summary-card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.teams__summary-card.has-info .teams__summary-card__value {
+    color: var(--color-text-info);
+}
+
+/* =============================================================================
+   TEAM TABLE
+   Columns: Team Name, Function, Members, Lead, Assignment,
+            Capacity, Workload, Morale, Cohesion, Role Gaps, Status, Actions.
+   ============================================================================= */
+
+.teams__table {
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   TABLE HEADER ROW
+   ============================================================================= */
+
+.teams__table-header {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    background-color: var(--color-bg-panel-raised);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.teams__header-cell {
+    color: var(--color-text-muted);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    overflow: hidden;
+}
+
+/* =============================================================================
+   TABLE BODY
+   Row elements are generated programmatically by TeamsView.
+   ============================================================================= */
+
+.teams__table-body {
+    flex-direction: column;
+}
+
+/* =============================================================================
+   TABLE ROW
+   Applied programmatically to each generated row element.
+   ============================================================================= */
+
+.teams__row {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-row-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.teams__row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.teams__row:last-child {
+    border-bottom-width: 0;
+}
+
+.teams__row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent);
+}
+
+.teams__row.is-disabled {
+    cursor: arrow;
+    opacity: 0.5;
+}
+
+/* Row semantic states */
+
+.teams__row.has-warning {
+    background-color: var(--color-warning-soft);
+}
+
+.teams__row.has-danger {
+    background-color: var(--color-danger-soft);
+}
+
+/* =============================================================================
+   TABLE CELL
+   Applied to each cell element within a row.
+   ============================================================================= */
+
+.teams__cell {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    -unity-text-align: middle-left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.teams__cell--muted {
+    color: var(--color-text-muted);
+}
+
+.teams__cell--secondary {
+    color: var(--color-text-secondary);
+}
+
+.teams__cell--warning {
+    color: var(--color-text-warning);
+}
+
+.teams__cell--danger {
+    color: var(--color-text-danger);
+}
+
+.teams__cell--success {
+    color: var(--color-text-success);
+}
+
+.teams__cell--unassigned {
+    color: var(--color-text-muted);
+    -unity-font-style: italic;
+}
+
+.teams__cell--missing-lead {
+    color: var(--color-text-warning);
+}
+
+/* =============================================================================
+   COLUMN WIDTH DEFINITIONS
+   Applied to both header cells and row cells via shared col class.
+   ============================================================================= */
+
+.teams__col--name {
+    flex-grow: 2;
+    min-width: 140px;
+}
+
+.teams__col--function {
+    flex-grow: 1;
+    min-width: 110px;
+}
+
+.teams__col--members {
+    width: 72px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--lead {
+    flex-grow: 1;
+    min-width: 110px;
+}
+
+.teams__col--assignment {
+    flex-grow: 1;
+    min-width: 120px;
+}
+
+.teams__col--capacity {
+    width: 72px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--workload {
+    width: 80px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--morale {
+    width: 72px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--cohesion {
+    width: 72px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--role-gaps {
+    width: 76px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+.teams__col--status {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.teams__col--actions {
+    width: 80px;
+    flex-shrink: 0;
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   STATUS CHIP
+   Inline pill showing team status: Active, Overloaded, Unavailable, Unassigned.
+   Applied programmatically by TeamsView.
+   ============================================================================= */
+
+.teams__status-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+    max-width: 96px;
+}
+
+.teams__status-chip__label {
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+/* Status chip variants */
+
+.teams__status-chip--active {
+    background-color: var(--color-success-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-success);
+}
+
+.teams__status-chip--active .teams__status-chip__label {
+    color: var(--color-text-success);
+}
+
+.teams__status-chip--overloaded {
+    background-color: var(--color-warning-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-warning);
+}
+
+.teams__status-chip--overloaded .teams__status-chip__label {
+    color: var(--color-text-warning);
+}
+
+.teams__status-chip--unavailable {
+    background-color: var(--color-danger-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+}
+
+.teams__status-chip--unavailable .teams__status-chip__label {
+    color: var(--color-text-danger);
+}
+
+.teams__status-chip--unassigned {
+    background-color: transparent;
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+}
+
+.teams__status-chip--unassigned .teams__status-chip__label {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   ROLE GAP BADGE
+   Compact numeric badge in Role Gaps column.
+   Applied programmatically by TeamsView.
+   ============================================================================= */
+
+.teams__gap-badge {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: var(--height-chip);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.teams__gap-badge__label {
+    font-size: var(--font-size-tiny);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+/* Gap badge variants */
+
+.teams__gap-badge--none {
+    background-color: transparent;
+}
+
+.teams__gap-badge--none .teams__gap-badge__label {
+    color: var(--color-text-muted);
+}
+
+.teams__gap-badge--has-gaps {
+    background-color: var(--color-warning-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-warning);
+}
+
+.teams__gap-badge--has-gaps .teams__gap-badge__label {
+    color: var(--color-text-warning);
+}
+
+.teams__gap-badge--critical-gaps {
+    background-color: var(--color-danger-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+}
+
+.teams__gap-badge--critical-gaps .teams__gap-badge__label {
+    color: var(--color-text-danger);
+}
+
+/* =============================================================================
+   TABLE ROW ACTIONS BUTTON
+   Ghost-style compact detail button per row.
+   ============================================================================= */
+
+.teams__row-action-button {
+    height: var(--height-button-compact);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    background-color: transparent;
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    cursor: link;
+}
+
+.teams__row-action-button:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.teams__footer {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-4);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.teams__footer-summary {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected    {}
+.is-active      {}
+.is-complete    {}
+.is-invalid     {}
+.is-disabled    {}
+.is-clickable   {}
+.has-warning    {}
+.has-danger     {}
+.has-success    {}
+.has-info       {}

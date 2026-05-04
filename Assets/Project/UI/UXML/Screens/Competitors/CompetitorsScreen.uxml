@@ -1,0 +1,113 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         CompetitorsScreen.uxml
+         Structural layout for the Competitors screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content (table rows) is populated programmatically by the View.
+         State containers start with is-hidden — the View toggles visibility.
+         Right competitor detail drawer is opened via the shell's DrawerRouter.
+         Route ID: screen.competitors
+         ===================================================================== -->
+
+    <ui:VisualElement name="CompetitorsRoot" class="competitors">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="competitors__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="competitors__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="competitors__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="competitors__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <!-- Shown when no competitors have been generated yet -->
+        <ui:VisualElement name="EmptyState" class="competitors__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="competitors__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="competitors__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="competitors__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="competitors__header">
+                <ui:VisualElement name="HeaderIcon" class="competitors__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="competitors__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Competitors" class="competitors__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="Track rival companies, archetypes, and market positions."
+                              class="competitors__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="competitors__toolbar">
+
+                <!-- Archetype Dropdown — populated/wired by View -->
+                <ui:DropdownField name="ArchetypeDropdown" label="" class="competitors__archetype-dropdown" />
+
+                <!-- Market Dropdown — populated/wired by View -->
+                <ui:DropdownField name="MarketDropdown" label="" class="competitors__market-dropdown" />
+
+                <!-- Search Field -->
+                <ui:TextField name="SearchField" placeholder-text="Search competitors..."
+                              class="competitors__search" />
+
+                <!-- Filters Button — opens right filter drawer via DrawerRouter -->
+                <ui:Button name="FiltersButton" text="Filters"
+                           class="competitors__filters-btn" />
+
+            </ui:VisualElement>
+
+            <!-- ─── DATA TABLE ────────────────────────────────────────────── -->
+            <!-- ScrollView supports horizontal overflow for wide column sets -->
+            <ui:ScrollView name="DataTable"
+                           class="competitors__table"
+                           horizontal-scroll-bar-visibility="Auto"
+                           vertical-scroll-bar-visibility="Auto"
+                           scroll-deceleration-rate="0.135"
+                           elasticity="0.1">
+
+                <!-- TABLE HEADER — fixed label row -->
+                <!-- Columns: Company Name | Archetype | Main Market | Reputation |
+                              Product Count | Recent Launch | Market Position | Trend | Actions -->
+                <ui:VisualElement name="TableHeader" class="competitors__table-header">
+                    <ui:Label text="Company Name"    class="competitors__table-header-cell competitors__col--name text-small" />
+                    <ui:Label text="Archetype"       class="competitors__table-header-cell competitors__col--archetype text-small" />
+                    <ui:Label text="Main Market"     class="competitors__table-header-cell competitors__col--market text-small" />
+                    <ui:Label text="Reputation"      class="competitors__table-header-cell competitors__col--reputation text-small" />
+                    <ui:Label text="Products"        class="competitors__table-header-cell competitors__col--products text-small" />
+                    <ui:Label text="Recent Launch"   class="competitors__table-header-cell competitors__col--launch text-small" />
+                    <ui:Label text="Market Position" class="competitors__table-header-cell competitors__col--position text-small" />
+                    <ui:Label text="Trend"           class="competitors__table-header-cell competitors__col--trend text-small" />
+                    <ui:Label text="Actions"         class="competitors__table-header-cell competitors__col--actions text-small" />
+                </ui:VisualElement>
+
+                <!-- TABLE BODY — rows generated programmatically by View.
+                     Each row gets class competitors__row.
+                     Selected row also gets is-selected.
+                     Dominant competitor row gets has-warning.
+                     Unknown competitor data row gets competitors__row--unknown. -->
+                <ui:VisualElement name="TableBody" class="competitors__table-body" />
+
+            </ui:ScrollView>
+
+            <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="competitors__footer">
+                <ui:Label name="ResultCount" text="" class="competitors__footer-count text-small" />
+                <!-- Pagination controls — wired by View when needed -->
+                <ui:VisualElement name="PaginationControls" class="competitors__pagination is-hidden">
+                    <ui:Button name="PrevPageButton" text="&#8249;" class="competitors__pagination-btn" />
+                    <ui:Label  name="PageLabel"      text="Page 1" class="competitors__pagination-label text-small" />
+                    <ui:Button name="NextPageButton" text="&#8250;" class="competitors__pagination-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

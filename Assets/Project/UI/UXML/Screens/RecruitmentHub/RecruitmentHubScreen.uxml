@@ -1,0 +1,148 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         RecruitmentHubScreen.uxml
+         Structural layout for the Recruitment Hub screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content (table rows, tab labels) populated programmatically.
+         State containers start with is-hidden — the View toggles visibility.
+         Columns: Name, Role, Seniority, Salary Expectation, Visible Skills,
+                  Potential Estimate, Availability, Interest, Offer Status, Confidence.
+         Tabs: Candidate Pool, Shortlist, Job Posts, Offers Sent, Accepted, Rejected.
+         ===================================================================== -->
+
+    <ui:VisualElement name="RecruitmentHubRoot" class="recruitment-hub">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="recruitment-hub__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="recruitment-hub__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="recruitment-hub__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="recruitment-hub__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="recruitment-hub__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="recruitment-hub__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="recruitment-hub__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="recruitment-hub__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="recruitment-hub__header">
+                <ui:VisualElement name="HeaderIcon" class="recruitment-hub__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="recruitment-hub__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Recruitment Hub" class="recruitment-hub__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="" class="recruitment-hub__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TAB BAR ──────────────────────────────────────────────── -->
+            <!-- Tabs: Candidate Pool | Shortlist | Job Posts | Offers Sent | Accepted | Rejected -->
+            <!-- Tab buttons are populated programmatically by the View -->
+            <ui:VisualElement name="TabBar" class="recruitment-hub__tabs">
+                <ui:VisualElement name="TabList" class="recruitment-hub__tab-list" />
+                <ui:VisualElement name="TabDivider" class="recruitment-hub__tab-divider" />
+            </ui:VisualElement>
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="recruitment-hub__toolbar">
+
+                <!-- Role / Category Dropdown -->
+                <ui:DropdownField name="RoleDropdown"
+                                  label=""
+                                  class="recruitment-hub__toolbar-dropdown" />
+
+                <!-- Search Field -->
+                <ui:TextField name="SearchField"
+                              value=""
+                              class="recruitment-hub__toolbar-search" />
+
+                <!-- Spacer -->
+                <ui:VisualElement class="recruitment-hub__toolbar-spacer" />
+
+                <!-- Filters Button -->
+                <ui:Button name="FiltersButton"
+                           text="Filters"
+                           class="recruitment-hub__toolbar-btn recruitment-hub__toolbar-btn--secondary" />
+
+                <!-- Create Job Post Button -->
+                <ui:Button name="CreateJobPostButton"
+                           text="Create Job Post"
+                           class="recruitment-hub__toolbar-btn recruitment-hub__toolbar-btn--primary" />
+
+            </ui:VisualElement>
+
+            <!-- ─── DATA TABLE ─────────────────────────────────────────────── -->
+            <ui:ScrollView name="TableScrollView"
+                           class="recruitment-hub__table"
+                           horizontal-scroll-bar-visibility="Auto"
+                           vertical-scroll-bar-visibility="Auto"
+                           scroll-deceleration-rate="0.135"
+                           elasticity="0.1">
+
+                <!-- TABLE HEADER — one row of column labels -->
+                <ui:VisualElement name="TableHeader" class="recruitment-hub__table-header">
+
+                    <ui:Label name="ColName"
+                              text="Name"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--name text-small" />
+
+                    <ui:Label name="ColRole"
+                              text="Role"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--role text-small" />
+
+                    <ui:Label name="ColSeniority"
+                              text="Seniority"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--seniority text-small" />
+
+                    <ui:Label name="ColSalary"
+                              text="Salary Expectation"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--salary text-small" />
+
+                    <ui:Label name="ColSkills"
+                              text="Visible Skills"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--skills text-small" />
+
+                    <ui:Label name="ColPotential"
+                              text="Potential"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--potential text-small" />
+
+                    <ui:Label name="ColAvailability"
+                              text="Availability"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--availability text-small" />
+
+                    <ui:Label name="ColInterest"
+                              text="Interest"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--interest text-small" />
+
+                    <ui:Label name="ColOfferStatus"
+                              text="Offer Status"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--offer-status text-small" />
+
+                    <ui:Label name="ColConfidence"
+                              text="Confidence"
+                              class="recruitment-hub__table-header-cell recruitment-hub__col--confidence text-small" />
+
+                </ui:VisualElement>
+
+                <!-- TABLE BODY — row container, populated programmatically by View -->
+                <ui:VisualElement name="TableBody" class="recruitment-hub__table-body" />
+
+            </ui:ScrollView>
+
+            <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="recruitment-hub__footer">
+                <ui:Label name="FooterSummary" text="" class="recruitment-hub__footer-summary text-small" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

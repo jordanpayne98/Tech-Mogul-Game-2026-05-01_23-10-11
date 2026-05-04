@@ -1,0 +1,128 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         ContractsScreen.uxml
+         Structural layout for the Contracts board screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content (tabs, table rows) is populated programmatically by the View.
+         State containers start with is-hidden — the View toggles visibility.
+         Right filter drawer is opened via the shell's DrawerRouter.
+         Contract detail modal and Assign Team modal opened via the ModalRouter.
+         Route ID: screen.contracts
+         ===================================================================== -->
+
+    <ui:VisualElement name="ContractsRoot" class="contracts">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="contracts__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="contracts__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="contracts__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="contracts__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <!-- Shown when no contracts exist at all in the current tab -->
+        <ui:VisualElement name="EmptyState" class="contracts__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="contracts__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody"  text="" class="contracts__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="contracts__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="contracts__header">
+                <ui:VisualElement name="HeaderIcon" class="contracts__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="contracts__header-text-block">
+                    <ui:Label name="HeaderTitle"    text="Contracts"
+                              class="contracts__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="Manage available, active, and completed contracts."
+                              class="contracts__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TAB BAR ───────────────────────────────────────────────── -->
+            <!-- Tabs populated programmatically by View:
+                 Available | Active | Completed | Failed / Expired
+                 Active tab receives is-active via View. -->
+            <ui:VisualElement name="TabBar" class="contracts__tabs" />
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="contracts__toolbar">
+
+                <!-- Type Dropdown — contract type filter, populated/wired by View -->
+                <ui:DropdownField name="TypeDropdown" label=""
+                                  class="contracts__type-dropdown" />
+
+                <!-- Difficulty Dropdown — wired by View -->
+                <ui:DropdownField name="DifficultyDropdown" label=""
+                                  class="contracts__difficulty-dropdown" />
+
+                <!-- Search Field -->
+                <ui:TextField name="SearchField" placeholder-text="Search contracts..."
+                              class="contracts__search" />
+
+                <!-- Filters Button — opens right filter drawer via DrawerRouter -->
+                <ui:Button name="FiltersButton" text="Filters"
+                           class="contracts__filters-btn" />
+
+            </ui:VisualElement>
+
+            <!-- ─── DATA TABLE ────────────────────────────────────────────── -->
+            <!-- ScrollView supports horizontal overflow for wide column sets -->
+            <ui:ScrollView name="DataTable"
+                           class="contracts__table"
+                           horizontal-scroll-bar-visibility="Auto"
+                           vertical-scroll-bar-visibility="Auto"
+                           scroll-deceleration-rate="0.135"
+                           elasticity="0.1">
+
+                <!-- TABLE HEADER — fixed label row, not scrolled independently -->
+                <!-- Columns: Client | Contract Type | Required Skills | Difficulty |
+                              Deadline | Payment | Progress | Assigned Team |
+                              Quality Target | Status | Actions -->
+                <ui:VisualElement name="TableHeader" class="contracts__table-header">
+                    <ui:Label text="Client"           class="contracts__table-header-cell contracts__col--client text-small" />
+                    <ui:Label text="Contract Type"    class="contracts__table-header-cell contracts__col--type text-small" />
+                    <ui:Label text="Required Skills"  class="contracts__table-header-cell contracts__col--skills text-small" />
+                    <ui:Label text="Difficulty"       class="contracts__table-header-cell contracts__col--difficulty text-small" />
+                    <ui:Label text="Deadline"         class="contracts__table-header-cell contracts__col--deadline text-small" />
+                    <ui:Label text="Payment"          class="contracts__table-header-cell contracts__col--payment text-small" />
+                    <ui:Label text="Progress"         class="contracts__table-header-cell contracts__col--progress text-small" />
+                    <ui:Label text="Assigned Team"    class="contracts__table-header-cell contracts__col--team text-small" />
+                    <ui:Label text="Quality Target"   class="contracts__table-header-cell contracts__col--quality text-small" />
+                    <ui:Label text="Status"           class="contracts__table-header-cell contracts__col--status text-small" />
+                    <ui:Label text="Actions"          class="contracts__table-header-cell contracts__col--actions text-small" />
+                </ui:VisualElement>
+
+                <!-- TABLE BODY — rows generated programmatically by View.
+                     Each row gets class contracts__row.
+                     Selected row also gets is-selected.
+                     Deadline warning row also gets has-warning.
+                     Skill gap row also gets has-danger.
+                     Completed row also gets contracts__row--completed.
+                     Failed/Expired row also gets contracts__row--failed. -->
+                <ui:VisualElement name="TableBody" class="contracts__table-body" />
+
+            </ui:ScrollView>
+
+            <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="contracts__footer">
+                <ui:Label name="ResultCount" text="" class="contracts__footer-count text-small" />
+                <!-- Pagination controls — shown by View when needed -->
+                <ui:VisualElement name="PaginationControls" class="contracts__pagination is-hidden">
+                    <ui:Button name="PrevPageButton" text="&#8249;" class="contracts__pagination-btn" />
+                    <ui:Label  name="PageLabel"      text="Page 1"  class="contracts__pagination-label text-small" />
+                    <ui:Button name="NextPageButton" text="&#8250;" class="contracts__pagination-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

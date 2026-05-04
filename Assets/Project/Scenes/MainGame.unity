@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 1604525143}
   - component: {fileID: 1604525142}
   - component: {fileID: 1604525144}
+  - component: {fileID: 1604525145}
   m_Layer: 0
   m_Name: UIShell
   m_TagString: Untagged
@@ -368,6 +369,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230115d4b096abf48a2f81d269b230d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Project.Presentation.UI::Project.Presentation.UI.Shell.UIShellLayoutFixer
+--- !u!114 &1604525145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604525141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1b06a0f4cf90949a398c2bf23181e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Project.Composition::Project.Composition.UIShellController
+  _founderPortalUxml: {fileID: 9197481963319205126, guid: 2c25e97f44ca6694eb457ee2a9173659, type: 3}
+  _founderPortalUss: {fileID: 7433441132597879392, guid: e0f3b731b1cd46049b4706ad8e6403dd, type: 3}
+  _contractsUxml: {fileID: 9197481963319205126, guid: 11d5c675ac836a549a52d5c16771bb71, type: 3}
+  _contractsUss: {fileID: 7433441132597879392, guid: 74cb4f4cf7b90634fb1ac9f83f4974c8, type: 3}
+  _financeUxml: {fileID: 9197481963319205126, guid: 992fecfb3e7531b45a28b6efd081ebb8, type: 3}
+  _financeUss: {fileID: 7433441132597879392, guid: fca7f28fbe4452843b87b7f3e17f632a, type: 3}
+  _employeesUxml: {fileID: 9197481963319205126, guid: ff10d48298e50d946a261b8e10103abe, type: 3}
+  _employeesUss: {fileID: 7433441132597879392, guid: 8650e12a9f0ef3748a4559a0bfc003e7, type: 3}
+  _companyUxml: {fileID: 9197481963319205126, guid: 57bec6150f85ad1439191739fc38ed61, type: 3}
+  _companyUss: {fileID: 7433441132597879392, guid: 9b76ca20137469240b8cf9a5ee383ce3, type: 3}
+  _teamsUxml: {fileID: 9197481963319205126, guid: b82aea2c2d427b74f8686577b617dcc5, type: 3}
+  _teamsUss: {fileID: 7433441132597879392, guid: 291f21fcd25bb5c438a8c741aac22efd, type: 3}
+  _recruitmentHubUxml: {fileID: 9197481963319205126, guid: 4ee8bf113764a104eb03f310fa88898a, type: 3}
+  _recruitmentHubUss: {fileID: 7433441132597879392, guid: afc3d4c198c9c1043a4cd5dc75e90e5f, type: 3}
+  _marketUxml: {fileID: 9197481963319205126, guid: 433786d61f37d024488ade7e8d2a0ba3, type: 3}
+  _marketUss: {fileID: 7433441132597879392, guid: fe422be6fc440f847a5bc1853b3bcde8, type: 3}
+  _competitorsUxml: {fileID: 9197481963319205126, guid: d555b0a8be96b7a4d9cae8d4ea0173d3, type: 3}
+  _competitorsUss: {fileID: 7433441132597879392, guid: 2acf669b235d5974188d64aefc38b18b, type: 3}
+  _calendarUxml: {fileID: 9197481963319205126, guid: 9c866258bbe27de4b8c9a0db2f3ad561, type: 3}
+  _calendarUss: {fileID: 7433441132597879392, guid: d5ceaa91a713de347b417d91a30fa994, type: 3}
+  _productDetailUxml: {fileID: 9197481963319205126, guid: dac51407b586a604783be1397a97a40f, type: 3}
+  _productDetailUss: {fileID: 7433441132597879392, guid: 7515f9b015674f644989c45e978e8031, type: 3}
+  _productsUxml: {fileID: 9197481963319205126, guid: 9db0964e8d88f624e9cdfd61556c049f, type: 3}
+  _productsUss: {fileID: 7433441132597879392, guid: 1c112ed7da81ff54384f5faa91adc4c9, type: 3}
+  _researchUxml: {fileID: 9197481963319205126, guid: 1679b43cad8a11547825e08a9a8a2573, type: 3}
+  _researchUss: {fileID: 7433441132597879392, guid: 8e504078e5816144ea112efce301ec4a, type: 3}
+  _reportsInboxUxml: {fileID: 9197481963319205126, guid: 059ab7b97961c484fb42768a42fe8d71, type: 3}
+  _reportsInboxUss: {fileID: 7433441132597879392, guid: b80244603ba702242bdb00212f8cb794, type: 3}
+  _settingsUxml: {fileID: 9197481963319205126, guid: 44c0ad85a021b754c975d0dfb945900d, type: 3}
+  _settingsUss: {fileID: 7433441132597879392, guid: efb188fbd0fd2fb4d9769c17ec7b45af, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

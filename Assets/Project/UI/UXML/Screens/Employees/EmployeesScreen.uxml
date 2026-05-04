@@ -1,0 +1,128 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         EmployeesScreen.uxml
+         Structural layout for the Employees roster screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content (tabs, table rows) is populated programmatically by the View.
+         State containers start with is-hidden — the View toggles visibility.
+         Right filter drawer and employee profile modal are opened via the
+         shell's DrawerRouter and ModalRouter respectively.
+         Route ID: screen.employees
+         ===================================================================== -->
+
+    <ui:VisualElement name="EmployeesRoot" class="employees">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="employees__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="employees__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="employees__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="employees__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <!-- Shown when no employees exist at all — links to Recruitment -->
+        <ui:VisualElement name="EmptyState" class="employees__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="employees__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="employees__empty-state-body text-body" />
+            <ui:Button name="RecruitmentLinkButton" text="Go to Recruitment [Placeholder]"
+                       class="employees__empty-state-action" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT CONTAINER ─────────────────────────────────────────── -->
+        <ui:VisualElement name="ContentContainer" class="employees__content">
+
+            <!-- ─── SCREEN HEADER ─────────────────────────────────────────── -->
+            <ui:VisualElement name="ScreenHeader" class="employees__header">
+                <ui:VisualElement name="HeaderIcon" class="employees__header-icon" />
+                <ui:VisualElement name="HeaderTextBlock" class="employees__header-text-block">
+                    <ui:Label name="HeaderTitle" text="Employees" class="employees__header-title text-title" />
+                    <ui:Label name="HeaderSubtitle" text="Manage your team, roles, and development."
+                              class="employees__header-subtitle text-small" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ─── TAB BAR ───────────────────────────────────────────────── -->
+            <!-- Tabs populated programmatically by View (All Employees / By Team /
+                 Unassigned / At Risk / Former — Archived).
+                 Active tab has class is-active applied by View. -->
+            <ui:VisualElement name="TabBar" class="employees__tabs" />
+
+            <!-- ─── TOOLBAR ───────────────────────────────────────────────── -->
+            <ui:VisualElement name="Toolbar" class="employees__toolbar">
+
+                <!-- Team Dropdown — populated/wired by View -->
+                <ui:DropdownField name="TeamDropdown" label="" class="employees__team-dropdown" />
+
+                <!-- Search Field -->
+                <ui:TextField name="SearchField" placeholder-text="Search employees..."
+                              class="employees__search" />
+
+                <!-- Filters Button — opens right filter drawer via DrawerRouter -->
+                <ui:Button name="FiltersButton" text="Filters"
+                           class="employees__filters-btn" />
+
+                <!-- Export Button — placeholder action -->
+                <ui:Button name="ExportButton" text="Export [Placeholder]"
+                           class="employees__export-btn" />
+
+            </ui:VisualElement>
+
+            <!-- ─── DATA TABLE ────────────────────────────────────────────── -->
+            <!-- ScrollView supports horizontal overflow for wide column sets -->
+            <ui:ScrollView name="DataTable"
+                           class="employees__table"
+                           horizontal-scroll-bar-visibility="Auto"
+                           vertical-scroll-bar-visibility="Auto"
+                           scroll-deceleration-rate="0.135"
+                           elasticity="0.1">
+
+                <!-- TABLE HEADER — fixed label row, not scrolled independently -->
+                <!-- Columns: Name | Role | Seniority | Team | Current Assignment |
+                              Salary | Morale | Burnout Risk | Ability | Potential Range |
+                              Status | Start Date | Actions -->
+                <ui:VisualElement name="TableHeader" class="employees__table-header">
+                    <ui:Label text="Name"               class="employees__table-header-cell employees__col--name text-small" />
+                    <ui:Label text="Role"               class="employees__table-header-cell employees__col--role text-small" />
+                    <ui:Label text="Seniority"          class="employees__table-header-cell employees__col--seniority text-small" />
+                    <ui:Label text="Team"               class="employees__table-header-cell employees__col--team text-small" />
+                    <ui:Label text="Current Assignment" class="employees__table-header-cell employees__col--assignment text-small" />
+                    <ui:Label text="Salary"             class="employees__table-header-cell employees__col--salary text-small" />
+                    <ui:Label text="Morale"             class="employees__table-header-cell employees__col--morale text-small" />
+                    <ui:Label text="Burnout Risk"       class="employees__table-header-cell employees__col--burnout text-small" />
+                    <ui:Label text="Ability"            class="employees__table-header-cell employees__col--ability text-small" />
+                    <ui:Label text="Potential Range"    class="employees__table-header-cell employees__col--potential text-small" />
+                    <ui:Label text="Status"             class="employees__table-header-cell employees__col--status text-small" />
+                    <ui:Label text="Start Date"         class="employees__table-header-cell employees__col--start-date text-small" />
+                    <ui:Label text="Actions"            class="employees__table-header-cell employees__col--actions text-small" />
+                </ui:VisualElement>
+
+                <!-- TABLE BODY — rows generated programmatically by View.
+                     Each row gets class employees__row.
+                     Selected row also gets is-selected.
+                     At-risk row also gets has-warning.
+                     Former/archived row also gets employees__row--former. -->
+                <ui:VisualElement name="TableBody" class="employees__table-body" />
+
+            </ui:ScrollView>
+
+            <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+            <ui:VisualElement name="Footer" class="employees__footer">
+                <ui:Label name="ResultCount" text="" class="employees__footer-count text-small" />
+                <!-- Pagination controls are a placeholder — wired by View when needed -->
+                <ui:VisualElement name="PaginationControls" class="employees__pagination is-hidden">
+                    <ui:Button name="PrevPageButton" text="&#8249;" class="employees__pagination-btn" />
+                    <ui:Label  name="PageLabel"      text="Page 1" class="employees__pagination-label text-small" />
+                    <ui:Button name="NextPageButton" text="&#8250;" class="employees__pagination-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

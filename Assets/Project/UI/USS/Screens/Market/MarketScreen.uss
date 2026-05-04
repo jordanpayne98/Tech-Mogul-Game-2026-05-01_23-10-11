@@ -1,0 +1,572 @@
+/* =============================================================================
+   MarketScreen.uss
+   Screen-specific styles for the Market overview screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   Section 14 lock: Market Screen shows data, not recommendations.
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.market {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   SCROLL VIEW
+   ============================================================================= */
+
+.market__scroll-view {
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.market__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.market__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.market__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.market__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.market__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.market__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.market__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.market__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.market__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.market__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-info-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-info);
+    flex-shrink: 0;
+}
+
+.market__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.market__header-title {
+    color: var(--color-text-primary);
+}
+
+.market__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.market__toolbar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+}
+
+.market__search-field {
+    flex-grow: 1;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+}
+
+.market__search-field:focus {
+    border-color: var(--color-border-focus);
+}
+
+.market__filters-button {
+    height: var(--height-button-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+}
+
+.market__filters-button:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+/* =============================================================================
+   SECTION TITLE (shared across trend strip, category grid, rankings)
+   ============================================================================= */
+
+.market__section-title {
+    color: var(--color-text-primary);
+    margin-bottom: var(--gap-small);
+}
+
+/* =============================================================================
+   TREND STRIP
+   Data-only: shows market trend signals. No recommendations.
+   ============================================================================= */
+
+.market__trend-strip {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.market__trend-card-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+}
+
+/* Trend card — generated by MarketView */
+.market__trend-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 180px;
+    max-width: 260px;
+    padding: var(--padding-card-standard);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-tight);
+}
+
+.market__trend-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    cursor: link;
+}
+
+.market__trend-card__label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.market__trend-card__value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body-strong);
+    -unity-font-style: bold;
+}
+
+.market__trend-card__delta {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* Trend card — info state (high growth data signal) */
+.market__trend-card.has-info {
+    border-color: var(--color-border-info);
+    background-color: var(--color-info-soft);
+}
+
+.market__trend-card.has-info .market__trend-card__value {
+    color: var(--color-text-info);
+}
+
+.market__trend-card.has-info .market__trend-card__delta {
+    color: var(--color-text-info);
+}
+
+/* Trend card — warning state (high competition data signal) */
+.market__trend-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.market__trend-card.has-warning .market__trend-card__value {
+    color: var(--color-text-warning);
+}
+
+.market__trend-card.has-warning .market__trend-card__delta {
+    color: var(--color-text-warning);
+}
+
+/* Trend card — success state (positive growth data signal) */
+.market__trend-card.has-success {
+    border-color: var(--color-border-success);
+    background-color: var(--color-success-soft);
+}
+
+.market__trend-card.has-success .market__trend-card__value {
+    color: var(--color-text-success);
+}
+
+.market__trend-card.has-success .market__trend-card__delta {
+    color: var(--color-text-success);
+}
+
+/* =============================================================================
+   CATEGORY GRID
+   Cards show: name, demand, growth, competitive intensity, leaders,
+   tech expectations, price sensitivity, support expectations, trend modifiers.
+   ============================================================================= */
+
+.market__category-grid {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.market__category-grid-header {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--gap-standard);
+    margin-bottom: var(--gap-small);
+}
+
+.market__category-count {
+    color: var(--color-text-muted);
+}
+
+.market__category-card-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap-large);
+}
+
+/* Category card — generated by MarketView */
+.market__category-card {
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 260px;
+    max-width: 380px;
+    padding: var(--padding-card-large);
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    gap: var(--gap-small);
+}
+
+.market__category-card:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    cursor: link;
+}
+
+.market__category-card.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-color: var(--color-border-selected);
+}
+
+.market__category-card__name {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body-strong);
+    -unity-font-style: bold;
+}
+
+/* Data row within a category card (label + value pair) */
+.market__category-card__row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.market__category-card__row:last-child {
+    border-bottom-width: 0;
+}
+
+.market__category-card__field-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    flex-grow: 1;
+}
+
+.market__category-card__field-value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-small);
+    -unity-text-align: middle-right;
+    flex-shrink: 0;
+}
+
+/* Category card semantic states */
+.market__category-card.has-info {
+    border-color: var(--color-border-info);
+}
+
+.market__category-card.has-info .market__category-card__name {
+    color: var(--color-text-info);
+}
+
+.market__category-card.has-warning {
+    border-color: var(--color-border-warning);
+    background-color: var(--color-warning-soft);
+}
+
+.market__category-card.has-warning .market__category-card__name {
+    color: var(--color-text-warning);
+}
+
+/* Category card — muted (player not present in this market) */
+.market__category-card.is-muted {
+    opacity: 0.55;
+}
+
+.market__category-card.is-muted .market__category-card__name {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   RANKINGS SECTION
+   Rows show: rank, product, company, category, average price, player position.
+   Player-owned product rows use is-player-owned for visual distinction.
+   ============================================================================= */
+
+.market__rankings {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.market__rankings-header {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--gap-standard);
+    margin-bottom: var(--gap-small);
+}
+
+.market__rankings-subtitle {
+    color: var(--color-text-muted);
+}
+
+/* Column header row */
+.market__rankings-table-header {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    background-color: var(--color-bg-panel-raised);
+    border-top-left-radius: var(--radius-standard);
+    border-top-right-radius: var(--radius-standard);
+}
+
+.market__rankings-table-header .market__col-rank,
+.market__rankings-table-header .market__col-product,
+.market__rankings-table-header .market__col-company,
+.market__rankings-table-header .market__col-category,
+.market__rankings-table-header .market__col-price,
+.market__rankings-table-header .market__col-position {
+    color: var(--color-text-muted);
+    -unity-font-style: bold;
+}
+
+/* Data table body */
+.market__rankings-table {
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-left-width: var(--border-width-thin);
+    border-right-width: var(--border-width-thin);
+    border-bottom-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-bottom-left-radius: var(--radius-standard);
+    border-bottom-right-radius: var(--radius-standard);
+}
+
+/* Rankings row — generated by MarketView */
+.market__rankings-row {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-row-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.market__rankings-row:last-child {
+    border-bottom-width: 0;
+}
+
+.market__rankings-row:hover {
+    background-color: var(--color-bg-panel-hover);
+    cursor: link;
+}
+
+/* Player-owned product row — visually distinguished */
+.market__rankings-row.is-player-owned {
+    background-color: var(--color-accent-soft);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent);
+}
+
+.market__rankings-row.is-player-owned:hover {
+    background-color: var(--color-bg-panel-selected);
+}
+
+/* Column width rules — consistent across header and data rows */
+.market__col-rank {
+    width: 48px;
+    min-width: 48px;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+.market__col-product {
+    flex-grow: 2;
+    min-width: 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+}
+
+.market__col-company {
+    flex-grow: 1;
+    min-width: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.market__col-category {
+    flex-grow: 1;
+    min-width: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+}
+
+.market__col-price {
+    width: 100px;
+    min-width: 80px;
+    flex-shrink: 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-small);
+    -unity-text-align: middle-right;
+}
+
+.market__col-position {
+    width: 120px;
+    min-width: 100px;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    -unity-text-align: middle-right;
+}
+
+/* Player-owned column values */
+.market__rankings-row.is-player-owned .market__col-product {
+    color: var(--color-text-accent);
+}
+
+.market__rankings-row.is-player-owned .market__col-company {
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   SEMANTIC STATE UTILITY CLASSES
+   ============================================================================= */
+
+/* High growth — informational data signal */
+.has-info {}
+
+/* High competition — caution data signal */
+.has-warning {}
+
+/* Positive — favourable data signal */
+.has-success {}
+
+/* Danger — severe data signal */
+.has-danger {}
+
+/* Player not present in market — muted appearance */
+.is-muted {}
+
+/* Standard utility states */
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.is-player-owned {}
+.has-error    {}

@@ -65,6 +65,51 @@ namespace Project.Presentation.UI.Controllers
 
             // Keep active state in sync when the router navigates programmatically.
             _screenRouter.ScreenChanged += OnScreenChanged;
+
+            // [Temp] Deferred layout diagnostic — logs sidebar element dimensions after first geometry pass.
+            _sidebarRoot.RegisterCallback<GeometryChangedEvent>(OnFirstGeometryChanged);
+        }
+
+        // ─── [Temp] Layout diagnostic ───────────────────────────────────────────────
+
+        private void OnFirstGeometryChanged(GeometryChangedEvent evt)
+        {
+            _sidebarRoot.UnregisterCallback<GeometryChangedEvent>(OnFirstGeometryChanged);
+
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("[Temp] Sidebar layout diagnostic:");
+            sb.AppendLine($"  SidebarRoot: {Fmt(_sidebarRoot)} display={_sidebarRoot.resolvedStyle.display}");
+
+            var scrollView = _sidebarRoot.Q<ScrollView>("SidebarNavScroll");
+            if (scrollView != null)
+            {
+                sb.AppendLine($"  ScrollView: {Fmt(scrollView)} display={scrollView.resolvedStyle.display}");
+                sb.AppendLine($"  ScrollView.contentContainer: {Fmt(scrollView.contentContainer)} display={scrollView.contentContainer.resolvedStyle.display} childCount={scrollView.contentContainer.childCount}");
+            }
+
+            var groups = _sidebarRoot.Query<VisualElement>(className: GroupClass).ToList();
+            foreach (var g in groups)
+            {
+                sb.AppendLine($"  Group '{g.name}': {Fmt(g)} classes=[{string.Join(",", g.GetClasses())}]");
+                var items = g.Q(className: GroupItemsClass);
+                if (items != null)
+                {
+                    sb.AppendLine($"    Items: {Fmt(items)} display={items.resolvedStyle.display} childCount={items.childCount}");
+                    for (int i = 0; i < System.Math.Min(items.childCount, 2); i++)
+                    {
+                        var c = items[i];
+                        sb.AppendLine($"      [{i}] '{c.name}': {Fmt(c)} display={c.resolvedStyle.display}");
+                    }
+                }
+            }
+
+            DebugLogger.Log(DebugCategory.UI, sb.ToString());
+        }
+
+        private static string Fmt(VisualElement el)
+        {
+            var r = el.worldBound;
+            return $"pos=({r.x:F0},{r.y:F0}) size=({r.width:F0}x{r.height:F0})";
         }
 
         // ─── Public API ─────────────────────────────────────────────────────────────

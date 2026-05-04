@@ -1,0 +1,680 @@
+/* =============================================================================
+   ProductsScreen.uss
+   Screen-specific styles for the Products portfolio screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.products {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.products__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.products__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.products__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.products__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.products__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.products__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.products__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+.products__empty-state-action {
+    margin-top: var(--space-4);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    height: var(--height-button-standard);
+    background-color: var(--color-accent);
+    border-width: 0;
+    border-radius: var(--radius-standard);
+    color: var(--color-text-inverse);
+    cursor: link;
+}
+
+.products__empty-state-action:hover {
+    background-color: var(--color-accent-hover);
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.products__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.products__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon tile placeholder */
+.products__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.products__header-text-block {
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--gap-tight);
+}
+
+.products__header-title {
+    color: var(--color-text-primary);
+}
+
+.products__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* Header right-side actions area */
+.products__header-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   CREATE PRODUCT BUTTON — Primary action
+   ============================================================================= */
+
+.products__create-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    background-color: var(--color-accent);
+    border-width: 0;
+    border-radius: var(--radius-standard);
+    color: var(--color-text-inverse);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.products__create-btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.products__create-btn:active {
+    background-color: var(--color-accent-pressed);
+}
+
+.products__create-btn.is-disabled {
+    background-color: var(--color-bg-panel-disabled);
+    color: var(--color-text-disabled);
+    cursor: arrow;
+}
+
+/* =============================================================================
+   TAB BAR
+   Tabs rendered programmatically by View.
+   Each tab button gets class products__tab.
+   Active tab additionally gets is-active.
+   ============================================================================= */
+
+.products__tabs {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--space-1);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Tab button — generated by View */
+.products__tab {
+    height: var(--height-tab-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    color: var(--color-text-secondary);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.products__tab:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-panel-hover);
+}
+
+.products__tab.is-active {
+    color: var(--color-text-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.products__toolbar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+/* Family Dropdown — filters by product family group */
+.products__family-dropdown {
+    min-width: 160px;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+}
+
+.products__family-dropdown:hover {
+    border-color: var(--color-border-hover);
+}
+
+.products__family-dropdown:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* Search Field */
+.products__search {
+    flex-grow: 1;
+    min-width: 200px;
+    max-width: 400px;
+    height: var(--height-input-standard);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    padding-left: var(--padding-input-x);
+    padding-right: var(--padding-input-x);
+}
+
+.products__search:hover {
+    border-color: var(--color-border-hover);
+}
+
+.products__search:focus {
+    border-color: var(--color-border-focus);
+}
+
+/* Filters Button — secondary style, opens right drawer */
+.products__filters-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--padding-button-x);
+    padding-right: var(--padding-button-x);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-primary);
+    cursor: link;
+    flex-shrink: 0;
+}
+
+.products__filters-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+/* Active/open state — toggled by View when filter drawer is open */
+.products__filters-btn.is-active {
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   DATA TABLE
+   ============================================================================= */
+
+.products__table {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+/* =============================================================================
+   TABLE HEADER
+   ============================================================================= */
+
+.products__table-header {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    background-color: var(--color-bg-panel-raised);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.products__table-header-cell {
+    color: var(--color-text-secondary);
+    -unity-font-style: bold;
+    flex-shrink: 0;
+    overflow: hidden;
+    -unity-text-align: middle-left;
+}
+
+/* =============================================================================
+   TABLE BODY
+   ============================================================================= */
+
+.products__table-body {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   TABLE ROW — generated programmatically by View
+   Default / hover / selected / ready-for-launch / high-support-load / sunset states.
+   ============================================================================= */
+
+.products__row {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    height: var(--height-row-standard);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    border-left-width: var(--border-width-strong);
+    border-left-color: rgba(0, 0, 0, 0);
+    cursor: link;
+}
+
+/* Alternating row background */
+.products__row:nth-child(even) {
+    background-color: var(--color-bg-panel-raised);
+}
+
+.products__row:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-left-color: var(--color-border-hover);
+}
+
+/* Selected row — teal rail/border */
+.products__row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-color: var(--color-accent);
+}
+
+.products__row.is-selected:hover {
+    background-color: var(--color-bg-panel-selected);
+    border-left-color: var(--color-accent);
+}
+
+/* Ready-for-launch / decision-needed warning state */
+.products__row.has-warning {
+    background-color: var(--color-warning-soft);
+}
+
+.products__row.has-warning:hover {
+    background-color: var(--color-warning-soft);
+    border-left-color: var(--color-border-warning);
+}
+
+/* High support load danger/alert state */
+.products__row.has-danger {
+    background-color: var(--color-danger-soft);
+}
+
+.products__row.has-danger:hover {
+    background-color: var(--color-danger-soft);
+    border-left-color: var(--color-border-danger);
+}
+
+/* Cancelled / sunset row — muted styling */
+.products__row--sunset {
+    opacity: 0.55;
+}
+
+.products__row--sunset:hover {
+    opacity: 0.75;
+}
+
+/* =============================================================================
+   TABLE ROW CELLS — applied via View to Label/VisualElement children of each row
+   ============================================================================= */
+
+.products__row-cell {
+    flex-shrink: 0;
+    overflow: hidden;
+    color: var(--color-text-primary);
+    -unity-text-align: middle-left;
+}
+
+/* Secondary-colour cells (metadata fields) */
+.products__row-cell--secondary {
+    color: var(--color-text-secondary);
+}
+
+/* Muted cells */
+.products__row-cell--muted {
+    color: var(--color-text-muted);
+}
+
+/* Selected row text — accent on primary cell */
+.products__row.is-selected .products__row-cell--primary {
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   COLUMN WIDTHS
+   Applied to both header cells and row cells for alignment.
+   Wide column set — horizontal scroll enabled on the table ScrollView.
+   ============================================================================= */
+
+.products__col--name          { width: 160px; min-width: 130px; }
+.products__col--family        { width: 110px; min-width: 90px;  }
+.products__col--type          { width: 120px; min-width: 100px; }
+.products__col--status        { width: 110px; min-width: 90px;  }
+.products__col--team          { width: 120px; min-width: 100px; }
+.products__col--phase         { width: 90px;  min-width: 80px;  }
+.products__col--release       { width: 100px; min-width: 90px;  }
+.products__col--review        { width: 90px;  min-width: 80px;  }
+.products__col--recent-review { width: 90px;  min-width: 80px;  }
+.products__col--revenue       { width: 110px; min-width: 90px;  }
+.products__col--users         { width: 110px; min-width: 90px;  }
+.products__col--support       { width: 100px; min-width: 90px;  }
+.products__col--actions       { flex-grow: 1; min-width: 80px;  }
+
+/* =============================================================================
+   STATUS CHIPS — product lifecycle status
+   Semantic chip for the Status column — modifier class sets colour.
+   Statuses: in-development (info) | ready-for-launch (warning) |
+             launched (success) | supported (success) | cancelled-sunset (muted)
+   ============================================================================= */
+
+.products__status-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    border-width: var(--border-width-thin);
+    border-radius: var(--radius-pill);
+}
+
+.products__status-chip-label {
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* In Development — info/blue */
+.products__status-chip--in-development {
+    background-color: var(--color-info-soft);
+    border-color: var(--color-border-info);
+}
+
+.products__status-chip--in-development .products__status-chip-label {
+    color: var(--color-text-info);
+}
+
+/* Ready for Launch — warning/amber (decision needed) */
+.products__status-chip--ready-for-launch {
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-border-warning);
+}
+
+.products__status-chip--ready-for-launch .products__status-chip-label {
+    color: var(--color-text-warning);
+}
+
+/* Launched — success/green */
+.products__status-chip--launched {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.products__status-chip--launched .products__status-chip-label {
+    color: var(--color-text-success);
+}
+
+/* Supported (post-launch, active support) — success/green */
+.products__status-chip--supported {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+}
+
+.products__status-chip--supported .products__status-chip-label {
+    color: var(--color-text-success);
+}
+
+/* Cancelled / Sunset — muted/neutral */
+.products__status-chip--cancelled {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-subtle);
+}
+
+.products__status-chip--cancelled .products__status-chip-label {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   SUPPORT LOAD WARNING CHIP
+   Applied inside the Support Load column cell when load is high.
+   ============================================================================= */
+
+.products__support-load-chip {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-danger-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+    border-radius: var(--radius-pill);
+}
+
+.products__support-load-chip-label {
+    color: var(--color-text-danger);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Normal support load — neutral display */
+.products__support-load-chip--normal {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.products__support-load-chip--normal .products__support-load-chip-label {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   ROW ACTIONS AREA
+   Small inline action buttons within the Actions column.
+   ============================================================================= */
+
+.products__row-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-tight);
+}
+
+.products__row-action-btn {
+    height: var(--height-button-compact);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-small);
+    color: var(--color-text-secondary);
+    cursor: link;
+}
+
+.products__row-action-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+.products__row-action-btn.is-disabled {
+    opacity: 0.45;
+    cursor: arrow;
+}
+
+.products__row-action-btn.is-disabled:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.products__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.products__footer-count {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   PAGINATION (placeholder — shown when needed by View)
+   ============================================================================= */
+
+.products__pagination {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-small);
+}
+
+.products__pagination-btn {
+    width: var(--height-button-compact);
+    height: var(--height-button-compact);
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-strong);
+    border-radius: var(--radius-small);
+    color: var(--color-text-primary);
+    cursor: link;
+    -unity-text-align: middle-center;
+}
+
+.products__pagination-btn:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.products__pagination-btn.is-disabled {
+    opacity: 0.45;
+    cursor: arrow;
+}
+
+.products__pagination-label {
+    color: var(--color-text-secondary);
+    min-width: 60px;
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   STATE UTILITY CLASSES
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}

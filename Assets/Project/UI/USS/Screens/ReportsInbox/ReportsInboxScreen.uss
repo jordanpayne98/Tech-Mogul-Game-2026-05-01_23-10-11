@@ -1,0 +1,826 @@
+/* =============================================================================
+   ReportsInboxScreen.uss
+   Screen-specific styles for the Reports / Inbox screen.
+   Three-panel inbox: category rail | report list | detail panel.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.reports-inbox {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.reports-inbox__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.reports-inbox__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.reports-inbox__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.reports-inbox__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.reports-inbox__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.reports-inbox__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.reports-inbox__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.reports-inbox__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+    min-height: 0;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.reports-inbox__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.reports-inbox__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.reports-inbox__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+    flex-grow: 1;
+}
+
+.reports-inbox__header-title {
+    color: var(--color-text-primary);
+}
+
+.reports-inbox__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* Unread count badge in header */
+.reports-inbox__unread-badge {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 20px;
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+    background-color: var(--color-accent-primary);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.reports-inbox__unread-badge-label {
+    color: var(--color-text-on-accent);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.reports-inbox__toolbar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.reports-inbox__toolbar-search-wrapper {
+    flex-grow: 1;
+    min-width: 160px;
+}
+
+.reports-inbox__toolbar-search {
+    flex-grow: 1;
+}
+
+.reports-inbox__toolbar-filters {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-wrap: wrap;
+}
+
+.reports-inbox__toolbar-dropdown {
+    min-width: 140px;
+}
+
+.reports-inbox__toolbar-toggle-wrapper {
+    flex-direction: row;
+    align-items: center;
+}
+
+.reports-inbox__toolbar-toggle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   FILTERED EMPTY STATE
+   ============================================================================= */
+
+.reports-inbox__filtered-empty-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.reports-inbox__filtered-empty-label {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   INBOX GRID — THREE COLUMNS
+   ============================================================================= */
+
+.reports-inbox__grid {
+    flex-direction: row;
+    flex-grow: 1;
+    gap: var(--gap-large);
+    min-height: 0;
+}
+
+/* =============================================================================
+   CATEGORY RAIL — LEFT PANEL (~180px)
+   ============================================================================= */
+
+.reports-inbox__category-rail {
+    width: 180px;
+    min-width: 160px;
+    max-width: 200px;
+    flex-shrink: 0;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+.reports-inbox__category-list {
+    flex-direction: column;
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+}
+
+/* Category item — generated by View */
+.reports-inbox__category-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-tight);
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    border-radius: var(--radius-small);
+    cursor: link;
+}
+
+.reports-inbox__category-item:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.reports-inbox__category-item.is-active {
+    background-color: var(--color-accent-soft);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent-primary);
+}
+
+.reports-inbox__category-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.reports-inbox__category-item.is-active .reports-inbox__category-label {
+    color: var(--color-text-accent);
+    -unity-font-style: bold;
+}
+
+/* Unread count pill on category item */
+.reports-inbox__category-count {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 18px;
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.reports-inbox__category-count-label {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Requires Decision category — accent colour for urgency */
+.reports-inbox__category-item.is-decision-required .reports-inbox__category-count {
+    background-color: var(--color-warning-soft);
+}
+
+.reports-inbox__category-item.is-decision-required .reports-inbox__category-count-label {
+    color: var(--color-text-warning);
+}
+
+/* =============================================================================
+   REPORT LIST — CENTRE PANEL (flex-grow)
+   ============================================================================= */
+
+.reports-inbox__report-list {
+    flex-grow: 1;
+    min-width: 0;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+/* Report row — generated by View */
+.reports-inbox__report-row {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.reports-inbox__report-row:last-child {
+    border-bottom-width: 0;
+}
+
+.reports-inbox__report-row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+/* Selected report row */
+.reports-inbox__report-row.is-selected {
+    background-color: var(--color-accent-soft);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent-primary);
+}
+
+/* Unread indicator dot */
+.reports-inbox__report-unread-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background-color: var(--color-accent-primary);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+    opacity: 0;
+}
+
+.reports-inbox__report-row.is-unread .reports-inbox__report-unread-dot {
+    opacity: 1;
+}
+
+/* Row text block */
+.reports-inbox__report-row-text {
+    flex-direction: column;
+    gap: var(--gap-tight);
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.reports-inbox__report-row-title {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    overflow: hidden;
+}
+
+/* Unread rows get bold primary title */
+.reports-inbox__report-row.is-unread .reports-inbox__report-row-title {
+    color: var(--color-text-primary);
+    -unity-font-style: bold;
+}
+
+/* Archived rows get muted title */
+.reports-inbox__report-row.is-archived .reports-inbox__report-row-title {
+    color: var(--color-text-muted);
+}
+
+.reports-inbox__report-row-meta {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+}
+
+/* Requires decision accent — left border override */
+.reports-inbox__report-row.is-decision-required {
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-border-warning);
+}
+
+.reports-inbox__report-row.is-decision-required.is-selected {
+    border-left-color: var(--color-accent-primary);
+}
+
+/* Decision required pill on row */
+.reports-inbox__report-decision-pill {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-warning-soft);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.reports-inbox__report-decision-pill-label {
+    color: var(--color-text-warning);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Pin indicator */
+.reports-inbox__report-pin-icon {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    min-width: var(--icon-size-standard);
+    background-color: var(--color-text-muted);
+    flex-shrink: 0;
+    opacity: 0;
+}
+
+.reports-inbox__report-row.is-pinned .reports-inbox__report-pin-icon {
+    opacity: 0.7;
+}
+
+/* Row date label */
+.reports-inbox__report-row-date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    min-width: 70px;
+    flex-shrink: 0;
+    -unity-text-align: middle-right;
+}
+
+/* =============================================================================
+   DETAIL PANEL — RIGHT PANEL (~400px)
+   ============================================================================= */
+
+.reports-inbox__detail-panel {
+    width: 400px;
+    min-width: 340px;
+    max-width: 460px;
+    flex-shrink: 0;
+    flex-direction: column;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+/* Detail empty state */
+.reports-inbox__detail-empty-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.reports-inbox__detail-empty-label {
+    color: var(--color-text-muted);
+    -unity-text-align: middle-center;
+}
+
+/* Detail content scroll view */
+.reports-inbox__detail-content {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+/* =============================================================================
+   DETAIL PANEL — HEADER
+   ============================================================================= */
+
+.reports-inbox__detail-header {
+    flex-direction: column;
+    padding: var(--padding-card-large);
+    gap: var(--gap-small);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.reports-inbox__detail-title-row {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+}
+
+.reports-inbox__detail-title {
+    color: var(--color-text-primary);
+    flex-grow: 1;
+    white-space: normal;
+}
+
+/* Decision-required badge in detail header */
+.reports-inbox__decision-badge {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-warning-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-warning);
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+}
+
+.reports-inbox__decision-badge-label {
+    color: var(--color-text-warning);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+.reports-inbox__detail-meta {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+}
+
+.reports-inbox__detail-date {
+    color: var(--color-text-muted);
+}
+
+/* Category pill in detail header */
+.reports-inbox__detail-category-pill {
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+    background-color: var(--color-accent-soft);
+    border-radius: var(--radius-pill);
+}
+
+.reports-inbox__detail-category-label {
+    color: var(--color-text-accent);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   DETAIL PANEL — SECTIONS
+   ============================================================================= */
+
+.reports-inbox__detail-section {
+    flex-direction: column;
+    padding: var(--padding-card-standard);
+    gap: var(--gap-small);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.reports-inbox__detail-section:last-child {
+    border-bottom-width: 0;
+}
+
+.reports-inbox__detail-section-heading {
+    color: var(--color-text-secondary);
+    -unity-font-style: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reports-inbox__detail-summary {
+    color: var(--color-text-primary);
+    white-space: normal;
+}
+
+/* =============================================================================
+   DETAIL PANEL — KEY NUMBERS LIST
+   ============================================================================= */
+
+.reports-inbox__detail-key-numbers-list {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Key number row — generated by View */
+.reports-inbox__detail-key-number-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-standard);
+}
+
+.reports-inbox__detail-key-number-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.reports-inbox__detail-key-number-value {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+/* Semantic colouring for key numbers */
+.reports-inbox__detail-key-number-value.has-success {
+    color: var(--color-text-success);
+}
+
+.reports-inbox__detail-key-number-value.has-warning {
+    color: var(--color-text-warning);
+}
+
+.reports-inbox__detail-key-number-value.has-danger {
+    color: var(--color-text-danger);
+}
+
+/* =============================================================================
+   DETAIL PANEL — WHAT CHANGED LIST
+   ============================================================================= */
+
+.reports-inbox__detail-what-changed-list {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+/* Change item — generated by View */
+.reports-inbox__detail-change-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+    padding-left: var(--space-3);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent-muted);
+}
+
+.reports-inbox__detail-change-item.has-success {
+    border-left-color: var(--color-border-success);
+}
+
+.reports-inbox__detail-change-item.has-warning {
+    border-left-color: var(--color-border-warning);
+}
+
+.reports-inbox__detail-change-item.has-danger {
+    border-left-color: var(--color-border-danger);
+}
+
+.reports-inbox__detail-change-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    white-space: normal;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   DETAIL PANEL — CAUSE INDICATORS LIST
+   ============================================================================= */
+
+.reports-inbox__detail-cause-list {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+/* Cause item — generated by View */
+.reports-inbox__detail-cause-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--gap-standard);
+}
+
+.reports-inbox__detail-cause-dot {
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    background-color: var(--color-text-muted);
+    border-radius: var(--radius-pill);
+    margin-top: var(--space-2);
+    flex-shrink: 0;
+}
+
+.reports-inbox__detail-cause-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    white-space: normal;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   DETAIL PANEL — RELATED ENTITIES LIST
+   ============================================================================= */
+
+.reports-inbox__detail-related-list {
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+/* Related entity link — generated by View */
+.reports-inbox__detail-related-item {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    border-radius: var(--radius-small);
+    cursor: link;
+}
+
+.reports-inbox__detail-related-item:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.reports-inbox__detail-related-item.is-disabled {
+    cursor: arrow;
+    opacity: 0.45;
+}
+
+.reports-inbox__detail-related-item.is-disabled:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.reports-inbox__detail-related-icon {
+    width: var(--icon-size-standard);
+    height: var(--icon-size-standard);
+    min-width: var(--icon-size-standard);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    flex-shrink: 0;
+}
+
+.reports-inbox__detail-related-label {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-body);
+    flex-grow: 1;
+}
+
+.reports-inbox__detail-related-item.is-disabled .reports-inbox__detail-related-label {
+    color: var(--color-text-disabled);
+}
+
+/* Missing entity placeholder */
+.reports-inbox__detail-related-item.is-missing .reports-inbox__detail-related-label {
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* =============================================================================
+   DETAIL PANEL — ACTION BUTTONS BAR
+   ============================================================================= */
+
+.reports-inbox__detail-actions {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--gap-standard);
+    padding: var(--padding-card-standard);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.reports-inbox__action-btn {
+    flex-shrink: 0;
+}
+
+.reports-inbox__action-btn--secondary {
+    background-color: var(--color-bg-panel-raised);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-secondary);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    height: var(--height-btn-standard);
+}
+
+.reports-inbox__action-btn--secondary:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-text-primary);
+}
+
+.reports-inbox__action-btn--secondary:disabled {
+    opacity: 0.45;
+}
+
+.reports-inbox__action-btn--danger {
+    background-color: var(--color-danger-soft);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-danger);
+    border-radius: var(--radius-standard);
+    color: var(--color-text-danger);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    height: var(--height-btn-standard);
+}
+
+.reports-inbox__action-btn--danger:hover {
+    background-color: var(--color-border-danger);
+    color: var(--color-text-on-accent);
+}
+
+.reports-inbox__action-btn--danger:disabled {
+    opacity: 0.45;
+}
+
+/* =============================================================================
+   SEMANTIC STATE UTILITY CLASSES
+   (Applied programmatically by ReportsInboxView)
+   ============================================================================= */
+
+.is-selected          {}
+.is-active            {}
+.is-unread            {}
+.is-archived          {}
+.is-pinned            {}
+.is-decision-required {}
+.is-disabled          {}
+.is-missing           {}
+.has-warning          {}
+.has-danger           {}
+.has-success          {}
+.has-info             {}

@@ -1,0 +1,523 @@
+/* =============================================================================
+   RecruitmentHubScreen.uss
+   Screen-specific styles for the Recruitment Hub list screen.
+   All colours use var(--color-*) from theme-colors.uss.
+   All spacing uses var(--space-*), var(--gap-*), var(--padding-*) from theme-spacing.uss.
+   All sizing uses var(--height-*), var(--radius-*), etc. from theme-sizing.uss.
+   Typography uses .text-* utility classes from theme-typography.uss.
+   No hard-coded hex colours, font sizes, or spacing values.
+   Depends on: theme-colors.uss, theme-typography.uss, theme-spacing.uss,
+               theme-sizing.uss, theme-components.uss
+   ============================================================================= */
+
+/* =============================================================================
+   ROOT CONTAINER
+   ============================================================================= */
+
+.recruitment-hub {
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: var(--color-bg-screen);
+}
+
+/* =============================================================================
+   UTILITY — HIDDEN STATE
+   ============================================================================= */
+
+.is-hidden {
+    display: none;
+}
+
+/* =============================================================================
+   STATE CONTAINERS — LOADING / ERROR / EMPTY
+   ============================================================================= */
+
+.recruitment-hub__loading-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.recruitment-hub__loading-label {
+    color: var(--color-text-secondary);
+}
+
+.recruitment-hub__error-state {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+}
+
+.recruitment-hub__error-message {
+    color: var(--color-text-danger);
+    -unity-text-align: middle-center;
+}
+
+.recruitment-hub__empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-standard);
+}
+
+.recruitment-hub__empty-state-title {
+    color: var(--color-text-primary);
+    -unity-text-align: middle-center;
+}
+
+.recruitment-hub__empty-state-body {
+    color: var(--color-text-secondary);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   CONTENT CONTAINER
+   ============================================================================= */
+
+.recruitment-hub__content {
+    flex-direction: column;
+    flex-grow: 1;
+    padding: var(--padding-panel-large);
+    gap: var(--gap-section);
+    overflow: hidden;
+}
+
+/* =============================================================================
+   SCREEN HEADER
+   ============================================================================= */
+
+.recruitment-hub__header {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    padding-bottom: var(--space-6);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+/* Icon placeholder — coloured square per Phase 5 plan note */
+.recruitment-hub__header-icon {
+    width: var(--icon-size-large);
+    height: var(--icon-size-large);
+    min-width: var(--icon-size-large);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-small);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.recruitment-hub__header-text-block {
+    flex-direction: column;
+    gap: var(--gap-tight);
+}
+
+.recruitment-hub__header-title {
+    color: var(--color-text-primary);
+}
+
+.recruitment-hub__header-subtitle {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================================================
+   TAB BAR
+   ============================================================================= */
+
+.recruitment-hub__tabs {
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.recruitment-hub__tab-list {
+    flex-direction: row;
+    gap: var(--gap-tight);
+}
+
+.recruitment-hub__tab-divider {
+    height: var(--border-width-thin);
+    background-color: var(--color-border-subtle);
+    margin-top: -1px;
+}
+
+/* Individual tab button — generated programmatically by View */
+.recruitment-hub__tab-btn {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: var(--height-tab-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-bottom-width: var(--border-width-strong);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    cursor: link;
+    transition-duration: 0.1s;
+    transition-property: color, border-bottom-color;
+}
+
+.recruitment-hub__tab-btn:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-panel-hover);
+}
+
+.recruitment-hub__tab-btn.is-active {
+    color: var(--color-text-accent);
+    border-bottom-color: var(--color-accent);
+    -unity-font-style: bold;
+}
+
+/* Count badge on tab button — populated by View when count > 0 */
+.recruitment-hub__tab-count {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 18px;
+    margin-left: var(--space-2);
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+    background-color: var(--color-accent-muted);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* =============================================================================
+   TOOLBAR
+   ============================================================================= */
+
+.recruitment-hub__toolbar {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-standard);
+    flex-shrink: 0;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+}
+
+.recruitment-hub__toolbar-dropdown {
+    min-width: 180px;
+    height: var(--height-input-standard);
+}
+
+.recruitment-hub__toolbar-search {
+    min-width: 220px;
+    max-width: 340px;
+    height: var(--height-input-standard);
+    flex-grow: 1;
+}
+
+.recruitment-hub__toolbar-spacer {
+    flex-grow: 1;
+}
+
+.recruitment-hub__toolbar-btn {
+    height: var(--height-button-standard);
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    border-radius: var(--radius-standard);
+    border-width: var(--border-width-thin);
+    cursor: link;
+}
+
+.recruitment-hub__toolbar-btn--primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverse);
+    -unity-font-style: bold;
+}
+
+.recruitment-hub__toolbar-btn--primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+}
+
+.recruitment-hub__toolbar-btn--primary:active {
+    background-color: var(--color-accent-pressed);
+    border-color: var(--color-accent-pressed);
+}
+
+.recruitment-hub__toolbar-btn--secondary {
+    background-color: var(--color-bg-panel-raised);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
+}
+
+.recruitment-hub__toolbar-btn--secondary:hover {
+    background-color: var(--color-bg-panel-hover);
+    border-color: var(--color-border-hover);
+}
+
+.recruitment-hub__toolbar-btn.is-disabled {
+    background-color: var(--color-bg-panel-disabled);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-disabled);
+    cursor: arrow;
+    opacity: 0.55;
+}
+
+/* Filters active indicator — toggled by View when filters are applied */
+.recruitment-hub__toolbar-btn--secondary.is-active {
+    border-color: var(--color-border-selected);
+    color: var(--color-text-accent);
+}
+
+/* =============================================================================
+   DATA TABLE — SCROLL VIEW WRAPPER
+   ============================================================================= */
+
+.recruitment-hub__table {
+    flex-grow: 1;
+    min-height: 0;
+    background-color: var(--color-bg-panel);
+    border-width: var(--border-width-thin);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius-standard);
+}
+
+/* =============================================================================
+   TABLE HEADER ROW
+   ============================================================================= */
+
+.recruitment-hub__table-header {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-row-compact);
+    background-color: var(--color-bg-panel-raised);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-border-subtle);
+    flex-shrink: 0;
+}
+
+.recruitment-hub__table-header-cell {
+    color: var(--color-text-muted);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   TABLE COLUMN WIDTHS
+   ============================================================================= */
+
+.recruitment-hub__col--name          { width: 160px; min-width: 120px; }
+.recruitment-hub__col--role          { width: 140px; min-width: 100px; }
+.recruitment-hub__col--seniority     { width: 110px; min-width: 80px; }
+.recruitment-hub__col--salary        { width: 160px; min-width: 120px; }
+.recruitment-hub__col--skills        { flex-grow: 1; min-width: 140px; }
+.recruitment-hub__col--potential     { width: 130px; min-width: 100px; }
+.recruitment-hub__col--availability  { width: 120px; min-width: 90px; }
+.recruitment-hub__col--interest      { width: 100px; min-width: 80px; }
+.recruitment-hub__col--offer-status  { width: 140px; min-width: 100px; }
+.recruitment-hub__col--confidence    { width: 120px; min-width: 90px; }
+
+/* =============================================================================
+   TABLE BODY
+   ============================================================================= */
+
+.recruitment-hub__table-body {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* =============================================================================
+   TABLE ROW — generated programmatically by View
+   ============================================================================= */
+
+.recruitment-hub__row {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-row-standard);
+    border-bottom-width: var(--border-width-thin);
+    border-bottom-color: var(--color-divider);
+    cursor: link;
+}
+
+.recruitment-hub__row:hover {
+    background-color: var(--color-bg-panel-hover);
+}
+
+.recruitment-hub__row.is-selected {
+    background-color: var(--color-bg-panel-selected);
+    border-left-width: var(--border-width-strong);
+    border-left-color: var(--color-accent);
+}
+
+.recruitment-hub__row.is-disabled {
+    opacity: 0.45;
+    cursor: arrow;
+}
+
+/* Warning row — candidate has a concern (e.g. high salary, low availability) */
+.recruitment-hub__row.has-warning {
+    background-color: var(--color-warning-soft);
+}
+
+/* =============================================================================
+   TABLE CELL — common
+   ============================================================================= */
+
+.recruitment-hub__cell {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    -unity-text-align: middle-left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+
+.recruitment-hub__cell--secondary {
+    color: var(--color-text-secondary);
+}
+
+.recruitment-hub__cell--muted {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   CHIP — base (used in skill tags, offer status, confidence)
+   ============================================================================= */
+
+.recruitment-hub__chip {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: var(--height-chip);
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    border-radius: var(--radius-pill);
+    border-width: var(--border-width-thin);
+    font-size: var(--font-size-tiny);
+    -unity-text-align: middle-center;
+}
+
+/* Skill chip — standard known skill */
+.recruitment-hub__chip--skill {
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-text-accent);
+}
+
+/* Uncertainty chip — data is hidden or unknown */
+/* Must appear distinctly muted, not the same as disabled */
+.recruitment-hub__chip--unknown {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: var(--color-border-subtle);
+    border-style: dashed;
+    color: var(--color-text-muted);
+}
+
+/* Offer status chips */
+.recruitment-hub__chip--offer-pending {
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-border-warning);
+    color: var(--color-text-warning);
+}
+
+.recruitment-hub__chip--offer-accepted {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+    color: var(--color-text-success);
+}
+
+.recruitment-hub__chip--offer-rejected {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+    color: var(--color-text-danger);
+}
+
+/* Shortlisted indicator */
+.recruitment-hub__chip--shortlisted {
+    background-color: var(--color-special-soft);
+    border-color: var(--color-border-special);
+    color: var(--color-text-special);
+}
+
+/* Confidence chips — high / medium / low */
+.recruitment-hub__chip--confidence-high {
+    background-color: var(--color-success-soft);
+    border-color: var(--color-border-success);
+    color: var(--color-text-success);
+}
+
+.recruitment-hub__chip--confidence-medium {
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-border-warning);
+    color: var(--color-text-warning);
+}
+
+.recruitment-hub__chip--confidence-low {
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-border-danger);
+    color: var(--color-text-danger);
+}
+
+/* =============================================================================
+   SKILLS CELL — chip container strip
+   ============================================================================= */
+
+.recruitment-hub__skills-strip {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--space-2);
+    overflow: hidden;
+    flex-grow: 1;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+
+/* =============================================================================
+   FOOTER
+   ============================================================================= */
+
+.recruitment-hub__footer {
+    flex-direction: row;
+    align-items: center;
+    height: var(--height-footer);
+    border-top-width: var(--border-width-thin);
+    border-top-color: var(--color-divider);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    flex-shrink: 0;
+}
+
+.recruitment-hub__footer-summary {
+    color: var(--color-text-muted);
+}
+
+/* =============================================================================
+   SEMANTIC STATE UTILITY CLASSES
+   (applied via C# AddToClassList — no direct colour in C#)
+   ============================================================================= */
+
+.is-selected  {}
+.is-active    {}
+.is-complete  {}
+.is-invalid   {}
+.is-disabled  {}
+.is-clickable {}
+.is-loading   {}
+.is-empty     {}
+.has-warning  {}
+.has-danger   {}
+.has-success  {}
+.has-info     {}
+.has-error    {}

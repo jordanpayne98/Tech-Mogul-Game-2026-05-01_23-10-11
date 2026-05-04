@@ -1,0 +1,116 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         CompanyScreen.uxml
+         Structural layout for the Company profile screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         ===================================================================== -->
+
+    <ui:VisualElement name="CompanyRoot" class="company">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="company__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="company__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="company__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="company__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="company__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="company__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="company__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentContainer"
+                       class="company__content"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT INNER WRAPPER ──────────────────────────────── -->
+            <ui:VisualElement name="ContentInner" class="company__content-inner">
+
+                <!-- ─── SCREEN HEADER ─────────────────────────────────── -->
+                <ui:VisualElement name="ScreenHeader" class="company__header">
+                    <ui:VisualElement name="HeaderIcon" class="company__header-icon" />
+                    <ui:VisualElement name="HeaderTextBlock" class="company__header-text-block">
+                        <ui:Label name="HeaderTitle" text="Company" class="company__header-title text-title" />
+                        <ui:Label name="HeaderSubtitle" text="" class="company__header-subtitle text-small" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── PROFILE ROW ───────────────────────────────────── -->
+                <!-- Three equal-width cards: identity, status, founder -->
+                <ui:VisualElement name="ProfileRow" class="company__profile-row">
+
+                    <!-- Identity Card -->
+                    <ui:VisualElement name="IdentityCard" class="company__identity-card">
+                        <ui:VisualElement name="IdentityCardHeader" class="company__card-header">
+                            <ui:Label name="IdentityCardTitle" text="Company Identity" class="company__card-title text-heading" />
+                            <!-- Edit button — placeholder, opens drawer placeholder -->
+                            <ui:Button name="EditIdentityButton" text="Edit [Placeholder]" class="company__identity-edit-button" />
+                        </ui:VisualElement>
+                        <!-- Identity fields populated programmatically by CompanyView -->
+                        <ui:VisualElement name="IdentityFieldList" class="company__field-list" />
+                    </ui:VisualElement>
+
+                    <!-- Status / Reputation Card -->
+                    <ui:VisualElement name="StatusCard" class="company__status-card">
+                        <ui:VisualElement name="StatusCardHeader" class="company__card-header">
+                            <ui:Label name="StatusCardTitle" text="Status &amp; Reputation" class="company__card-title text-heading" />
+                        </ui:VisualElement>
+                        <!-- Status fields populated programmatically by CompanyView -->
+                        <ui:VisualElement name="StatusFieldList" class="company__field-list" />
+                    </ui:VisualElement>
+
+                    <!-- Founder / Founding Team Card -->
+                    <ui:VisualElement name="FounderCard" class="company__founder-card">
+                        <ui:VisualElement name="FounderCardHeader" class="company__card-header">
+                            <ui:Label name="FounderCardTitle" text="Founding Team" class="company__card-title text-heading" />
+                        </ui:VisualElement>
+                        <!-- Founder member rows populated programmatically by CompanyView -->
+                        <ui:VisualElement name="FounderMemberList" class="company__founder-member-list" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- ─── MIDDLE SECTION ────────────────────────────────── -->
+                <ui:VisualElement name="MiddleSection" class="company__middle">
+
+                    <!-- Focus Panel — identity/preference display only -->
+                    <ui:VisualElement name="FocusPanel" class="company__focus-panel">
+                        <ui:Label name="FocusPanelTitle" text="Company Focus" class="company__card-title text-heading" />
+                        <!-- Focus content populated programmatically by CompanyView -->
+                        <ui:VisualElement name="FocusContent" class="company__focus-content" />
+                    </ui:VisualElement>
+
+                    <!-- Standing Panel -->
+                    <ui:VisualElement name="StandingPanel" class="company__standing-panel">
+                        <ui:Label name="StandingPanelTitle" text="Current Standing" class="company__card-title text-heading" />
+                        <!-- Standing metrics populated programmatically by CompanyView -->
+                        <ui:VisualElement name="StandingContent" class="company__standing-content" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- ─── MILESTONES SECTION ────────────────────────────── -->
+                <ui:VisualElement name="MilestonesSection" class="company__milestones">
+                    <ui:Label name="MilestonesTitle" text="Milestones &amp; History" class="company__card-title text-heading" />
+                    <!-- Milestone rows populated programmatically by CompanyView -->
+                    <ui:VisualElement name="MilestonesList" class="company__milestones-list" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>

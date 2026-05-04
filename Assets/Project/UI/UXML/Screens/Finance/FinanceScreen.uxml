@@ -1,0 +1,136 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <!-- =====================================================================
+         FinanceScreen.uxml
+         Structural layout for the Finance overview screen.
+         Theme applied at PanelSettings/UIDocument level via theme-main.tss.
+         Screen-specific USS loaded by the View via styleSheets.Add().
+         Named elements use name="ElementName" for View Q() queries.
+         Dynamic content containers are empty — the View populates them.
+         State containers start with is-hidden — the View toggles visibility.
+         KPI cards, breakdown rows, report rows, and payroll rows are
+         generated programmatically by FinanceView.
+         ===================================================================== -->
+
+    <ui:VisualElement name="FinanceRoot" class="finance">
+
+        <!-- ─── LOADING STATE ─────────────────────────────────────────────── -->
+        <ui:VisualElement name="LoadingState" class="finance__loading-state is-hidden">
+            <ui:Label name="LoadingLabel" text="Loading..." class="finance__loading-label text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── ERROR STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="ErrorState" class="finance__error-state is-hidden">
+            <ui:Label name="ErrorMessage" text="" class="finance__error-message text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── EMPTY STATE ───────────────────────────────────────────────── -->
+        <ui:VisualElement name="EmptyState" class="finance__empty-state is-hidden">
+            <ui:Label name="EmptyStateTitle" text="" class="finance__empty-state-title text-heading" />
+            <ui:Label name="EmptyStateBody" text="" class="finance__empty-state-body text-body" />
+        </ui:VisualElement>
+
+        <!-- ─── CONTENT SCROLL VIEW ──────────────────────────────────────── -->
+        <ui:ScrollView name="ContentScrollView"
+                       class="finance__scroll-view"
+                       scroll-deceleration-rate="0.135"
+                       elasticity="0.1"
+                       horizontal-scroll-bar-visibility="Hidden"
+                       vertical-scroll-bar-visibility="Auto">
+
+            <!-- ─── CONTENT CONTAINER ─────────────────────────────────────── -->
+            <ui:VisualElement name="ContentContainer" class="finance__content">
+
+                <!-- ─── SCREEN HEADER ──────────────────────────────────────── -->
+                <ui:VisualElement name="ScreenHeader" class="finance__header">
+                    <ui:VisualElement name="HeaderIcon" class="finance__header-icon" />
+                    <ui:VisualElement name="HeaderTextBlock" class="finance__header-text-block">
+                        <ui:Label name="HeaderTitle" text="Finance" class="finance__header-title text-title" />
+                        <ui:Label name="HeaderSubtitle" text="" class="finance__header-subtitle text-small" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── KPI ROW ─────────────────────────────────────────────── -->
+                <!-- KPI cards: Cash, Net Profit/Loss, Runway, Revenue MTD,     -->
+                <!-- Payroll, Support/Infrastructure Cost.                        -->
+                <!-- Populated programmatically by FinanceView.                  -->
+                <ui:VisualElement name="KpiRow" class="finance__kpi-row" />
+
+                <!-- ─── SUMMARY GRID ────────────────────────────────────────── -->
+                <!-- Side-by-side revenue and expense breakdown panels.           -->
+                <ui:VisualElement name="SummaryGrid" class="finance__summary-grid">
+
+                    <!-- Revenue panel — rows populated programmatically -->
+                    <ui:VisualElement name="RevenuePanel" class="finance__revenue-panel finance__panel">
+                        <ui:Label name="RevenuePanelTitle" text="Revenue This Month" class="finance__panel-title text-heading" />
+                        <!-- Breakdown rows container — populated by FinanceView -->
+                        <ui:VisualElement name="RevenueBreakdownList" class="finance__breakdown-list" />
+                        <ui:VisualElement name="RevenueDivider" class="finance__panel-divider" />
+                        <ui:VisualElement name="RevenueTotalRow" class="finance__breakdown-total-row">
+                            <ui:Label name="RevenueTotalLabel" text="Total Revenue" class="finance__breakdown-total-label text-body-strong" />
+                            <ui:Label name="RevenueTotalValue" text="" class="finance__breakdown-total-value text-body-strong" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <!-- Expense panel — rows populated programmatically -->
+                    <ui:VisualElement name="ExpensePanel" class="finance__expense-panel finance__panel">
+                        <ui:Label name="ExpensePanelTitle" text="Expenses This Month" class="finance__panel-title text-heading" />
+                        <!-- Breakdown rows container — populated by FinanceView -->
+                        <ui:VisualElement name="ExpenseBreakdownList" class="finance__breakdown-list" />
+                        <ui:VisualElement name="ExpenseDivider" class="finance__panel-divider" />
+                        <ui:VisualElement name="ExpenseTotalRow" class="finance__breakdown-total-row">
+                            <ui:Label name="ExpenseTotalLabel" text="Total Expenses" class="finance__breakdown-total-label text-body-strong" />
+                            <ui:Label name="ExpenseTotalValue" text="" class="finance__breakdown-total-value text-body-strong" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- ─── MONTHLY REPORTS SECTION ─────────────────────────────── -->
+                <ui:VisualElement name="MonthlyReportsSection" class="finance__monthly-reports finance__panel">
+                    <ui:Label name="ReportsTitle" text="Monthly Finance Reports" class="finance__panel-title text-heading" />
+                    <!-- Report rows populated programmatically by FinanceView.    -->
+                    <!-- Clicking a row opens report detail via right drawer/modal. -->
+                    <ui:VisualElement name="ReportsTable" class="finance__reports-table" />
+                </ui:VisualElement>
+
+                <!-- ─── PAYROLL SECTION ──────────────────────────────────────── -->
+                <!-- Summary card linking to Employees screen.                    -->
+                <ui:VisualElement name="PayrollSection" class="finance__payroll finance__panel">
+                    <ui:Label name="PayrollTitle" text="Payroll Summary" class="finance__panel-title text-heading" />
+                    <!-- Header row with column labels -->
+                    <ui:VisualElement name="PayrollTableHeader" class="finance__table-header-row">
+                        <ui:Label name="PayrollHeaderName" text="Name" class="finance__table-header-cell text-small" />
+                        <ui:Label name="PayrollHeaderRole" text="Role" class="finance__table-header-cell text-small" />
+                        <ui:Label name="PayrollHeaderSeniority" text="Seniority" class="finance__table-header-cell text-small" />
+                        <ui:Label name="PayrollHeaderSalary" text="Monthly Salary" class="finance__table-header-cell text-small" />
+                        <ui:Label name="PayrollHeaderStatus" text="Status" class="finance__table-header-cell text-small" />
+                    </ui:VisualElement>
+                    <!-- Payroll rows populated programmatically by FinanceView -->
+                    <ui:VisualElement name="PayrollList" class="finance__payroll-list" />
+                    <ui:VisualElement name="PayrollFooter" class="finance__payroll-footer">
+                        <ui:Label name="PayrollTotalLabel" text="Total Monthly Payroll" class="finance__payroll-footer-label text-body-strong" />
+                        <ui:Label name="PayrollTotalValue" text="" class="finance__payroll-footer-value text-body-strong" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <!-- ─── PRODUCT REVENUE SECTION ─────────────────────────────── -->
+                <ui:VisualElement name="ProductRevenueSection" class="finance__product-revenue finance__panel">
+                    <ui:Label name="ProductRevenueTitle" text="Product Revenue History" class="finance__panel-title text-heading" />
+                    <!-- Header row with column labels -->
+                    <ui:VisualElement name="ProductRevenueTableHeader" class="finance__table-header-row">
+                        <ui:Label name="ProdRevHeaderProduct" text="Product" class="finance__table-header-cell text-small" />
+                        <ui:Label name="ProdRevHeaderCategory" text="Category" class="finance__table-header-cell text-small" />
+                        <ui:Label name="ProdRevHeaderRevenue" text="Revenue" class="finance__table-header-cell text-small" />
+                        <ui:Label name="ProdRevHeaderUnits" text="Units Sold" class="finance__table-header-cell text-small" />
+                        <ui:Label name="ProdRevHeaderMonth" text="Month" class="finance__table-header-cell text-small" />
+                    </ui:VisualElement>
+                    <!-- Product revenue rows populated programmatically by FinanceView -->
+                    <ui:VisualElement name="ProductRevenueTable" class="finance__product-revenue-table" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+    </ui:VisualElement>
+
+</ui:UXML>
